@@ -5,8 +5,11 @@ class World {
         new Fish(),
         new Fish(),
     ];
-    shadows = [
-        new ShadowLeft(),
+    backgroundObjects = [
+        new Background('img/3. Background/Legacy/Layers/5. Water/d1.png', 0),
+        new Background('img/3. Background/Layers/4.Fondo 2/L1.png', 0),
+        new Background('img/3. Background/Layers/3.Fondo 1/D1.png', 0),
+        new Background('img/3. Background/Layers/2. Floor/D1.png', 0),    
     ]
     canvas;
     ctx;
@@ -19,15 +22,23 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.height, this.character.width);
-        this.enemies.forEach(enemy => {
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-        });
-        this.shadows.forEach(shadow => {
-            this.ctx.drawImage(shadow.img, shadow.x, shadow.y, shadow.width, shadow.height);
-        });
 
+        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.enemies);
+        this.addTopMap(this.character);
+        
+        // draw() wird immer wieder aufgerufen
         let self = this;
         requestAnimationFrame(() => { self.draw() });
+    }
+
+    addObjectsToMap(objects) {
+        objects.forEach(o => {
+            this.addTopMap(o);
+        })
+    }
+
+    addTopMap(mo) {
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
     }
 }
