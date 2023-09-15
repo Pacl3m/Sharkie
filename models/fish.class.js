@@ -1,6 +1,6 @@
 class Fish extends MoveableObject {
-    height = 75;
-    width = 90;
+    height = 60;
+    width = this.height / 0.82;
     speed = 0.15 + Math.random() * 0.25;
     
     images_swim = [
@@ -24,7 +24,7 @@ class Fish extends MoveableObject {
         this.moveLeft(this.speed);
 
         setInterval(() => {
-            this.currentImage;
+            this.playAnimation(this.images_swim)
             let i = this.currentImage % this.images_swim.length;
             let path = this.images_swim[i];
             this.img = this.imageCache[path];

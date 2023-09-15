@@ -33,6 +33,7 @@ class Character extends MoveableObject {
     ];
     otherDirection = false;
     world;
+    swimming_sound = new Audio('audio/swimming.mp3');
     // keyboard;
 
     constructor() {
@@ -46,42 +47,40 @@ class Character extends MoveableObject {
 
     animateSwim() {
         setInterval(() => {
-            if (world.character.keyboard.right) {
-                this.updateSwimImage() // Aufruf der ausgelagerten Methode
+            this.swimming_sound.pause();
+            if (world.character.keyboard.right && this.x < 2110) {
+                this.playAnimation(this.images_swim);
                 this.x += 10;
                 this.otherDirection = false;
+                this.swimming_sound.play();
             }
             if (world.character.keyboard.left && this.x > 80) {
-                this.updateSwimImage() // Aufruf der ausgelagerten Methode
+                this.playAnimation(this.images_swim);
                 this.x -= 10;
                 this.otherDirection = true;
+                this.swimming_sound.play();
             }
             if (world.character.keyboard.up && this.y > -110) {
-                this.updateSwimImage() // Aufruf der ausgelagerten Methode
+                this.playAnimation(this.images_swim);
+
                 this.y -= 10;
+                this.swimming_sound.play();
             }
             if (world.character.keyboard.down && this.y < 250) {
-                this.updateSwimImage() // Aufruf der ausgelagerten Methode
+                this.playAnimation(this.images_swim);
+
                 this.y += 10;
+                this.swimming_sound.play();
             }
             this.world.camera_x = -this.x +75;
         }, 1000 / 30);
     }
 
-    updateSwimImage() {
-        let i = this.currentImage % this.images_swim.length;
-        let path = this.images_swim[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-    }
 
     animateIdle() {
         setInterval(() => {
             if (!world.character.keyboard.right && !world.character.keyboard.left && !world.character.keyboard.up && !world.character.keyboard.down) {
-                let i = this.currentImage % this.images_idle.length;
-                let path = this.images_idle[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                this.playAnimation(this.images_idle);
             }
         }, 180)
     }
