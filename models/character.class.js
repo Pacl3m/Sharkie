@@ -48,9 +48,11 @@ class Character extends MoveableObject {
         super().loadImage('img/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.images_idle);
         this.loadImages(this.images_swim);
+        this.loadImages(this.images_fin_slap);
 
         this.animateIdle();
         this.animateSwim();
+        this.animateAttack();
     }
 
     animateSwim() {
@@ -89,6 +91,14 @@ class Character extends MoveableObject {
                 this.playAnimation(this.images_idle);
             }
         }, 180);
-
     }
-}
+
+
+    animateAttack() {
+        setInterval(() => {
+            if (world.character.keyboard.space) {
+                this.playAnimation(this.images_fin_slap);
+            }
+        }, 100);
+    }
+} 
