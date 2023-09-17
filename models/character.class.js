@@ -31,6 +31,14 @@ class Character extends MoveableObject {
         'img/1.Sharkie/3.Swim/5.png',
         'img/1.Sharkie/3.Swim/6.png',
     ];
+    images_fin_slap = [
+        'img/1.Sharkie/4.Attack/Fin slap/1.png',
+        'img/1.Sharkie/4.Attack/Fin slap/4.png',
+        'img/1.Sharkie/4.Attack/Fin slap/5.png',
+        'img/1.Sharkie/4.Attack/Fin slap/6.png',
+        'img/1.Sharkie/4.Attack/Fin slap/7.png',
+        'img/1.Sharkie/4.Attack/Fin slap/8.png',
+    ];
     otherDirection = false;
     world;
     swimming_sound = new Audio('audio/swimming.mp3');
@@ -62,17 +70,15 @@ class Character extends MoveableObject {
             }
             if (world.character.keyboard.up && this.y > -110) {
                 this.playAnimation(this.images_swim);
-
                 this.y -= 10;
                 this.swimming_sound.play();
             }
             if (world.character.keyboard.down && this.y < 250) {
                 this.playAnimation(this.images_swim);
-
                 this.y += 10;
                 this.swimming_sound.play();
             }
-            this.world.camera_x = -this.x +75;
+            this.world.camera_x = -this.x + 75;
         }, 1000 / 30);
     }
 
@@ -82,6 +88,7 @@ class Character extends MoveableObject {
             if (!world.character.keyboard.right && !world.character.keyboard.left && !world.character.keyboard.up && !world.character.keyboard.down) {
                 this.playAnimation(this.images_idle);
             }
-        }, 180)
+        }, 180);
+
     }
 }
