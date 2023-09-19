@@ -18,25 +18,33 @@ class MoveableObject {
         });
     }
 
-    moveUp() {
-
+    moveUp(speed) {
+        this.y -= speed;
     }
 
-    moveDown() {
-
+    moveDown(speed) {
+        this.y += speed;
     }
 
-    moveRight() {
-        console.log('Moving right')
+    moveRight(speed) {
+        this.x += speed;
     }
 
     moveLeft(speed) {
-        setInterval(() => {
             this.x -= speed;
-        }, 1000 / 60)
     }
 
     playAnimation(arr) {
+        let i = this.currentImage % arr.length;
+        let path = arr[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
+
+    playAttack(arr) {
+        if(this.currentImage > arr.length) {
+            this.currentImage = 0;
+        }
         let i = this.currentImage % arr.length;
         let path = arr[i];
         this.img = this.imageCache[path];
