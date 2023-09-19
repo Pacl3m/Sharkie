@@ -4,6 +4,9 @@ class MoveableObject {
     currentImage = 0;
     speedY = 0;
     acceleration = 2.5;
+    energy = 100;
+    lastHit = 0;
+    hitting = 0;
 
     loadImage(path) {
         this.img = new Image();
@@ -31,7 +34,7 @@ class MoveableObject {
     }
 
     moveLeft(speed) {
-            this.x -= speed;
+        this.x -= speed;
     }
 
     playAnimation(arr) {
@@ -42,7 +45,7 @@ class MoveableObject {
     }
 
     playAttack(arr) {
-        if(this.currentImage > arr.length) {
+        if (this.currentImage > arr.length) {
             this.currentImage = 0;
         }
         let i = this.currentImage % arr.length;
@@ -57,4 +60,50 @@ class MoveableObject {
             this.y -= this.speedY;
         }, 1000 / 25)
     }
+
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Fish || this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+    isColliding(obj) {
+        return this.x + this.width > obj.x &&
+            this.y + this.height > obj.y &&
+            this.x < obj.x &&
+            this.y < obj.y + obj.height;
+    }
+
+    hit() {
+        this.energy -= 2;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
+        return timepassed < 1;
+    }
+
+    isDead() {
+        return this.energy === 0;
+    }
+
+    // attack() {
+    //     this.hitting = new Date().getTime();
+    // }
+
+    // isAttackingTime() {
+    //     let timepassed = new Date().getTime() - this.hitting;
+    //     timepassed = timepassed / 1000;
+    //     return timepassed < 0.5;
+    // }
 }

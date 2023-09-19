@@ -16,6 +16,18 @@ class World {
         this.character.keyboard = this.keyboard;
         this.character.camera_x = this.camera_x;
         this.setWorld();
+        this.checkCollisions();
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    // this.character.playAnimation(this.character.images_hurt_poisoned);
+                    this.character.hit(this.character);
+                }
+            });
+        }, 200);
     }
 
 
@@ -47,18 +59,26 @@ class World {
         })
     }
 
-
     addTopMap(mo) {
         if (mo.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(mo.width, 0);
-            this.ctx.scale(-1, 1);
-            mo.x = mo.x * -1;
+            this.flipImage(mo)
         }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
         if (mo.otherDirection) {
-            mo.x = mo.x * -1;
-            this.ctx.restore();
+            this.flipImageBack(mo);
         }
+        mo.drawFrame(this.ctx);
+    }
+
+    flipImage(mo) {
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
+    }
+
+    flipImageBack(mo) {
+        mo.x = mo.x * -1;
+        this.ctx.restore();
     }
 }
