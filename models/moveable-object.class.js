@@ -1,25 +1,10 @@
-class MoveableObject {
-    img;
-    imageCache = {};
-    currentImage = 0;
+class MoveableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
     hitting = 0;
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
 
     moveUp(speed) {
         this.y -= speed;
@@ -61,30 +46,28 @@ class MoveableObject {
         }, 1000 / 25)
     }
 
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Fish || this instanceof Endboss) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
-
     isColliding(obj) {
-        return this.x + this.width > obj.x &&
-            this.y + this.height > obj.y &&
-            this.x < obj.x &&
-            this.y < obj.y + obj.height;
+        if (this instanceof Character) {
+            return this.x + 30 + this.width - 65 > obj.x &&
+                this.y + 110 + this.height - 160 > obj.y &&
+                this.x + 30 < obj.x &&
+                this.y + 110 < obj.y + obj.height;
+            } else if (this instanceof Endboss) {
+                return this.x + this.width > obj.x &&
+                    this.y + this.height > obj.y &&
+                    this.x < obj.x &&
+                    this.y < obj.y + obj.height;
+        } 
     }
 
     hit() {
-        this.energy -= 2;
+        this.energy -= 3;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
+
     }
 
     isHurt() {

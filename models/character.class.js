@@ -4,6 +4,7 @@ class Character extends MoveableObject {
     height = 250;
     width = 200;
     speed = 10;
+
     images_idle = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
@@ -40,6 +41,16 @@ class Character extends MoveableObject {
         'img/1.Sharkie/4.Attack/Fin slap/7.png',
         'img/1.Sharkie/4.Attack/Fin slap/8.png',
     ];
+    images_bubble_attack = [
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/5.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png',
+    ];
     images_hurt_poisoned = [
         'img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
@@ -72,15 +83,16 @@ class Character extends MoveableObject {
         this.loadImages(this.images_fin_slap);
         this.loadImages(this.images_hurt_poisoned);
         this.loadImages(this.images_dead_poisoned);
+        this.loadImages(this.images_bubble_attack);
 
         this.animateSwim();
-        // this.animateAttack();
+        this.animateAttack();
     }
 
     animateSwim() {
         setInterval(() => {
             if (!world.character.keyboard.space && !this.isDead()) {
-                if (world.character.keyboard.right && this.x < 2110) {
+                if (world.character.keyboard.right && this.x < 2110  && !world.character.keyboard.D) {
                     this.moveRight(this.speed)
                     this.otherDirection = false;
                 }
@@ -95,19 +107,19 @@ class Character extends MoveableObject {
                     this.moveDown(this.speed);
                 }
             }
-            this.world.camera_x = -this.x + 75;
+            this.world.camera_x = -this.x + 50;
         }, 1000 / 30);
-   
+
         setInterval(() => {
             this.swimming_sound.pause();
             if (this.isHurt()) {
-                this.playAnimation(this.images_hurt_poisoned); 
+                this.playAnimation(this.images_hurt_poisoned);
             } else if (this.isDead()) {
                 this.playAnimation(this.images_dead_poisoned);
-            // } else if (world.character.keyboard.space) {
-            //     this.attack();
-            // } else if (this.isAttackingTime()) {
-            //     this.playAnimation(this.images_fin_slap);
+                // } else if (world.character.keyboard.D) {
+                //      this.playAnimation(this.images_bubble_attack)
+                // } else if (this.isAttackingTime()) {
+                //     this.playAnimation(this.images_fin_slap);
             } else {
                 if (this.noKeyisActive()) {
                     this.playAnimation(this.images_idle);
@@ -118,6 +130,18 @@ class Character extends MoveableObject {
             }
         }, 180);
     }
+
+    animateAttack() {
+        setInterval(() => {
+                if (world.character.keyboard.D && !this.otherDirection) {
+                    this.playAttack(this.images_bubble_attack);
+                }
+        }, 100);
+
+    }
+
+
+
 
     arrowKeyIsActive() {
         return world.character.keyboard.right && world.character.keyboard.left && world.character.keyboard.up && world.character.keyboard.down;
@@ -147,17 +171,5 @@ class Character extends MoveableObject {
     //             this.playAnimation(this.images_dead_poisoned);
     //         }
     //     }, 200);
-    // }
-
-    // attackInProgress;
-    // animateAttack() {
-    //     setInterval(() => {
-    //         if (world.character.keyboard.space || this.attackInProgress) {
-    //             this.attackInProgress = true;
-    //             setTimeout(() => { this.attackInProgress = false }, 100 * this.images_fin_slap.length);
-    //             this.playAttack(this.images_fin_slap);
-    //         }
-    //     }, 100);
-
     // }
 } 

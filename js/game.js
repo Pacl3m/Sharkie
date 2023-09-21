@@ -26,6 +26,12 @@ window.addEventListener('keydown', (event) => {
     if (event.key === ' ') {
         keyboard.space = true;
     };
+    if (event.key === 'd') {
+        keyboard.D = true;
+        setTimeout(() => {
+            keyboard.D = false;
+        }, 500);
+    };
 })
 
 
@@ -46,4 +52,7 @@ window.addEventListener('keyup', (event) => {
     if (event.key === ' ') {
         keyboard.space = false;
     };
+    // if (event.key === 'd') {
+    //     keyboard.D = false;
+    // };
 })

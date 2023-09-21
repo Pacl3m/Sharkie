@@ -2,6 +2,9 @@ class World {
     character = new Character();
     enemies = level1.enemies;
     backgroundObjects = level1.backgroundObjects;
+    statusbar = new StatusBar();
+    bubbles = [];
+    // test = new ThrowabelObject();
     canvas;
     ctx;
     keyboard;
@@ -14,22 +17,33 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.character.keyboard = this.keyboard;
-        this.character.camera_x = this.camera_x;
+        // this.character.camera_x = this.camera_x;
         this.setWorld();
-        this.checkCollisions();
+        this.run();
+    }
+
+    run() {
+        setInterval(() => {
+            this.checkThrowObjects();
+            this.checkCollisions();
+        }, 500);
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.D && !this.character.otherDirection && !this.character.isDead()) {
+            let bubble = new BubbleObject(this.character.x, this.character.y);
+            this.bubbles.push(bubble);
+        }
     }
 
     checkCollisions() {
-        setInterval(() => {
-            this.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    // this.character.playAnimation(this.character.images_hurt_poisoned);
-                    this.character.hit(this.character);
-                }
-            });
-        }, 200);
+        this.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit(this.character);
+                this.statusbar.setPercentage(this.character.energy);
+            }
+        });
     }
-
 
     setWorld() {
         this.character.world = this;
@@ -40,8 +54,14 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.backgroundObjects);
+
+        this.ctx.translate(-this.camera_x, 0);
+        // Space for fixed object
+        this.addTopMap(this.statusbar);
+        this.ctx.translate(this.camera_x, 0);
+
+        this.addObjectsToMap(this.bubbles);
         this.addObjectsToMap(this.enemies);
         this.addTopMap(this.character);
 
@@ -64,10 +84,10 @@ class World {
             this.flipImage(mo)
         }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
-        mo.drawFrame(this.ctx);
     }
 
     flipImage(mo) {
