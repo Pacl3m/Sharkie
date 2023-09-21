@@ -1,6 +1,6 @@
 class BubbleObject extends MoveableObject {
-    width = 25;
-    height = 25;
+    width = 30;
+    height = 30;
     normalBubble = 'img/1.Sharkie/4.Attack/Bubble trap/Bubble.png';
 
     /**
@@ -11,7 +11,7 @@ class BubbleObject extends MoveableObject {
     constructor(x, y) {
         super().loadImage(this.normalBubble);
         this.x = x + 100;
-        this.y = y + 150;
+        this.y = y + 140;
         this.throw();
     }
 

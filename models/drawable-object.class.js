@@ -24,7 +24,21 @@ class DrawableObject {
             ctx.rect(this.x + 30, this.y + 110, this.width - 65, this.height - 160);
             ctx.stroke();
         }
-        if (this instanceof Fish || this instanceof Endboss) {
+        if (this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x + 15, this.y + 120, this.width, this.height - 170);
+            ctx.stroke();
+        }
+        if (this instanceof Fish) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height - 15);
+            ctx.stroke();
+        }
+        if (this instanceof Coins) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';

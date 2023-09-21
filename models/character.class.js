@@ -136,6 +136,9 @@ class Character extends MoveableObject {
                 if (world.character.keyboard.D && !this.otherDirection) {
                     this.playAttack(this.images_bubble_attack);
                 }
+                if (world.character.keyboard.space && !this.otherDirection) {
+                    this.playAttack(this.images_fin_slap);
+                }
         }, 100);
 
     }

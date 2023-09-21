@@ -2,6 +2,7 @@ class World {
     character = new Character();
     enemies = level1.enemies;
     backgroundObjects = level1.backgroundObjects;
+    coins = level1.coins;
     statusbar = new StatusBar();
     bubbles = [];
     // test = new ThrowabelObject();
@@ -39,8 +40,14 @@ class World {
     checkCollisions() {
         this.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit(this.character);
+                this.character.hit(enemy);
                 this.statusbar.setPercentage(this.character.energy);
+            }
+        });
+        this.coins.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+                this.character.hit(coin);
+                console.log('Bling!');
             }
         });
     }
@@ -62,9 +69,10 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.bubbles);
+        this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.enemies);
         this.addTopMap(this.character);
-
+        
         this.ctx.translate(-this.camera_x, 0);
 
         // draw() wird immer wieder aufgerufen

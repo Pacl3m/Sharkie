@@ -25,6 +25,9 @@ window.addEventListener('keydown', (event) => {
     };
     if (event.key === ' ') {
         keyboard.space = true;
+        setTimeout(() => {
+            keyboard.space = false;
+        }, 300);
     };
     if (event.key === 'd') {
         keyboard.D = true;
@@ -49,9 +52,9 @@ window.addEventListener('keyup', (event) => {
     if (event.key === 'ArrowDown') {
         keyboard.down = false;
     };
-    if (event.key === ' ') {
-        keyboard.space = false;
-    };
+    // if (event.key === ' ') {
+    //     keyboard.space = false;
+    // };
     // if (event.key === 'd') {
     //     keyboard.D = false;
     // };
