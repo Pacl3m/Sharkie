@@ -26,8 +26,10 @@ class World {
     run() {
         setInterval(() => {
             this.checkThrowObjects();
-            this.checkCollisions();
         }, 500);
+        setInterval(() => {
+            this.checkCollisions();
+        }, 100);
     }
 
     checkThrowObjects() {
@@ -42,6 +44,12 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit(enemy);
                 this.statusbar.setPercentage(this.character.energy);
+            } else if (this.bubbles.length > 0) {
+                this.bubbles.forEach((bubble) => {
+                    if (bubble.isColliding(enemy)) {
+                        console.log('Treffer!!');
+                    }
+                })
             }
         });
         this.coins.forEach((coin) => {
@@ -72,7 +80,7 @@ class World {
         this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.enemies);
         this.addTopMap(this.character);
-        
+
         this.ctx.translate(-this.camera_x, 0);
 
         // draw() wird immer wieder aufgerufen
