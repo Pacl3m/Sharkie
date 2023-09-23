@@ -144,12 +144,6 @@ class Character extends MoveableObject {
     }
 
 
-
-
-    arrowKeyIsActive() {
-        return world.character.keyboard.right && world.character.keyboard.left && world.character.keyboard.up && world.character.keyboard.down;
-    }
-
     noKeyisActive() {
         return !world.character.keyboard.right && !world.character.keyboard.left && !world.character.keyboard.up && !world.character.keyboard.down;
     }

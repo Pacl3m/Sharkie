@@ -48,9 +48,10 @@ class World {
                 this.bubbles.forEach((bubble) => {
                     if (bubble.isColliding(enemy)) {
                         console.log('Treffer!!');
+                        bubble.hit(enemy);
                     }
-                })
-            }
+                });
+            };
         });
         this.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {

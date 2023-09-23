@@ -79,17 +79,23 @@ class MoveableObject extends DrawableObject {
     }
 
     hit(obj) {
-        if (obj instanceof Fish || obj instanceof Endboss) {
-            this.energy -= 3;
+        if (this instanceof Character && obj instanceof Fish || obj instanceof Endboss) {
+            this.energy -= 0.6;
             if (this.energy < 0) {
                 this.energy = 0;
             } else {
                 this.lastHit = new Date().getTime();
-            }
-        } else if (obj instanceof Coins) {
+            };
+        } else if (this instanceof Character && obj instanceof Coins) {
             obj.width = 0;
             obj.x = 0;
             this.coins++;
+        } else if (this instanceof BubbleObject && obj instanceof Fish) {
+            obj.energy -= 50;
+            this.x = 0;
+            this.width = 0;
+            this.speed = 0;
+            obj.animateTransition();
         }
     }
 
