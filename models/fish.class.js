@@ -1,7 +1,7 @@
 class Fish extends MoveableObject {
     height = 70;
     width = this.height / 0.82;
-    speed = 0.25 + Math.random() * 0.25;
+    speed = 1 + Math.random() * 0.25;
     counter = 0;
 
     images_swim = [
@@ -63,7 +63,7 @@ class Fish extends MoveableObject {
                     turn = 0;
                 }
             } else {
-                this.moveLeft(5);
+                this.moveLeft(3.5);
             }
         }, 1000 / 60);
         setInterval(() => {
