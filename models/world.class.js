@@ -29,7 +29,7 @@ class World {
         }, 500);
         setInterval(() => {
             this.checkCollisions();
-        }, 100);
+        }, 50);
     }
 
     checkThrowObjects() {
@@ -41,10 +41,10 @@ class World {
 
     checkCollisions() {
         this.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && enemy.energy > 0) {
                 this.character.hit(enemy);
                 this.statusbar.setPercentage(this.character.energy);
-            } else if (this.bubbles.length > 0) {
+            } if (this.bubbles.length > 0) {
                 this.bubbles.forEach((bubble) => {
                     if (bubble.isColliding(enemy)) {
                         console.log('Treffer!!');

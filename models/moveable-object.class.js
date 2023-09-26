@@ -5,6 +5,7 @@ class MoveableObject extends DrawableObject {
     lastHit = 0;
     hitting = 0;
     coins = 0;
+    attacking = false;
 
 
     moveUp(speed) {
@@ -54,23 +55,25 @@ class MoveableObject extends DrawableObject {
                     (this.y + 110 + this.height - 160) > obj.y + 120 &&
                     (this.x + 30) < obj.x + 15 + obj.width &&
                     (this.y + 110) < (obj.y + 120 + obj.height - 170);
-            } else if (obj instanceof Fish) {
-                return (this.x + 30 + this.width - 65) > obj.x &&
+            } if (obj instanceof Fish) {
+                const offset = this.attacking ? 35 : 65;
+                return (this.x + 30 + this.width - offset) > obj.x &&
                     (this.y + 110 + this.height - 160) > obj.y &&
                     (this.x + 30) < obj.x + obj.width &&
                     (this.y + 110) < (obj.y + obj.height - 15);
-            } else {
+            }
+            else {
                 return (this.x + 30 + this.width - 65) > obj.x &&
                     (this.y + 110 + this.height - 160) > obj.y &&
                     (this.x + 30) < obj.x + obj.width &&
                     (this.y + 110) < (obj.y + obj.height);
             }
-        } else if (this instanceof Endboss) {
+        } if (this instanceof Endboss) {
             return this.x + this.width > obj.x &&
                 this.y + this.height > obj.y &&
                 this.x < obj.x &&
                 this.y < obj.y + obj.height;
-        } else if (this instanceof BubbleObject) {
+        } if (this instanceof BubbleObject) {
             return this.x + this.width > obj.x &&
                 this.y + this.height > obj.y &&
                 this.x < obj.x &&
@@ -79,23 +82,31 @@ class MoveableObject extends DrawableObject {
     }
 
     hit(obj) {
-        if (this instanceof Character && obj instanceof Fish || obj instanceof Endboss) {
+        if (this instanceof Character && obj instanceof Fish && this.attacking) {
+            obj.energy -= 200;
+        }
+        if (this instanceof Character && !this.attacking && obj instanceof Fish || obj instanceof Endboss) {
             this.energy -= 0.6;
             if (this.energy < 0) {
                 this.energy = 0;
             } else {
                 this.lastHit = new Date().getTime();
             };
-        } else if (this instanceof Character && obj instanceof Coins) {
+        } if (this instanceof Character && obj instanceof Coins) {
             obj.width = 0;
             obj.x = 0;
             this.coins++;
-        } else if (this instanceof BubbleObject && obj instanceof Fish) {
-            obj.energy -= 50;
-            this.x = 0;
-            this.width = 0;
-            this.speed = 0;
-            obj.animateTransition();
+        } if (this instanceof BubbleObject && obj instanceof Fish) {
+            if (obj.energy > 50) {
+                obj.energy -= 50;
+                this.x = 0;
+                this.width = 0;
+                obj.animateTransition();
+            } else {
+                obj.energy -= 50;
+                this.x = 0;
+                this.width = 0;
+            }
         }
     }
 

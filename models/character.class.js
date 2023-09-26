@@ -133,11 +133,13 @@ class Character extends MoveableObject {
 
     animateAttack() {
         setInterval(() => {
+            this.attacking = false;
                 if (world.character.keyboard.D && !this.otherDirection) {
                     this.playAttack(this.images_bubble_attack);
                 }
-                if (world.character.keyboard.space && !this.otherDirection) {
+                if (world.character.keyboard.space && !this.otherDirection && !this.isHurt()) {
                     this.playAttack(this.images_fin_slap);
+                    this.attacking = true;
                 }
         }, 100);
 

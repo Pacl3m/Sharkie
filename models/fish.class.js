@@ -1,7 +1,7 @@
 class Fish extends MoveableObject {
     height = 70;
     width = this.height / 0.82;
-    speed = 1 + Math.random() * 0.25;
+    speed = 0.75 + Math.random() * 0.25;
     counter = 0;
 
     images_swim = [
@@ -39,6 +39,8 @@ class Fish extends MoveableObject {
         this.loadImages(this.images_swim);
         this.loadImages(this.images_transition);
         this.loadImages(this.images_attack);
+        this.loadImage('img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 1 (can animate by going up).png');
+
 
         this.x = x + Math.random() * 300;
         this.y = 50 + Math.random() * 300;
@@ -51,26 +53,25 @@ class Fish extends MoveableObject {
         let turn = 0;
         this.intervall1 = setInterval(() => {
             if (this.energy > 50) {
-                if (turn < turnX) {
-                    this.moveLeft(this.speed);
-                    turn += this.speed
-                    this.otherDirection = false;
-                } else if (turn < turnX * 2) {
-                    this.moveRight(this.speed);
-                    this.otherDirection = true;
-                    turn += this.speed
-                } else {
-                    turn = 0;
-                }
-            } else {
-                this.moveLeft(3.5);
+                turn = this.animateTurn.call(this, turn, turnX);
+            } else if (this.energy <= -100) {
+                this.moveDown(5);
+                this.moveLeft(5);
+            }
+            else if (this.energy <= 0) {
+                this.moveUp(2);
+            }
+            else {
+                this.moveLeft(3);
             }
         }, 1000 / 60);
         setInterval(() => {
-            if (this.energy > 50) {
-                this.playAnimation(this.images_swim);
+            if (this.energy <= 0) {
+                this.loadImage('img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 1 (can animate by going up).png');
             } else if (this.energy < 50) {
                 this.playAnimation(this.images_attack);
+            } else if (this.energy > 50) {
+                this.playAnimation(this.images_swim);
             }
         }, 150);
     };
@@ -89,5 +90,20 @@ class Fish extends MoveableObject {
                 this.animateSwim();
             }
         }, 30);
+    }
+
+    animateTurn(turn, turnX) {
+        if (turn < turnX) {
+            this.moveLeft(this.speed);
+            turn += this.speed
+            this.otherDirection = false;
+        } else if (turn < turnX * 2) {
+            this.moveRight(this.speed);
+            this.otherDirection = true;
+            turn += this.speed
+        } else {
+            turn = 0;
+        }
+        return turn;
     }
 }
