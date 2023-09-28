@@ -4,6 +4,7 @@ class World {
     backgroundObjects = level1.backgroundObjects;
     coins = level1.coins;
     statusbar = new StatusBar();
+    coinsbar = new CoinsBar();
     bubbles = [];
     // test = new ThrowabelObject();
     canvas;
@@ -50,13 +51,16 @@ class World {
                         console.log('Treffer!!');
                         bubble.hit(enemy);
                     }
-                });
-            };
-        });
+                })
+            }
+        })
         this.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.character.hit(coin);
-                console.log('Bling!');
+                // console.log('Bling!');
+                this.coinsbar.coins++;
+                this.coinsbar.setCoinsStatus(this.coinsbar.coins);
+                
             }
         });
     }
@@ -75,6 +79,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed object
         this.addTopMap(this.statusbar);
+        this.addTopMap(this.coinsbar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.bubbles);
