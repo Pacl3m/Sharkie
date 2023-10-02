@@ -1,6 +1,6 @@
 class CoinsBar extends DrawableObject {
     x = 10;
-    y = 30; 
+    y = 35; 
     height = 40;
     width = this.height * 3.76;
     coins = 0;

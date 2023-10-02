@@ -95,7 +95,9 @@ class MoveableObject extends DrawableObject {
         } if (this instanceof Character && obj instanceof Coins) {
             obj.width = 0;
             obj.x = 0;
-            this.coins++;
+        } if (this instanceof Character && obj instanceof Poisens) {
+            obj.width = 0;
+            obj.x = 0;
         } if (this instanceof BubbleObject && obj instanceof Fish) {
             if (obj.energy > 50) {
                 obj.energy -= 50;

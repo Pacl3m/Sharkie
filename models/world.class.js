@@ -3,8 +3,10 @@ class World {
     enemies = level1.enemies;
     backgroundObjects = level1.backgroundObjects;
     coins = level1.coins;
+    poisenBottle = level1.poisenBottles
     statusbar = new StatusBar();
     coinsbar = new CoinsBar();
+    poisenbar = new PoisenBar();
     bubbles = [];
     // test = new ThrowabelObject();
     canvas;
@@ -60,9 +62,16 @@ class World {
                 // console.log('Bling!');
                 this.coinsbar.coins++;
                 this.coinsbar.setCoinsStatus(this.coinsbar.coins);
-                
             }
-        });
+        })
+        this.poisenBottle.forEach((bottle) => {
+            if (this.character.isColliding(bottle)) {
+                this.character.hit(bottle);
+                // console.log('Bling!');
+                this.poisenbar.bottles++;
+                this.poisenbar.setBottles(this.poisenbar.bottles);
+            }
+        })
     }
 
     setWorld() {
@@ -76,16 +85,18 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.backgroundObjects);
 
+        this.addObjectsToMap(this.bubbles);
+        this.addObjectsToMap(this.coins);
+        this.addObjectsToMap(this.poisenBottle);
+        this.addObjectsToMap(this.enemies);
+        this.addTopMap(this.character);
+
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed object
         this.addTopMap(this.statusbar);
         this.addTopMap(this.coinsbar);
+        this.addTopMap(this.poisenbar);
         this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.bubbles);
-        this.addObjectsToMap(this.coins);
-        this.addObjectsToMap(this.enemies);
-        this.addTopMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);
 

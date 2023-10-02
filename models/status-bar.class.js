@@ -1,5 +1,4 @@
 class StatusBar extends DrawableObject {
-
     x = 10;
     y = 0;
     height = 40;

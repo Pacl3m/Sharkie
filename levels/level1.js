@@ -15,14 +15,14 @@ const level1 = new Level(
          * @param {number} - The initial x-coordinate of the object.
          * @param {number} - turnpoint of the object.
          */
-        new Fish(350, 80),
-        new Fish(350, 70),
+        // new Fish(350, 80),
+        // new Fish(350, 70),
         new Fish(350, 70),
         new Fish(700, 80),
-        new Fish(700, 60),
+        // new Fish(700, 60),
         new Fish(700, 60),
         new Fish(1000, 100),
-        new Fish(1000, 80),
+        // new Fish(1000, 80),
         new Fish(1400, 80),
         new Fish(1400, 100),
         new Endboss(),
@@ -72,5 +72,23 @@ const level1 = new Level(
         new Coins(1600),
         new Coins(1700),
         new Coins(1800),
+    ],
+    [
+         /**
+         * Represents a poisen bottle.
+         * 
+         * @constructor
+         * @param {number} x - The initial x-coordinate of the object.
+         */
+        new Poisens(300),
+        new Poisens(500),
+        new Poisens(700),
+        new Poisens(900),
+        new Poisens(1100),
+        new Poisens(1300),
+        new Poisens(1400),
+        new Poisens(1600),
+        new Poisens(1700),
+        new Poisens(1800),
     ],
 );

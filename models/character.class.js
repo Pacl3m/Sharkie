@@ -116,10 +116,6 @@ class Character extends MoveableObject {
                 this.playAnimation(this.images_hurt_poisoned);
             } else if (this.isDead()) {
                 this.playAnimation(this.images_dead_poisoned);
-                // } else if (world.character.keyboard.D) {
-                //      this.playAnimation(this.images_bubble_attack)
-                // } else if (this.isAttackingTime()) {
-                //     this.playAnimation(this.images_fin_slap);
             } else {
                 if (this.noKeyisActive()) {
                     this.playAnimation(this.images_idle);
