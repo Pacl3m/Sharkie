@@ -6,6 +6,7 @@ class MoveableObject extends DrawableObject {
     hitting = 0;
     coins = 0;
     attacking = false;
+    bottles = 0;
 
 
     moveUp(speed) {
@@ -69,15 +70,24 @@ class MoveableObject extends DrawableObject {
                     (this.y + 110) < (obj.y + obj.height);
             }
         } if (this instanceof Endboss) {
-            return this.x + this.width > obj.x &&
-                this.y + this.height > obj.y &&
-                this.x < obj.x &&
-                this.y < obj.y + obj.height;
+            if (obj instanceof Endboss) {
+                return this.x + this.width > obj.x &&
+                    this.y + this.height > obj.y &&
+                    this.x < obj.x &&
+                    this.y < obj.y + obj.height;
+            }
         } if (this instanceof BubbleObject) {
-            return this.x + this.width > obj.x &&
-                this.y + this.height > obj.y &&
-                this.x < obj.x &&
-                this.y < obj.y + obj.height;
+            if (obj instanceof Endboss) {
+                return (this.x + this.width) > obj.x + 15 &&
+                    (this.y + this.height - 80) > obj.y + 120 &&
+                    this.x < obj.x + 15 + obj.width &&
+                    this.y < (obj.y + 120 + obj.height - 170);
+            } else {
+                return this.x + this.width > obj.x &&
+                    this.y + this.height > obj.y &&
+                    this.x < obj.x &&
+                    this.y < obj.y + obj.height;
+            }
         }
     }
 
@@ -98,16 +108,36 @@ class MoveableObject extends DrawableObject {
         } if (this instanceof Character && obj instanceof Poisens) {
             obj.width = 0;
             obj.x = 0;
-        } if (this instanceof BubbleObject && obj instanceof Fish) {
-            if (obj.energy > 50) {
-                obj.energy -= 50;
-                this.x = 0;
-                this.width = 0;
-                obj.animateTransition();
-            } else {
-                obj.energy -= 50;
-                this.x = 0;
-                this.width = 0;
+        } if (this instanceof BubbleObject) {
+            if (obj instanceof Fish) {
+                if (obj.energy > 50) {
+                    obj.energy -= 50;
+                    this.x = 0;
+                    this.width = 0;
+                    obj.animateTransition();
+                } else {
+                    obj.energy -= 50;
+                    this.x = 0;
+                    this.width = 0;
+                }
+            }
+            if (obj instanceof Endboss) {
+                if (obj.energy > 0) {
+                    if (world.poisenbar.bottles > 0) {
+                        obj.energy -= 20;
+                        this.x = 0;
+                        this.width = 0;
+                        obj.lastHit = new Date().getTime();
+                        // obj.animateTransition();
+                    } else {
+                        obj.energy -= 10;
+                        this.x = 0;
+                        this.width = 0;
+                        obj.lastHit = new Date().getTime();
+                    }
+                } else {
+                    obj.energy === 0;
+                }
             }
         }
     }
