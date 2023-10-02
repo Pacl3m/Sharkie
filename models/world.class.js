@@ -37,8 +37,15 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && !this.character.otherDirection && !this.character.isDead()) {
-            let bubble = new BubbleObject(this.character.x, this.character.y);
-            this.bubbles.push(bubble);
+            if (this.poisenbar.bottles > 0 && this.character.x > 1400) {
+                let bubble = new BubbleObject(this.character.x, this.character.y, 'poisen');
+                this.bubbles.push(bubble);
+                this.poisenbar.bottles--;
+                this.poisenbar.setBottles(this.poisenbar.bottles);
+            } else {
+                let bubble = new BubbleObject(this.character.x, this.character.y, 'normal');
+                this.bubbles.push(bubble);
+            }
         }
     }
 

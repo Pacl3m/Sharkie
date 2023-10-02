@@ -51,6 +51,16 @@ class Character extends MoveableObject {
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png',
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png',
     ];
+    images_poisen_attack = [
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/3.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/4.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/5.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/6.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/7.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png',
+    ];
     images_hurt_poisoned = [
         'img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
@@ -71,6 +81,7 @@ class Character extends MoveableObject {
         'img/1.Sharkie/6.dead/1.Poisoned/11.png',
         'img/1.Sharkie/6.dead/1.Poisoned/12.png',
     ];
+
     otherDirection = false;
     world;
     swimming_sound = new Audio('audio/swimming.mp3');
@@ -84,6 +95,7 @@ class Character extends MoveableObject {
         this.loadImages(this.images_hurt_poisoned);
         this.loadImages(this.images_dead_poisoned);
         this.loadImages(this.images_bubble_attack);
+        this.loadImages(this.images_poisen_attack);
 
         this.animateSwim();
         this.animateAttack();
@@ -92,7 +104,7 @@ class Character extends MoveableObject {
     animateSwim() {
         setInterval(() => {
             if (!world.character.keyboard.space && !this.isDead()) {
-                if (world.character.keyboard.right && this.x < 2110  && !world.character.keyboard.D) {
+                if (world.character.keyboard.right && this.x < 2110 && !world.character.keyboard.D) {
                     this.moveRight(this.speed)
                     this.otherDirection = false;
                 }
@@ -130,13 +142,17 @@ class Character extends MoveableObject {
     animateAttack() {
         setInterval(() => {
             this.attacking = false;
-                if (world.character.keyboard.D && !this.otherDirection) {
+            if (world.character.keyboard.D && !this.otherDirection) {
+                if (world.poisenbar.bottles > 0 && this.x > 1400) {
+                    this.playAttack(this.images_poisen_attack);
+                } else {
                     this.playAttack(this.images_bubble_attack);
                 }
-                if (world.character.keyboard.space && !this.otherDirection && !this.isHurt()) {
-                    this.playAttack(this.images_fin_slap);
-                    this.attacking = true;
-                }
+            }
+            if (world.character.keyboard.space && !this.otherDirection && !this.isHurt()) {
+                this.playAttack(this.images_fin_slap);
+                this.attacking = true;
+            }
         }, 100);
 
     }
