@@ -7,6 +7,7 @@ class MoveableObject extends DrawableObject {
     coins = 0;
     attacking = false;
     bottles = 0;
+    isShocked = false;
 
 
     moveUp(speed) {
@@ -62,6 +63,12 @@ class MoveableObject extends DrawableObject {
                     (this.y + 110 + this.height - 160) > obj.y &&
                     (this.x + 30) < obj.x + obj.width &&
                     (this.y + 110) < (obj.y + obj.height - 15);
+            } if (obj instanceof JellyFish) {
+                const offset = this.attacking ? 35 : 65;
+                return (this.x + 30 + this.width - offset) > obj.x &&
+                    (this.y + 110 + this.height - 160) > obj.y &&
+                    (this.x + 30) < obj.x + obj.width &&
+                    (this.y + 110) < (obj.y + obj.height);
             }
             else {
                 return (this.x + 30 + this.width - 65) > obj.x &&
@@ -93,15 +100,20 @@ class MoveableObject extends DrawableObject {
 
     hit(obj) {
         if (this instanceof Character && obj instanceof Fish && this.attacking) {
-            obj.energy -= 200;
+            obj.energy -= 200; // finslap
         }
-        if (this instanceof Character && !this.attacking && obj instanceof Fish || obj instanceof Endboss) {
+        if (this instanceof Character && !this.attacking && obj instanceof Fish || obj instanceof Endboss || obj instanceof JellyFish) {
             this.energy -= 0.6;
             if (this.energy < 0) {
                 this.energy = 0;
             } else {
                 this.lastHit = new Date().getTime();
-            };
+            }
+            if (obj instanceof JellyFish) {
+                this.isShocked = true;
+            } else {
+                this.isShocked = false;
+            }
         } if (this instanceof Character && obj instanceof Coins) {
             obj.width = 0;
             obj.x = 0;

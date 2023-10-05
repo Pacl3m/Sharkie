@@ -67,6 +67,11 @@ class Character extends MoveableObject {
         'img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
     ];
+    images_hurt_shocked = [
+        'img/1.Sharkie/5.Hurt/2.Electric shock/1.png',
+        'img/1.Sharkie/5.Hurt/2.Electric shock/2.png',
+        'img/1.Sharkie/5.Hurt/2.Electric shock/3.png',
+    ];
     images_dead_poisoned = [
         'img/1.Sharkie/6.dead/1.Poisoned/1.png',
         'img/1.Sharkie/6.dead/1.Poisoned/2.png',
@@ -96,6 +101,7 @@ class Character extends MoveableObject {
         this.loadImages(this.images_dead_poisoned);
         this.loadImages(this.images_bubble_attack);
         this.loadImages(this.images_poisen_attack);
+        this.loadImages(this.images_hurt_shocked);
 
         this.animateSwim();
         this.animateAttack();
@@ -124,7 +130,9 @@ class Character extends MoveableObject {
 
         setInterval(() => {
             this.swimming_sound.pause();
-            if (this.isHurt()) {
+            if (this.isHurt() && this.isShocked) {
+                this.playAnimation(this.images_hurt_shocked);
+            } else if (this.isHurt() && !this.isShocked) {
                 this.playAnimation(this.images_hurt_poisoned);
             } else if (this.isDead()) {
                 this.playAnimation(this.images_dead_poisoned);
