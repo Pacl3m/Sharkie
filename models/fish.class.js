@@ -34,16 +34,17 @@ class Fish extends MoveableObject {
         'img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 3 (can animate by going up).png',
     ];
 
-    constructor(x, endX) {
+    constructor(x, y, endX) {
         super().loadImage('img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
         this.loadImages(this.images_swim);
         this.loadImages(this.images_transition);
         this.loadImages(this.images_attack);
         this.loadImage('img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 1 (can animate by going up).png');
 
-
-        this.x = x + Math.random() * 300;
-        this.y = 50 + Math.random() * 300;
+        // this.y = 50 + Math.random() * 300;
+        // this.x = x + Math.random() * 300;
+        this.x = x;
+        this.y = y;
         this.animateSwim(endX);
     }
 
