@@ -1,10 +1,52 @@
 body {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
-    background-color: black;
+    background-image: url('img/3. Background/Mesa de trabajo 1.png');
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'LuckiestGuy', sans-serif;
+}
+
+header {
+    position: absolute;
+    top: 0;
+}
+
+h1 {
+    font-size: 62px;
+    margin-top: 32px;
 }
 
 canvas {
     background-color: black;
+    border-radius: 16px;
+    border: 2px solid white;
+    box-shadow: 5px 5px 10px rgb(0 0 0);
+}
+
+.content {
+    background-image: url('img/3. Background/Mesa de trabajo 1.png');
+    background-position: center;
+    background-size: cover;
+    width: 720px;
+    height: 480px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid white;
+    box-shadow: 5px 5px 10px rgb(0 0 0);
+}
+
+button {
+    height: 80px;
+    width: 176px;
+    border-radius: 16px;
+    background-color: yellow;
+    font-size: 24px;
+    font-family: 'LuckiestGuy', sans-serif;
 }

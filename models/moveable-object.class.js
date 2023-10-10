@@ -8,6 +8,7 @@ class MoveableObject extends DrawableObject {
     attacking = false;
     bottles = 0;
     isShocked = false;
+    timeBreak = false;
 
 
     moveUp(speed) {
@@ -132,6 +133,12 @@ class MoveableObject extends DrawableObject {
                     this.x = 0;
                     this.width = 0;
                 }
+            } 
+            if (obj instanceof JellyFish) {
+                    obj.energy -= 100;
+                    this.x = 0;
+                    this.width = 0;
+                    // obj.animateTransition();
             }
             if (obj instanceof Endboss) {
                 if (obj.energy > 0) {
@@ -163,4 +170,6 @@ class MoveableObject extends DrawableObject {
     isDead() {
         return this.energy === 0;
     }
+
+    
 }

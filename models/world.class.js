@@ -8,7 +8,6 @@ class World {
     coinsbar = new CoinsBar();
     poisenbar = new PoisenBar();
     bubbles = [];
-    // test = new ThrowabelObject();
     canvas;
     ctx;
     keyboard;

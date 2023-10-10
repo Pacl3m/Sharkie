@@ -32,25 +32,69 @@ class Endboss extends MoveableObject {
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
-    ]
+    ];
+    images_attack = [
+        'img/2.Enemy/3 Final Enemy/Attack/1.png',
+        'img/2.Enemy/3 Final Enemy/Attack/2.png',
+        'img/2.Enemy/3 Final Enemy/Attack/3.png',
+        'img/2.Enemy/3 Final Enemy/Attack/4.png',
+        'img/2.Enemy/3 Final Enemy/Attack/5.png',
+        'img/2.Enemy/3 Final Enemy/Attack/6.png',
+    ];
+    images_spawning = [
+        'img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
+        'img/2.Enemy/3 Final Enemy/1.Introduce/2.png',
+        'img/2.Enemy/3 Final Enemy/1.Introduce/3.png',
+        'img/2.Enemy/3 Final Enemy/1.Introduce/4.png',
+        'img/2.Enemy/3 Final Enemy/1.Introduce/5.png',
+        'img/2.Enemy/3 Final Enemy/1.Introduce/6.png',
+        'img/2.Enemy/3 Final Enemy/1.Introduce/7.png',
+        'img/2.Enemy/3 Final Enemy/1.Introduce/8.png',
+        'img/2.Enemy/3 Final Enemy/1.Introduce/9.png',
+        'img/2.Enemy/3 Final Enemy/1.Introduce/10.png',
+    ];
+    hadFirstContact = false;
 
     constructor() {
-        super().loadImage('img/2.Enemy/3 Final Enemy/2.floating/1.png');
+        super().loadImage('img/2.Enemy/3 Final Enemy/1.Introduce/1.png');
         this.loadImages(this.images_swim);
         this.loadImages(this.images_hurt);
         this.loadImages(this.images_dead);
+        this.loadImages(this.images_attack);
+        this.loadImages(this.images_spawning);
 
-        this.animateIdle();
+        this.animate();
     }
 
-    animateIdle() {
+    animate() {
+        let i = 0;
         setInterval(() => {
-            if (this.isHurt()) {
-                this.playAnimation(this.images_hurt);
-            } else if (this.isDead()) {
-                this.playAnimation(this.images_dead);
-            } else {
-                this.playAnimation(this.images_swim);
+            if (i < 10 && this.hadFirstContact) {
+                this.playAnimation(this.images_spawning);
+            } else if (this.hadFirstContact) {
+                if (this.isHurt()) {
+                    this.playAnimation(this.images_hurt);
+                } else if (this.isDead()) {
+                    this.playAnimation(this.images_dead);
+                } else if (i > 15) {
+                    this.playAnimation(this.images_attack);
+                    this.moveLeft(35);
+                    if (i > 20) {
+                        i = 10;
+                    }
+                } else {
+                    this.playAnimation(this.images_swim);
+                    if (this.x < 1960) {
+                        this.moveRight(20);
+                    }
+                }
+            }
+            i++;
+            if (world) {
+                if (world.character.x > 1500 && !this.hadFirstContact) {
+                    i = 0;
+                    this.hadFirstContact = true;
+                }
             }
         }, 250)
     }

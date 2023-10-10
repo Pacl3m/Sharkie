@@ -1,9 +1,11 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let dKeyLocked = false;
 
 
 function init() {
+    document.getElementById('content').innerHTML = `<canvas id="canvas" width="720" height="480">`
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
@@ -29,11 +31,15 @@ window.addEventListener('keydown', (event) => {
             keyboard.space = false;
         }, 300);
     };
-    if (event.key === 'd') {
+    if (event.key === 'd' && !dKeyLocked) {
         keyboard.D = true;
+        dKeyLocked = true;
         setTimeout(() => {
             keyboard.D = false;
         }, 500);
+        setTimeout(() => {
+            dKeyLocked = false;
+        }, 3500);
     };
 })
 
@@ -52,10 +58,4 @@ window.addEventListener('keyup', (event) => {
     if (event.key === 'ArrowDown') {
         keyboard.down = false;
     };
-    // if (event.key === ' ') {
-    //     keyboard.space = false;
-    // };
-    // if (event.key === 'd') {
-    //     keyboard.D = false;
-    // };
 })

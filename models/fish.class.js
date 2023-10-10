@@ -54,7 +54,7 @@ class Fish extends MoveableObject {
         let turn = 0;
         this.intervall1 = setInterval(() => {
             if (this.energy > 50) {
-                turn = this.animateTurn.call(this, turn, turnX);
+                turn = this.animateTurn(turn, turnX);
             } else if (this.energy <= -100) {
                 this.moveDown(5);
                 this.moveLeft(5);

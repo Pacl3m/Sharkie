@@ -88,7 +88,8 @@ class Character extends MoveableObject {
     ];
 
     otherDirection = false;
-    world;
+    timeBreak = false;
+    // world;
     swimming_sound = new Audio('audio/swimming.mp3');
     // keyboard;
 
