@@ -39,7 +39,7 @@ window.addEventListener('keydown', (event) => {
         }, 500);
         setTimeout(() => {
             dKeyLocked = false;
-        }, 3500);
+        }, 3000); // pause between the bubble Attack
     };
 })
 

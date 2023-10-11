@@ -12,6 +12,7 @@ class World {
     ctx;
     keyboard;
     camera_x;
+    hadFirstAttack = false;
 
 
     constructor(canvas, keyboard) {
@@ -36,7 +37,8 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && !this.character.otherDirection && !this.character.isDead()) {
-            if (this.poisenbar.bottles > 0 && this.character.x > 1400) {
+            if (this.poisenbar.bottles > 0 && this.character.x > 1400 || this.hadFirstAttack) {
+                this.hadFirstAttack = true;
                 let bubble = new BubbleObject(this.character.x, this.character.y, 'poisen');
                 this.bubbles.push(bubble);
                 this.poisenbar.bottles--;

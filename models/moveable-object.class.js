@@ -1,6 +1,6 @@
 class MoveableObject extends DrawableObject {
     speedY = 0;
-    acceleration = 2.5;
+    acceleration = 0.4;
     energy = 100;
     lastHit = 0;
     hitting = 0;
@@ -9,6 +9,7 @@ class MoveableObject extends DrawableObject {
     bottles = 0;
     isShocked = false;
     timeBreak = false;
+    lastMove = 0;
 
 
     moveUp(speed) {
@@ -28,6 +29,10 @@ class MoveableObject extends DrawableObject {
     }
 
     playAnimation(arr) {
+        if (arr !== this.currentAnimationArray) {
+            this.currentImage = 0; // Setzt currentImage zurück, wenn das Array wechselt
+            this.currentAnimationArray = arr; // Aktualisiert das aktuelle Array
+        }
         let i = this.currentImage % arr.length;
         let path = arr[i];
         this.img = this.imageCache[path];
@@ -46,9 +51,22 @@ class MoveableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
-            this.speedY -= this.acceleration;
-            this.y -= this.speedY;
-        }, 1000 / 25)
+            if (this.y < 220 || this.speedY > 0) {
+                this.speedY -= this.acceleration;
+                if (this.speedY < -5) {
+                    this.speedY = -5;
+                }
+                this.y -= this.speedY;
+                this.resetTimeToSleep();
+            } else if (!world.character.keyboard.up) {
+                this.speedY = 0;
+            }
+        }, 1000 / 30)
+    }
+
+    resetTimeToSleep() {
+        this.lastMove = new Date().getTime();
+        world.character.timeToSleep = 0;
     }
 
     isColliding(obj) {
@@ -60,9 +78,10 @@ class MoveableObject extends DrawableObject {
                     (this.y + 110) < (obj.y + 120 + obj.height - 170);
             } if (obj instanceof Fish) {
                 const offset = this.attacking ? 35 : 65;
+                const leftOffset = this.attacking ? 20 : 0;
                 return (this.x + 30 + this.width - offset) > obj.x &&
                     (this.y + 110 + this.height - 160) > obj.y &&
-                    (this.x + 30) < obj.x + obj.width &&
+                    (this.x + 30 - leftOffset) < obj.x + obj.width &&
                     (this.y + 110) < (obj.y + obj.height - 15);
             } if (obj instanceof JellyFish) {
                 const offset = this.attacking ? 35 : 65;
@@ -133,12 +152,12 @@ class MoveableObject extends DrawableObject {
                     this.x = 0;
                     this.width = 0;
                 }
-            } 
+            }
             if (obj instanceof JellyFish) {
-                    obj.energy -= 100;
-                    this.x = 0;
-                    this.width = 0;
-                    // obj.animateTransition();
+                obj.energy -= 100;
+                this.x = 0;
+                this.width = 0;
+                // obj.animateTransition();
             }
             if (obj instanceof Endboss) {
                 if (obj.energy > 0) {
@@ -171,5 +190,11 @@ class MoveableObject extends DrawableObject {
         return this.energy === 0;
     }
 
-    
+    isSleeping() {
+        if (this.y > 210) {
+            let timepassed = new Date().getTime() - this.lastMove;
+            timepassed = timepassed / 1000;
+            return timepassed > 3;
+        }
+    }
 }
