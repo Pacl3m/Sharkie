@@ -53,26 +53,30 @@ class Fish extends MoveableObject {
     animateSwim(turnX) {
         let turn = 0;
         this.intervall1 = setInterval(() => {
-            if (this.energy > 50) {
-                turn = this.animateTurn(turn, turnX);
-            } else if (this.energy <= -100) {
-                this.moveDown(5);
-                this.moveLeft(5);
-            }
-            else if (this.energy <= 0) {
-                this.moveUp(2);
-            }
-            else {
-                this.moveLeft(3);
+            if (!isPaused) {
+                if (this.energy > 50) {
+                    turn = this.animateTurn(turn, turnX);
+                } else if (this.energy <= -100) {
+                    this.moveDown(5);
+                    this.moveLeft(5);
+                }
+                else if (this.energy <= 0) {
+                    this.moveUp(2);
+                }
+                else {
+                    this.moveLeft(3);
+                }
             }
         }, 1000 / 60);
         setInterval(() => {
-            if (this.energy <= 0) {
-                this.loadImage('img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 1 (can animate by going up).png');
-            } else if (this.energy < 50) {
-                this.playAnimation(this.images_attack);
-            } else if (this.energy > 50) {
-                this.playAnimation(this.images_swim);
+            if (!isPaused) {
+                if (this.energy <= 0) {
+                    this.loadImage('img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 1 (can animate by going up).png');
+                } else if (this.energy < 50) {
+                    this.playAnimation(this.images_attack);
+                } else if (this.energy > 50) {
+                    this.playAnimation(this.images_swim);
+                }
             }
         }, 150);
     };

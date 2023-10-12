@@ -69,31 +69,33 @@ class Endboss extends MoveableObject {
     animate() {
         let i = 0;
         setInterval(() => {
-            if (i < 10 && this.hadFirstContact) {
-                this.playAnimation(this.images_spawning);
-            } else if (this.hadFirstContact) {
-                if (this.isHurt()) {
-                    this.playAnimation(this.images_hurt);
-                } else if (this.isDead()) {
-                    this.playAnimation(this.images_dead);
-                } else if (i > 15) {
-                    this.playAnimation(this.images_attack);
-                    this.moveLeft(35);
-                    if (i > 20) {
-                        i = 10;
-                    }
-                } else {
-                    this.playAnimation(this.images_swim);
-                    if (this.x < 1960) {
-                        this.moveRight(20);
+            if (!isPaused) {
+                if (i < 10 && this.hadFirstContact) {
+                    this.playAnimation(this.images_spawning);
+                } else if (this.hadFirstContact) {
+                    if (this.isHurt()) {
+                        this.playAnimation(this.images_hurt);
+                    } else if (this.isDead()) {
+                        this.playAnimation(this.images_dead);
+                    } else if (i > 15) {
+                        this.playAnimation(this.images_attack);
+                        this.moveLeft(35);
+                        if (i > 20) {
+                            i = 10;
+                        }
+                    } else {
+                        this.playAnimation(this.images_swim);
+                        if (this.x < 1960) {
+                            this.moveRight(20);
+                        }
                     }
                 }
-            }
-            i++;
-            if (world) {
-                if (world.character.x > 1500 && !this.hadFirstContact) {
-                    i = 0;
-                    this.hadFirstContact = true;
+                i++;
+                if (world) {
+                    if (world.character.x > 1500 && !this.hadFirstContact) {
+                        i = 0;
+                        this.hadFirstContact = true;
+                    }
                 }
             }
         }, 250)

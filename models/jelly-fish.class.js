@@ -30,12 +30,14 @@ class JellyFish extends MoveableObject {
     animateSwim(turnY) {
         let turn = 0;
         this.intervall1 = setInterval(() => {
-            if (this.energy > 50) {
-                turn = this.animateTurn(turn, turnY);
-            }
-            else if (this.energy <= 0) {
-                this.moveUp(2);
-            }
+            if (!isPaused) {
+                if (this.energy > 50) {
+                    turn = this.animateTurn(turn, turnY);
+                }
+                else if (this.energy <= 0) {
+                    this.moveUp(2);
+                }
+            }            
         }, 1000 / 60);
         setInterval(() => {
             if (this.energy <= 0) {

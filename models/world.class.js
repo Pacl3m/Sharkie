@@ -13,6 +13,7 @@ class World {
     keyboard;
     camera_x;
     hadFirstAttack = false;
+    isPaused = false;
 
 
     constructor(canvas, keyboard) {
@@ -37,7 +38,7 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && !this.character.otherDirection && !this.character.isDead()) {
-            if (this.poisenbar.bottles > 0 && this.character.x > 1400 || this.hadFirstAttack) {
+            if (this.poisenbar.bottles > 0 && (this.character.x > 1400 || this.hadFirstAttack)) {
                 this.hadFirstAttack = true;
                 let bubble = new BubbleObject(this.character.x, this.character.y, 'poisen');
                 this.bubbles.push(bubble);
@@ -88,29 +89,31 @@ class World {
 
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        if (!this.isPaused) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.backgroundObjects);
+            this.ctx.translate(this.camera_x, 0);
+            this.addObjectsToMap(this.backgroundObjects);
 
-        this.addObjectsToMap(this.bubbles);
-        this.addObjectsToMap(this.coins);
-        this.addObjectsToMap(this.poisenBottle);
-        this.addObjectsToMap(this.enemies);
-        this.addTopMap(this.character);
+            this.addObjectsToMap(this.bubbles);
+            this.addObjectsToMap(this.coins);
+            this.addObjectsToMap(this.poisenBottle);
+            this.addObjectsToMap(this.enemies);
+            this.addTopMap(this.character);
 
-        this.ctx.translate(-this.camera_x, 0);
-        // Space for fixed object
-        this.addTopMap(this.statusbar);
-        this.addTopMap(this.coinsbar);
-        this.addTopMap(this.poisenbar);
-        this.ctx.translate(this.camera_x, 0);
+            this.ctx.translate(-this.camera_x, 0);
+            // Space for fixed object
+            this.addTopMap(this.statusbar);
+            this.addTopMap(this.coinsbar);
+            this.addTopMap(this.poisenbar);
+            this.ctx.translate(this.camera_x, 0);
 
-        this.ctx.translate(-this.camera_x, 0);
+            this.ctx.translate(-this.camera_x, 0);
 
-        // draw() wird immer wieder aufgerufen
-        let self = this;
-        requestAnimationFrame(() => { self.draw() });
+            // draw() wird immer wieder aufgerufen
+            let self = this;
+            requestAnimationFrame(() => { self.draw() });
+        }
     }
 
 
@@ -141,5 +144,16 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    pauseGame() {
+        if(this.isPaused) {
+            world.isPaused = false;
+            isPaused = false;
+            this.draw();
+        } else {
+            world.isPaused = true;
+            isPaused =true;
+        }
     }
 }

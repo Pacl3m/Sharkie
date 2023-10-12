@@ -18,7 +18,7 @@
     <script src="models/character.class.js"></script>
     <script src="models/status-bar.class.js"></script>
     <script src="models/coins-bar.class.js"></script>
-    <script src="models/poisen-bar-class.js"></script>
+    <script src="models/poisen-bar.class.js"></script>
     <script src="models/fish.class.js"></script>
     <script src="models/jelly-fish.class.js"></script>
     <script src="models/endboss.class.js"></script>
@@ -36,13 +36,15 @@
     </header>
 
     <div class="content" id="content">
-        <button>Instructions</button>
-        <button onclick="init()">Start Game</button>
-        <!-- <canvas id="canvas" width="720" height="480"> -->
+        <!-- <button class="menuButton">Instructions</button>
+        <button class="menuButton" onclick="init()">Start Game</button> -->
+        <div class="panelTop">
+            <button onclick="world.pauseGame()" id="pause" class="actionButton"></button>
+        </div>
+        <div class="panelBottom"></div>
+        <canvas id="canvas" width="720" height="480"></canvas>
     </div>
-
-    </canvas>
-
+    
 </body>
 
 </html>

@@ -29,14 +29,17 @@ class MoveableObject extends DrawableObject {
     }
 
     playAnimation(arr) {
-        if (arr !== this.currentAnimationArray) {
-            this.currentImage = 0; // Setzt currentImage zurück, wenn das Array wechselt
-            this.currentAnimationArray = arr; // Aktualisiert das aktuelle Array
+        if (!isPaused) {
+            if (arr !== this.currentAnimationArray) {
+                this.currentImage = 0; // Setzt currentImage zurück, wenn das Array wechselt
+                this.currentAnimationArray = arr; // Aktualisiert das aktuelle Array
+            }
+            let i = this.currentImage % arr.length;
+            let path = arr[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
         }
-        let i = this.currentImage % arr.length;
-        let path = arr[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+
     }
 
     playAttack(arr) {
@@ -50,16 +53,20 @@ class MoveableObject extends DrawableObject {
     }
 
     applyGravity() {
+        // this.swimming_sound.pause();
         setInterval(() => {
-            if (this.y < 220 || this.speedY > 0) {
-                this.speedY -= this.acceleration;
-                if (this.speedY < -5) {
-                    this.speedY = -5;
+            if (!isPaused) {
+                if (this.y < 220 || this.speedY > 0) {
+                    this.speedY -= this.acceleration;
+                    if (this.speedY < -5) {
+                        this.speedY = -5;
+                    }
+                    this.y -= this.speedY;
+                    this.resetTimeToSleep();
+                    // this.swimming_sound.play();
+                } else if (!world.character.keyboard.up) {
+                    this.speedY = 0;
                 }
-                this.y -= this.speedY;
-                this.resetTimeToSleep();
-            } else if (!world.character.keyboard.up) {
-                this.speedY = 0;
             }
         }, 1000 / 30)
     }
@@ -83,25 +90,11 @@ class MoveableObject extends DrawableObject {
                     (this.y + 110 + this.height - 160) > obj.y &&
                     (this.x + 30 - leftOffset) < obj.x + obj.width &&
                     (this.y + 110) < (obj.y + obj.height - 15);
-            } if (obj instanceof JellyFish) {
-                const offset = this.attacking ? 35 : 65;
-                return (this.x + 30 + this.width - offset) > obj.x &&
-                    (this.y + 110 + this.height - 160) > obj.y &&
-                    (this.x + 30) < obj.x + obj.width &&
-                    (this.y + 110) < (obj.y + obj.height);
-            }
-            else {
+            } else {
                 return (this.x + 30 + this.width - 65) > obj.x &&
                     (this.y + 110 + this.height - 160) > obj.y &&
                     (this.x + 30) < obj.x + obj.width &&
                     (this.y + 110) < (obj.y + obj.height);
-            }
-        } if (this instanceof Endboss) {
-            if (obj instanceof Endboss) {
-                return this.x + this.width > obj.x &&
-                    this.y + this.height > obj.y &&
-                    this.x < obj.x &&
-                    this.y < obj.y + obj.height;
             }
         } if (this instanceof BubbleObject) {
             if (obj instanceof Endboss) {
@@ -119,65 +112,59 @@ class MoveableObject extends DrawableObject {
     }
 
     hit(obj) {
-        if (this instanceof Character && obj instanceof Fish && this.attacking) {
-            obj.energy -= 200; // finslap
-        }
-        if (this instanceof Character && !this.attacking && obj instanceof Fish || obj instanceof Endboss || obj instanceof JellyFish) {
-            this.energy -= 0.6;
-            if (this.energy < 0) {
-                this.energy = 0;
-            } else {
-                this.lastHit = new Date().getTime();
+        if (!isPaused) {
+            if (this instanceof Character && obj instanceof Fish && this.attacking) {
+                obj.energy -= 200; // finslap
             }
-            if (obj instanceof JellyFish) {
-                this.isShocked = true;
-            } else {
-                this.isShocked = false;
-            }
-        } if (this instanceof Character && obj instanceof Coins) {
-            obj.width = 0;
-            obj.x = 0;
-        } if (this instanceof Character && obj instanceof Poisens) {
-            obj.width = 0;
-            obj.x = 0;
-        } if (this instanceof BubbleObject) {
-            if (obj instanceof Fish) {
-                if (obj.energy > 50) {
-                    obj.energy -= 50;
-                    this.x = 0;
-                    this.width = 0;
-                    obj.animateTransition();
-                } else {
-                    obj.energy -= 50;
-                    this.x = 0;
-                    this.width = 0;
-                }
-            }
-            if (obj instanceof JellyFish) {
-                obj.energy -= 100;
-                this.x = 0;
-                this.width = 0;
-                // obj.animateTransition();
-            }
-            if (obj instanceof Endboss) {
-                if (obj.energy > 0) {
-                    if (world.poisenbar.bottles > 0) {
-                        obj.energy -= 20;
-                        this.x = 0;
-                        this.width = 0;
-                        obj.lastHit = new Date().getTime();
-                        // obj.animateTransition();
-                    } else {
-                        obj.energy -= 10;
-                        this.x = 0;
-                        this.width = 0;
-                        obj.lastHit = new Date().getTime();
-                    }
-                } else {
-                    obj.energy === 0;
-                }
+            if (this instanceof Character && !this.attacking && obj instanceof Fish || obj instanceof Endboss || obj instanceof JellyFish) {
+                this.characterGetsDamage(obj);
+            } if (this instanceof Character && (obj instanceof Coins || obj instanceof Poisens)) {
+                obj.width = 0;
+                obj.x = 0;
+            } if (this instanceof BubbleObject) {
+                this.bubbleAttack(obj);
             }
         }
+    }
+
+    bubbleAttack(obj) {
+        if (obj instanceof Fish) {
+            if (obj.energy > 50) {
+                obj.animateTransition();
+            } obj.energy -= 50;
+        }
+        if (obj instanceof JellyFish) {
+            obj.energy -= 100;
+        }
+        if (obj instanceof Endboss) {
+            if (obj.energy > 0) {
+                if (world.poisenbar.bottles > 0) {
+                    obj.energy -= 10;
+                }
+                obj.energy -= 10;
+            }
+            obj.lastHit = new Date().getTime();
+        }
+        this.hideObj();
+    }
+
+    characterGetsDamage(obj) {
+        this.energy -= 0.6;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+        if (obj instanceof JellyFish) {
+            this.isShocked = true;
+        } else {
+            this.isShocked = false;
+        }
+    }
+
+    hideObj() {
+        this.x = 0;
+        this.width = 0;
     }
 
     isHurt() {
