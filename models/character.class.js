@@ -157,22 +157,25 @@ class Character extends MoveableObject {
         }, 1000 / 30);
 
         setInterval(() => {
-            this.swimming_sound.pause();
-            if (this.isHurt() && this.isShocked) {
-                this.playAnimation(this.images_hurt_shocked);
-            } else if (this.isHurt() && !this.isShocked) {
-                this.playAnimation(this.images_hurt_poisoned);
-            } else if (this.isSleeping() && !this.isDead() && this.noKeyisActive()) {
-                this.animateSleep();
-            } else if (this.isDead()) {
-                this.playAnimation(this.images_dead_poisoned);
-            } else {
-                if (this.noKeyisActive()) {
-                    this.playAnimation(this.images_idle);
-                    // this.lastMove = new Date().getTime();
-                } else if (!this.noKeyisActive()) {
-                    this.playAnimation(this.images_swim);
-                    this.swimming_sound.play();
+            if (!isPaused) {
+                this.swimming_sound.pause();
+                if (this.isHurt() && this.isShocked) {
+                    this.playAnimation(this.images_hurt_shocked);
+                } else if (this.isHurt() && !this.isShocked) {
+                    this.playAnimation(this.images_hurt_poisoned);
+                } else if (this.isSleeping() && !this.isDead() && this.noKeyisActive()) {
+                    this.animateSleep();
+                } else if (this.isDead()) {
+                    this.animateGameOver();
+                    // this.playAnimation(this.images_dead_poisoned);
+                } else {
+                    if (this.noKeyisActive()) {
+                        this.playAnimation(this.images_idle);
+                        // this.lastMove = new Date().getTime();
+                    } else if (!this.noKeyisActive()) {
+                        this.playAnimation(this.images_swim);
+                        this.swimming_sound.play();
+                    }
                 }
             }
         }, 200);

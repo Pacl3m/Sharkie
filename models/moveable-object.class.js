@@ -184,4 +184,13 @@ class MoveableObject extends DrawableObject {
             return timepassed > 3;
         }
     }
+
+    animateGameOver() {
+        this.playAnimation(this.images_dead_poisoned);
+        if (this.currentImage > this.images_dead_poisoned.length) {
+            world.pauseGame();
+            document.getElementById('gameoverOverlay').classList.remove('d-none');
+            document.getElementById('gameoverOverlay').classList.add('zoomEffect');
+        }
+    }
 }

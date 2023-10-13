@@ -11,6 +11,10 @@ body {
     font-family: 'LuckiestGuy', sans-serif;
 }
 
+.d-none {
+    display: none;
+}
+
 header {
     position: absolute;
     top: 0;
@@ -83,4 +87,19 @@ canvas {
 
 #pause {
     background-image: url(img/6.Botones/Buttons/pause.png);
+}
+
+#gameoverOverlay {
+    background-image: url('img/6.Botones/Tittles/Game Over/Recurso 12.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 90px;
+    width: 0%;
+    position: absolute;
+    transition: 0.5s;
+}
+
+.zoomEffect {
+    width: 100% !important;
 }
