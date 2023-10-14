@@ -116,7 +116,7 @@ class MoveableObject extends DrawableObject {
             if (this instanceof Character && obj instanceof Fish && this.attacking) {
                 obj.energy -= 200; // finslap
             }
-            if (this instanceof Character && !this.attacking && obj instanceof Fish || obj instanceof Endboss || obj instanceof JellyFish) {
+            if (this instanceof Character && !this.attacking && !this.isDead() && obj instanceof Fish || obj instanceof Endboss || obj instanceof JellyFish) {
                 this.characterGetsDamage(obj);
             } if (this instanceof Character && (obj instanceof Coins || obj instanceof Poisens)) {
                 obj.width = 0;
@@ -187,10 +187,21 @@ class MoveableObject extends DrawableObject {
 
     animateGameOver() {
         this.playAnimation(this.images_dead_poisoned);
+        
         if (this.currentImage > this.images_dead_poisoned.length) {
             world.pauseGame();
-            document.getElementById('gameoverOverlay').classList.remove('d-none');
-            document.getElementById('gameoverOverlay').classList.add('zoomEffect');
-        }
+            // document.getElementById('gameoverOverlay').classList.remove('d-none');
+            document.getElementById('gameoverOverlay').classList.add('zoomEffectGameover');
+            setTimeout(() => {
+                document.getElementById('tryAgain').classList.add('zoomEffectTryAgain');
+                // this.energy = 100;
+                // this.deleteGame();
+                
+                // world.character.Keyboard = new Keyboard();
+                // world.character = new Character();
+                
+                // world = new World(canvas, keyboard);
+            }, 2000);
+        }   
     }
 }

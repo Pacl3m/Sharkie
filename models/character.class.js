@@ -107,7 +107,7 @@ class Character extends MoveableObject {
 
     otherDirection = false;
     timeBreak = false;
-    // world;
+    world;
     swimming_sound = new Audio('audio/swimming.mp3');
     // keyboard;
     timeToSleep = 0;
@@ -132,23 +132,23 @@ class Character extends MoveableObject {
 
     animateSwim() {
         setInterval(() => {
-            if (!world.character.keyboard.space && !this.isDead()) {
+            if (!this.world.keyboard.space && !this.isDead()) {
                 if (world.character.keyboard.right && this.x < 2110 && !world.character.keyboard.D) {
                     this.moveRight(this.speed)
                     this.otherDirection = false;
                     this.resetTimeToSleep();
                 }
-                if (world.character.keyboard.left && this.x > 80) {
+                if (this.world.keyboard.left && this.x > 80) {
                     this.moveLeft(this.speed);
                     this.otherDirection = true;
                     this.resetTimeToSleep();
                 }
-                if (world.character.keyboard.up && this.y > -110) {
+                if (this.world.keyboard.up && this.y > -110) {
                     // this.moveUp(this.speed);
                     this.speedY = 6.5;
                     this.resetTimeToSleep();
                 }
-                if (world.character.keyboard.down && this.y < 250) {
+                if (this.world.keyboard.down && this.y < 250) {
                     this.moveDown(this.speed);
                     this.resetTimeToSleep();
                 }
@@ -165,7 +165,7 @@ class Character extends MoveableObject {
                     this.playAnimation(this.images_hurt_poisoned);
                 } else if (this.isSleeping() && !this.isDead() && this.noKeyisActive()) {
                     this.animateSleep();
-                } else if (this.isDead()) {
+                } else if (this.isDead() && !restart) {
                     this.animateGameOver();
                     // this.playAnimation(this.images_dead_poisoned);
                 } else {
@@ -194,7 +194,7 @@ class Character extends MoveableObject {
     animateAttack() {
         setInterval(() => {
             this.attacking = false;
-            if (world.character.keyboard.D && !this.otherDirection) {
+            if (this.world.keyboard.D && !this.otherDirection) {
                 if (world.poisenbar.bottles > 0 && (this.x > 1400 || world.hadFirstAttack)) {
                     this.playAttack(this.images_poisen_attack);
                     this.resetTimeToSleep();
@@ -203,7 +203,7 @@ class Character extends MoveableObject {
                     this.resetTimeToSleep();
                 }
             }
-            if (world.character.keyboard.space && !this.isHurt()) {
+            if (this.world.keyboard.space && !this.isHurt()) {
                 this.playAttack(this.images_fin_slap);
                 this.attacking = true;
                 this.resetTimeToSleep();
@@ -214,6 +214,6 @@ class Character extends MoveableObject {
 
 
     noKeyisActive() {
-        return !world.character.keyboard.right && !world.character.keyboard.left && !world.character.keyboard.up && !world.character.keyboard.down;
+        return !this.world.keyboard.right && !this.world.keyboard.left && !this.world.keyboard.up && !this.world.keyboard.down;
     }
 } 

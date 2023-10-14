@@ -3,10 +3,38 @@ let world;
 let keyboard = new Keyboard();
 let dKeyLocked = false;
 let isPaused = false;
+let restart = false;
 
+
+function restartGame() {
+    
+    // restart = true;
+
+    // // if (this) {
+    // //     this = null;
+    // // }
+
+    // init();
+    // setTimeout(() => {
+    //     restart = false;
+    // }, 1000);
+
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    init();
+}
 
 function init() {
-    // document.getElementById('content').innerHTML = `<canvas id="canvas" width="720" height="480">`
+    isPaused = false;
+    document.getElementById('content').innerHTML = /*html*/
+        `<div class="panelTop">
+            <button onclick="world.pauseGame()" id="pause" class="smallActionButton"></button>
+        </div>
+        <div id="gameoverOverlay"></div>
+        <button id="tryAgain" class="actionButton" onclick="restartGame()"></button>
+        <div class="panelBottom"></div>
+        <canvas id="canvas" width="720" height="480"></canvas>`
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
