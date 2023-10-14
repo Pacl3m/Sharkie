@@ -5,37 +5,31 @@ let dKeyLocked = false;
 let isPaused = false;
 let restart = false;
 
+function clearAllIntervall() {
+    for (let i = 0; i < 9999; i++) {
+        window.clearInterval(i);    
+        window.clearTimeout(i);
+    }
+}
 
 function restartGame() {
-    
-    // restart = true;
-
-    // // if (this) {
-    // //     this = null;
-    // // }
-
-    // init();
-    // setTimeout(() => {
-    //     restart = false;
-    // }, 1000);
-
-    canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    isPaused = false;
+    world.isPaused = false;
+    clearAllIntervall();
     init();
 }
 
 function init() {
-    isPaused = false;
+    startLevel1();
     document.getElementById('content').innerHTML = /*html*/
-        `<div class="panelTop">
-            <button onclick="world.pauseGame()" id="pause" class="smallActionButton"></button>
-        </div>
-        <div id="gameoverOverlay"></div>
-        <button id="tryAgain" class="actionButton" onclick="restartGame()"></button>
-        <div class="panelBottom"></div>
-        <canvas id="canvas" width="720" height="480"></canvas>`
-    canvas = document.getElementById('canvas');
+    `<div class="panelTop">
+        <button onclick="world.pauseGame()" id="pause" class="smallActionButton"></button>
+    </div>
+    <div id="gameoverOverlay"></div>
+    <button id="tryAgain" class="actionButton" onclick="restartGame()"></button>
+    <div class="panelBottom"></div>
+    <canvas id="canvas" width="720" height="480"></canvas>`
+    canvas = document.getElementById('canvas');   
     world = new World(canvas, keyboard);
 }
 

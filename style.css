@@ -22,7 +22,10 @@ header {
 
 h1 {
     font-size: 64px;
-    margin-top: 32px;
+    background: linear-gradient(0deg, rgba(27,20,100,1) 0%, rgba(6,110,233,1) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+
 }
 
 canvas {

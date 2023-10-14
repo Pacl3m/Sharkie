@@ -61,7 +61,6 @@ class World {
             } if (this.bubbles.length > 0) {
                 this.bubbles.forEach((bubble) => {
                     if (bubble.isColliding(enemy)) {
-                        console.log('Treffer!!');
                         bubble.hit(enemy);
                     }
                 })
@@ -70,7 +69,6 @@ class World {
         this.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.character.hit(coin);
-                // console.log('Bling!');
                 this.coinsbar.coins++;
                 this.coinsbar.setCoinsStatus(this.coinsbar.coins);
             }
@@ -78,7 +76,6 @@ class World {
         this.poisenBottle.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 this.character.hit(bottle);
-                // console.log('Bling!');
                 this.poisenbar.bottles++;
                 this.poisenbar.setBottles(this.poisenbar.bottles);
             }
@@ -86,10 +83,6 @@ class World {
     }
 
     setWorld() {
-        // if (world) {
-        //     world = null;
-        // }
-        
         this.character.world = this;
     }
 
@@ -162,40 +155,4 @@ class World {
             isPaused = true;
         }
     }
-
-    // animateGameOver() {
-    //     this.playAnimation(this.images_dead_poisoned);
-        
-    //     if (this.currentImage > this.images_dead_poisoned.length) {
-    //         world.pauseGame();
-    //         // document.getElementById('gameoverOverlay').classList.remove('d-none');
-    //         document.getElementById('gameoverOverlay').classList.add('zoomEffectGameover');
-    //         setTimeout(() => {
-    //             document.getElementById('tryAgain').classList.add('zoomEffectTryAgain');
-    //             // this.energy = 100;
-    //             this.deleteGame();
-    //         }, 2000);
-    //     }   
-    // }
-
-    // deleteGame() {
-    //     this.character = new Character();
-    //     this.enemies = level1.enemies;
-    //     this.backgroundObjects = level1.backgroundObjects;
-    //     this.coins = level1.coins;
-    //     this.poisenBottle = level1.poisenBottles;
-    //     this.statusbar = new StatusBar();
-    //     this.coinsbar = new CoinsBar();
-    //     this.poisenbar = new PoisenBar();
-    //     this.bubbles = [];
-    //     // this.statusBarHealth = new StatusbarHealth();
-    //     // this.statusBarBottle = new StatusbarBottle();
-    //     // this.statusBarCoin = new StatusbarCoin();
-    //     // this.level = createLevel();
-    //     // this.camera_x = 0;
-    //     // isGameOver = false;
-    //     // this.enemySquashed = false;
-    //     // this.playerWon = false;
-    //     // pause = false;
-    // }
 }

@@ -165,7 +165,7 @@ class Character extends MoveableObject {
                     this.playAnimation(this.images_hurt_poisoned);
                 } else if (this.isSleeping() && !this.isDead() && this.noKeyisActive()) {
                     this.animateSleep();
-                } else if (this.isDead() && !restart) {
+                } else if (this.isDead()) {
                     this.animateGameOver();
                     // this.playAnimation(this.images_dead_poisoned);
                 } else {

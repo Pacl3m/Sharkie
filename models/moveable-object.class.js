@@ -55,7 +55,7 @@ class MoveableObject extends DrawableObject {
     applyGravity() {
         // this.swimming_sound.pause();
         setInterval(() => {
-            if (!isPaused) {
+            if (!isPaused && !this.isDead()) {
                 if (this.y < 220 || this.speedY > 0) {
                     this.speedY -= this.acceleration;
                     if (this.speedY < -5) {
@@ -187,21 +187,13 @@ class MoveableObject extends DrawableObject {
 
     animateGameOver() {
         this.playAnimation(this.images_dead_poisoned);
-        
         if (this.currentImage > this.images_dead_poisoned.length) {
+            // this.loadImage('img/1.Sharkie/6.dead/1.Poisoned/12.png');
             world.pauseGame();
-            // document.getElementById('gameoverOverlay').classList.remove('d-none');
             document.getElementById('gameoverOverlay').classList.add('zoomEffectGameover');
             setTimeout(() => {
                 document.getElementById('tryAgain').classList.add('zoomEffectTryAgain');
-                // this.energy = 100;
-                // this.deleteGame();
-                
-                // world.character.Keyboard = new Keyboard();
-                // world.character = new Character();
-                
-                // world = new World(canvas, keyboard);
-            }, 2000);
+            }, 1000);
         }   
     }
 }

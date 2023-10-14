@@ -24,11 +24,11 @@ class BubbleObject extends MoveableObject {
      * create a bubble and moved it after 120ms 7 pixel up and 1 pixel right 
      */
     throw() {
-            setTimeout(() => {
-                setInterval(() => {
-                    this.x += 7;
-                    this.y -= 1;
-                }, 25);
-            }, 120);      
+        setTimeout(() => {
+            setInterval(() => {
+                this.x += 7;
+                this.y -= 1;
+            }, 25);
+        }, 120);
     }
 }
