@@ -4,6 +4,8 @@ class BubbleObject extends MoveableObject {
     normalBubble = 'img/1.Sharkie/4.Attack/Bubble trap/Bubble.png';
     poisenBubble = 'img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png';
 
+    bubble_sound = new Audio('audio/bubble.mp3');
+
     /**
      * 
      * @param {integer} x 
@@ -25,6 +27,7 @@ class BubbleObject extends MoveableObject {
      */
     throw() {
         setTimeout(() => {
+            this.bubble_sound.play();
             setInterval(() => {
                 this.x += 7;
                 this.y -= 1;

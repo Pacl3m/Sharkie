@@ -11,6 +11,10 @@ class MoveableObject extends DrawableObject {
     timeBreak = false;
     lastMove = 0;
 
+    gameover_sound = new Audio('audio/gameover.mp3');
+    winning_sound = new Audio('audio/finishSound.mp3');
+    whale_died_sound = new Audio('audio/whaleDied.mp3');
+
 
     moveUp(speed) {
         this.y -= speed;
@@ -186,14 +190,30 @@ class MoveableObject extends DrawableObject {
     }
 
     animateGameOver() {
+        this.gameover_sound.play();
         this.playAnimation(this.images_dead_poisoned);
         if (this.currentImage > this.images_dead_poisoned.length) {
-            // this.loadImage('img/1.Sharkie/6.dead/1.Poisoned/12.png');
             world.pauseGame();
             document.getElementById('gameoverOverlay').classList.add('zoomEffectGameover');
+            // document.getElementById('winningOverlay').classList.add('zoomEffectGameover');
             setTimeout(() => {
                 document.getElementById('tryAgain').classList.add('zoomEffectTryAgain');
             }, 1000);
-        }   
+        }
+    }
+
+    animateWinning() {
+        this.whale_died_sound.play();
+        this.playAnimation(this.images_dead);
+        if (this.currentImage > this.images_dead.length) {
+            this.whale_died_sound.pause();
+            this.winning_sound.play();
+            world.pauseGame();
+            // document.getElementById('gameoverOverlay').classList.add('zoomEffectGameover');
+            document.getElementById('winningOverlay').classList.add('zoomEffectGameover');
+            setTimeout(() => {
+                document.getElementById('tryAgain').classList.add('zoomEffectTryAgain');
+            }, 1000);
+        }
     }
 }

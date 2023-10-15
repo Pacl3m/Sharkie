@@ -26,6 +26,7 @@ function init() {
         <button onclick="world.pauseGame()" id="pause" class="smallActionButton"></button>
     </div>
     <div id="gameoverOverlay"></div>
+    <div id="winningOverlay"></div>
     <button id="tryAgain" class="actionButton" onclick="restartGame()"></button>
     <div class="panelBottom"></div>
     <canvas id="canvas" width="720" height="480"></canvas>`

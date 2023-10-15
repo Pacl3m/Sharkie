@@ -109,6 +109,10 @@ class Character extends MoveableObject {
     timeBreak = false;
     world;
     swimming_sound = new Audio('audio/swimming.mp3');
+    blitz_sound = new Audio('audio/blitz.mp3');
+    gethit_sound = new Audio('audio/gethit.mp3');
+    finSlap_sound = new Audio('audio/finslap3.mp3');
+    // bubble_sound = new Audio('audio/bubble.mp3');
     // keyboard;
     timeToSleep = 0;
 
@@ -158,10 +162,14 @@ class Character extends MoveableObject {
 
         setInterval(() => {
             if (!isPaused) {
+                this.blitz_sound.pause();
                 this.swimming_sound.pause();
+                this.gethit_sound.pause();
                 if (this.isHurt() && this.isShocked) {
+                    this.blitz_sound.play();
                     this.playAnimation(this.images_hurt_shocked);
                 } else if (this.isHurt() && !this.isShocked) {
+                    this.gethit_sound.play();
                     this.playAnimation(this.images_hurt_poisoned);
                 } else if (this.isSleeping() && !this.isDead() && this.noKeyisActive()) {
                     this.animateSleep();
@@ -193,17 +201,22 @@ class Character extends MoveableObject {
 
     animateAttack() {
         setInterval(() => {
+            this.finSlap_sound.pause();
+            // this.finSlap_sound.currentTime = 0;
             this.attacking = false;
             if (this.world.keyboard.D && !this.otherDirection) {
                 if (world.poisenbar.bottles > 0 && (this.x > 1400 || world.hadFirstAttack)) {
                     this.playAttack(this.images_poisen_attack);
                     this.resetTimeToSleep();
                 } else {
+                    // this.bubble_sound.play();
                     this.playAttack(this.images_bubble_attack);
                     this.resetTimeToSleep();
                 }
             }
             if (this.world.keyboard.space && !this.isHurt()) {
+                this.finSlap_sound.play();
+                // this.finSlap_sound.currentTime = 0;
                 this.playAttack(this.images_fin_slap);
                 this.attacking = true;
                 this.resetTimeToSleep();

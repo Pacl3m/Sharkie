@@ -103,11 +103,21 @@ canvas {
     transition: 0.5s;
 }
 
+#winningOverlay {
+    background-image: url('img/6.Botones/Tittles/You win/Mesa de trabajo 1.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 484px;
+    width: 0%;
+    border-radius: 24px;
+    position: absolute;
+    transition: 0.5s;
+}
+
 #tryAgain {
     background-image: url('img/6.Botones/Try again/Recurso 15.png');
-    /* background-position: center; */
     background-size: contain;
-    /* background-repeat: no-repeat; */
     height: 0;
     width: 0%; 
     position: absolute;
