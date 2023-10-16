@@ -193,7 +193,7 @@ class MoveableObject extends DrawableObject {
         this.gameover_sound.play();
         this.playAnimation(this.images_dead_poisoned);
         if (this.currentImage > this.images_dead_poisoned.length) {
-            world.pauseGame();
+            pauseGame();
             document.getElementById('gameoverOverlay').classList.add('zoomEffectGameover');
             // document.getElementById('winningOverlay').classList.add('zoomEffectGameover');
             setTimeout(() => {
@@ -203,16 +203,16 @@ class MoveableObject extends DrawableObject {
     }
 
     animateWinning() {
-        this.whale_died_sound.play();
+        // this.whale_died_sound.play();
+        this.winning_sound.play();
         this.playAnimation(this.images_dead);
         if (this.currentImage > this.images_dead.length) {
-            this.whale_died_sound.pause();
-            this.winning_sound.play();
-            world.pauseGame();
-            // document.getElementById('gameoverOverlay').classList.add('zoomEffectGameover');
+            // this.whale_died_sound.pause();
+            // this.winning_sound.play();
+            pauseGame();
             document.getElementById('winningOverlay').classList.add('zoomEffectGameover');
             setTimeout(() => {
-                document.getElementById('tryAgain').classList.add('zoomEffectTryAgain');
+                document.getElementById('backToMenu').classList.add('zoomEffectTryAgain');
             }, 1000);
         }
     }

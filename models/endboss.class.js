@@ -67,27 +67,43 @@ class Endboss extends MoveableObject {
         this.loadImages(this.images_spawning);
 
         this.animate();
+        this.enableSoundEndboss();
+    }
+
+    i = 0;
+
+    enableSoundEndboss() {
+        setInterval(() => {
+            if (!mute && !isPaused) {
+                if (this.isHurt()) {
+                    this.whale_attack_sound.pause();
+                    this.whale_get_hit_sound.play();
+                } else if (this.i > 15 && this.hadFirstContact) {
+                    this.whale_attack_sound.play();
+                } 
+            }
+        }, 200);
     }
 
     animate() {
-        let i = 0;
+        // let i = 0;
         setInterval(() => {
             if (!isPaused) {
-                if (i < 10 && this.hadFirstContact) {
+                if (this.i < 10 && this.hadFirstContact) {
                     this.playAnimation(this.images_spawning);
                 } else if (this.hadFirstContact) {
                     if (this.isHurt()) {
-                        this.whale_attack_sound.pause();
-                        this.whale_get_hit_sound.play();
+                        // this.whale_attack_sound.pause();
+                        // this.whale_get_hit_sound.play();
                         this.playAnimation(this.images_hurt);
                     } else if (this.isDead()) {
                         this.animateWinning();
-                    } else if (i > 15) {
-                        this.whale_attack_sound.play();
+                    } else if (this.i > 15) {
+                        // this.whale_attack_sound.play();
                         this.playAnimation(this.images_attack);
                         this.moveLeft(35);
-                        if (i > 20) {
-                            i = 10;
+                        if (this.i > 20) {
+                            this.i = 10;
                         }
                     } else {
                         this.playAnimation(this.images_swim);
@@ -96,10 +112,10 @@ class Endboss extends MoveableObject {
                         }
                     }
                 }
-                i++;
+                this.i++;
                 if (world) {
                     if (world.character.x > 1500 && !this.hadFirstContact) {
-                        i = 0;
+                        this.i = 0;
                         this.hadFirstContact = true;
                     }
                 }

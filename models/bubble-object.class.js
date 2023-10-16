@@ -27,7 +27,9 @@ class BubbleObject extends MoveableObject {
      */
     throw() {
         setTimeout(() => {
-            this.bubble_sound.play();
+            if (!mute && !isPaused) {
+                this.bubble_sound.play();
+            }
             setInterval(() => {
                 this.x += 7;
                 this.y -= 1;

@@ -14,7 +14,9 @@ class World {
     camera_x;
     hadFirstAttack = false;
     isPaused = false;
+    backgroundInterval;
 
+    game_sound = new Audio('audio/shortBackgroundSound.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -25,17 +27,31 @@ class World {
         // this.character.camera_x = this.camera_x;
         this.setWorld();
         this.run();
+        this.playBackgroundSound();
     }
 
     run() {
         if (!isPaused) {
             setInterval(() => {
                 this.checkThrowObjects();
+                // this.playBackgroundSound();
             }, 500);
             setInterval(() => {
                 this.checkCollisions();
             }, 50);
+        } if (this.isPaused) {
+            this.game_sound.pause();
         }
+    }
+
+    playBackgroundSound() {
+        this.backgroundInterval = setInterval(() => {
+            if (!mute) {
+                this.game_sound.play();
+            } else {
+                this.game_sound.pause();
+            }
+        }, 100);
     }
 
     checkThrowObjects() {
@@ -145,14 +161,17 @@ class World {
         this.ctx.restore();
     }
 
-    pauseGame() {
-        if (this.isPaused) {
-            world.isPaused = false;
-            isPaused = false;
-            this.draw();
-        } else {
-            world.isPaused = true;
-            isPaused = true;
-        }
-    }
+    // pauseGame() {
+    //     if (this.isPaused) {
+    //         world.isPaused = false;
+    //         isPaused = false;
+    //         this.draw();
+    //         this.playBackgroundSound();
+    //     } else {
+    //         world.isPaused = true;
+    //         isPaused = true;
+    //         clearInterval(this.backgroundInterval);
+    //         this.game_sound.pause();
+    //     }
+    // }
 }

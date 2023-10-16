@@ -1,4 +1,4 @@
-function startLevel1() {
+function loadLevel1() {
     level1 = new Level();
         level1.enemies = [
             /**

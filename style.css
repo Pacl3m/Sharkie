@@ -57,6 +57,7 @@ canvas {
     background-color: yellow;
     font-size: 24px;
     font-family: 'LuckiestGuy', sans-serif;
+    cursor: pointer;
 }
 
 .panelTop {
@@ -88,8 +89,20 @@ canvas {
     cursor: pointer;
 }
 
-#pause {
+.pause {
     background-image: url('img/6.Botones/Buttons/pause.png');
+}
+
+.play {
+    background-image: url('img/6.Botones/Buttons/buttonRight.png') !important;
+}
+
+.mute {
+    background-image: url('img/6.Botones/Buttons/mute.png') !important;
+}
+
+.volume {
+    background-image: url('img/6.Botones/Buttons/volume.png');
 }
 
 #gameoverOverlay {
@@ -123,6 +136,17 @@ canvas {
     position: absolute;
     transition: 0.5s;
     background-color: transparent;
+    border-radius: 24px;
+    bottom: 64px;
+    z-index: -1;
+}
+
+#backToMenu {
+    /* height: 73px; */
+    /* width: 32%; */
+    position: absolute;
+    transition: 0.5s;
+    /* background-color: transparent; */
     border-radius: 24px;
     bottom: 64px;
     z-index: -1;
