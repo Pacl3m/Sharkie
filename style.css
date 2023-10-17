@@ -98,11 +98,19 @@ canvas {
 }
 
 .mute {
-    background-image: url('img/6.Botones/Buttons/mute.png') !important;
+    background-image: url('img/6.Botones/Buttons/mute3.png') !important;
 }
 
 .volume {
-    background-image: url('img/6.Botones/Buttons/volume.png');
+    background-image: url('img/6.Botones/Buttons/volume1.png');
+}
+
+.homeButton {
+    background-image: url('img/6.Botones/Buttons/home-button.png');
+}
+
+.fullScreen {
+    background-image: url('img/6.Botones/Buttons/full-screen.png');
 }
 
 #gameoverOverlay {

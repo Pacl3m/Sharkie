@@ -57,6 +57,7 @@ class Endboss extends MoveableObject {
 
     whale_get_hit_sound = new Audio('audio/whaleGetHit.mp3');
     whale_attack_sound = new Audio('audio/whaleAttack.mp3');
+    whale_intro_sound = new Audio('audio/whaleIntro.mp3');
 
     constructor() {
         super().loadImage('img/2.Enemy/3 Final Enemy/1.Introduce/1.png');
@@ -75,7 +76,10 @@ class Endboss extends MoveableObject {
     enableSoundEndboss() {
         setInterval(() => {
             if (!mute && !isPaused) {
-                if (this.isHurt()) {
+                if (this.i < 10 && this.hadFirstContact) {
+                    this.whale_intro_sound.play();
+                }
+                else if (this.isHurt()) {
                     this.whale_attack_sound.pause();
                     this.whale_get_hit_sound.play();
                 } else if (this.i > 15 && this.hadFirstContact) {
@@ -101,14 +105,14 @@ class Endboss extends MoveableObject {
                     } else if (this.i > 15) {
                         // this.whale_attack_sound.play();
                         this.playAnimation(this.images_attack);
-                        this.moveLeft(35);
+                        this.moveLeft(40);
                         if (this.i > 20) {
                             this.i = 10;
                         }
                     } else {
                         this.playAnimation(this.images_swim);
                         if (this.x < 1960) {
-                            this.moveRight(20);
+                            this.moveRight(25);
                         }
                     }
                 }

@@ -111,7 +111,7 @@ class Character extends MoveableObject {
     swimming_sound = new Audio('audio/swimming.mp3');
     blitz_sound = new Audio('audio/blitz.mp3');
     gethit_sound = new Audio('audio/gethit.mp3');
-    finSlap_sound = new Audio('audio/finslap3.mp3');
+    finSlap_sound = new Audio('audio/finslap5.mp3');
     // bubble_sound = new Audio('audio/bubble.mp3');
     // keyboard;
     timeToSleep = 0;
@@ -200,6 +200,9 @@ class Character extends MoveableObject {
                     this.gethit_sound.play();
                 } else if (!this.noKeyisActive()) {
                     this.swimming_sound.play();
+                } else if (this.world.keyboard.space && !this.isHurt()) {
+                    this.finSlap_sound.currentTime = 0;
+                    this.finSlap_sound.play();
                 }
             }
         }, 200);
@@ -230,7 +233,7 @@ class Character extends MoveableObject {
                 }
             }
             if (this.world.keyboard.space && !this.isHurt()) {
-                this.finSlap_sound.play();
+                // this.finSlap_sound.play();
                 // this.finSlap_sound.currentTime = 0;
                 this.playAttack(this.images_fin_slap);
                 this.attacking = true;

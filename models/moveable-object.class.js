@@ -122,12 +122,23 @@ class MoveableObject extends DrawableObject {
             }
             if (this instanceof Character && !this.attacking && !this.isDead() && obj instanceof Fish || obj instanceof Endboss || obj instanceof JellyFish) {
                 this.characterGetsDamage(obj);
-            } if (this instanceof Character && (obj instanceof Coins || obj instanceof Poisens)) {
+            }
+            if (this instanceof Character && (obj instanceof Coins || obj instanceof Poisens)) {
                 obj.width = 0;
                 obj.x = 0;
-            } if (this instanceof BubbleObject) {
+                this.characterPicksUp(obj);
+            }
+            if (this instanceof BubbleObject) {
                 this.bubbleAttack(obj);
             }
+        }
+    }
+
+    characterPicksUp(obj) {
+        if (obj instanceof Coins && !mute) {
+            obj.pick_up_coin_sound.play();
+        } if (obj instanceof Poisens && !mute) {
+            obj.pick_up_poisen_sound.play();
         }
     }
 
@@ -139,17 +150,15 @@ class MoveableObject extends DrawableObject {
         }
         if (obj instanceof JellyFish) {
             obj.energy -= 100;
+            obj.jellyfish_gets_hit_sound.play();
         }
         if (obj instanceof Endboss) {
             if (obj.energy > 0) {
                 if (world.poisenbar.bottles > 0) {
                     obj.energy -= 10;
-                }
-                obj.energy -= 10;
-            }
-            obj.lastHit = new Date().getTime();
-        }
-        this.hideObj();
+                } obj.energy -= 10;
+            } obj.lastHit = new Date().getTime();
+        } this.hideObj();
     }
 
     characterGetsDamage(obj) {
@@ -192,10 +201,10 @@ class MoveableObject extends DrawableObject {
     animateGameOver() {
         this.gameover_sound.play();
         this.playAnimation(this.images_dead_poisoned);
+        pauseButton.disabled = true;
         if (this.currentImage > this.images_dead_poisoned.length) {
             pauseGame();
             document.getElementById('gameoverOverlay').classList.add('zoomEffectGameover');
-            // document.getElementById('winningOverlay').classList.add('zoomEffectGameover');
             setTimeout(() => {
                 document.getElementById('tryAgain').classList.add('zoomEffectTryAgain');
             }, 1000);
@@ -207,8 +216,6 @@ class MoveableObject extends DrawableObject {
         this.winning_sound.play();
         this.playAnimation(this.images_dead);
         if (this.currentImage > this.images_dead.length) {
-            // this.whale_died_sound.pause();
-            // this.winning_sound.play();
             pauseGame();
             document.getElementById('winningOverlay').classList.add('zoomEffectGameover');
             setTimeout(() => {

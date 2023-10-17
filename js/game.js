@@ -14,17 +14,37 @@ function init() {
     loadLevel1();
     document.getElementById('content').innerHTML = /* html */
         `<div class="panelTop">
-        <button onclick="muteGame()" id="muteButton" class="smallActionButton volume"></button>
-        <button onclick="pauseGame()" id="pauseButton" class="smallActionButton pause"></button>
-    </div>
-    <div id="gameoverOverlay"></div>
-    <div id="winningOverlay"></div>
-    <button id="tryAgain" class="actionButton" onclick="restartGame()"></button>
-    <button id="backToMenu" class="menuButton" onclick="reloadPage()">Back to Menu</button>
-    <div class="panelBottom"></div>
-    <canvas id="canvas" width="720" height="480"></canvas>`
+            <button onclick="reloadPage()" id="homeButton" class="smallActionButton homeButton"></button>
+            <button onclick="toggleFullscreen()" id="fullScreenButton" class="smallActionButton fullScreen"></button>
+            <button onclick="muteGame()" id="muteButton" class="smallActionButton volume"></button>
+            <button onclick="pauseGame()" id="pauseButton" class="smallActionButton pause"></button>
+        </div>
+        <div id="gameoverOverlay"></div>
+        <div id="winningOverlay"></div>
+        <button id="tryAgain" class="actionButton" onclick="restartGame()"></button>
+        <button id="backToMenu" class="menuButton" onclick="reloadPage()">Back to Menu</button>
+        <div class="panelBottom"></div>
+        <canvas id="canvas" width="720" height="480"></canvas>`
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+}
+
+function toggleFullscreen() {
+    var canvas = document.getElementById('canvas'); // Hier die ID deines Canvas-Elements einfügen
+
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    } else {
+        if (canvas.requestFullscreen) {
+            canvas.requestFullscreen();
+        } else if (canvas.webkitRequestFullscreen) {
+            canvas.webkitRequestFullscreen();
+        }
+    }
 }
 
 function clearAllIntervall() {
@@ -47,7 +67,7 @@ function reloadPage() {
 
 function playBackgroundSound() {
     setInterval(() => {
-        if(!mute) {
+        if (!mute) {
             world.game_sound.play();
         } else {
             world.game_sound.pause();
@@ -56,7 +76,7 @@ function playBackgroundSound() {
 }
 
 function muteGame() {
-    if(!mute) {
+    if (!mute) {
         mute = true;
     } else {
         mute = false;
@@ -110,7 +130,7 @@ window.addEventListener('keydown', (event) => {
             }, 500);
             setTimeout(() => {
                 dKeyLocked = false;
-            }, 2500); // pause between the bubble Attack
+            }, 3000); // pause between the bubble Attack
         };
     }
 

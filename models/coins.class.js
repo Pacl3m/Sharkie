@@ -9,6 +9,8 @@ class Coins extends MoveableObject {
         'img/4. Marcadores/1. Coins/4.png',
     ];
 
+    pick_up_coin_sound = new Audio('audio/pickUpCoin.mp3');
+
     constructor(x) {
         super().loadImage('img/4. Marcadores/1. Coins/1.png');
         this.loadImages(this.images_coins);

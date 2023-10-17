@@ -17,6 +17,8 @@ class JellyFish extends MoveableObject {
         'img/2.Enemy/2 Jelly fish/Dead/Pink/P4.png',
     ];
 
+    jellyfish_gets_hit_sound = new Audio('audio/jeelyfishGetsHit.mp3');
+
     constructor(x, y, endY) {
         super().loadImage('img/2.Enemy/2 Jelly fish/S｣per dangerous/Pink 1.png');
         this.loadImages(this.images_swim);

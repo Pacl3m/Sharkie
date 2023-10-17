@@ -13,6 +13,8 @@ class Poisens extends MoveableObject {
         'img/4. Marcadores/Posiขn/Animada/8.png',
     ];
 
+    pick_up_poisen_sound = new Audio('audio/pickUpPoisen.mp3');
+
     constructor(x) {
         super().loadImage('img/4. Marcadores/Posiขn/Animada/1.png');
         this.loadImages(this.images_poisens);
