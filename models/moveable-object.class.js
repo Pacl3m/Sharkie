@@ -199,6 +199,7 @@ class MoveableObject extends DrawableObject {
     }
 
     animateGameOver() {
+        // toggleFullscreen();
         this.gameover_sound.play();
         this.playAnimation(this.images_dead_poisoned);
         pauseButton.disabled = true;
@@ -213,6 +214,7 @@ class MoveableObject extends DrawableObject {
 
     animateWinning() {
         // this.whale_died_sound.play();
+        // toggleFullscreen();
         this.winning_sound.play();
         this.playAnimation(this.images_dead);
         if (this.currentImage > this.images_dead.length) {

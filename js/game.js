@@ -12,8 +12,8 @@ let mute = false;
 function init() {
     // playBackgroundSound();
     loadLevel1();
-    document.getElementById('content').innerHTML = /* html */
-        `<div class="panelTop">
+    document.getElementById('content').innerHTML = /*html*/`
+        <div class="panelTop">
             <button onclick="reloadPage()" id="homeButton" class="smallActionButton homeButton"></button>
             <button onclick="toggleFullscreen()" id="fullScreenButton" class="smallActionButton fullScreen"></button>
             <button onclick="muteGame()" id="muteButton" class="smallActionButton volume"></button>
@@ -27,6 +27,19 @@ function init() {
         <canvas id="canvas" width="720" height="480"></canvas>`
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+}
+
+function showInstruction() {
+    document.getElementById('content').innerHTML = /*html*/`
+    <div class="panelTop">
+        <button onclick="reloadPage()" id="homeButton" class="smallActionButton homeButton"></button>
+    </div>
+    <div class="instructionContent">
+        <div class="instructionRow"><div class="arrowKeyImage keyImage"></div><h2>MOVE SHARKIE</h2></div>
+        <div class="instructionRow"><div class="spaceKeyImage keyImage"></div><h2>FIN SLAP</h2></div>
+        <div class="instructionRow"><div class="dKeyImage keyImage"></div><h2>BUBBLE ATTACK</h2></div>
+    </div>
+    `
 }
 
 function toggleFullscreen() {
@@ -45,6 +58,10 @@ function toggleFullscreen() {
             canvas.webkitRequestFullscreen();
         }
     }
+
+    // canvas.requestFullscreen();
+
+
 }
 
 function clearAllIntervall() {
