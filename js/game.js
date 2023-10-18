@@ -43,25 +43,31 @@ function showInstruction() {
 }
 
 function toggleFullscreen() {
-    var canvas = document.getElementById('canvas'); // Hier die ID deines Canvas-Elements einfügen
-
+    // ...
     if (document.fullscreenElement || document.webkitFullscreenElement) {
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
         }
+        // Nachdem der Vollbildmodus deaktiviert wurde, passe die Größe des Canvas an
+        // resizeCanvas();
     } else {
-        if (canvas.requestFullscreen) {
-            canvas.requestFullscreen();
-        } else if (canvas.webkitRequestFullscreen) {
-            canvas.webkitRequestFullscreen();
+        // ...
+        if (fullscreen.requestFullscreen) {
+            fullscreen.requestFullscreen();
+        } else if (fullscreen.webkitRequestFullscreen) {
+            fullscreen.webkitRequestFullscreen();
         }
+        // Wenn der Vollbildmodus aktiviert wird, passe ebenfalls die Größe des Canvas an
+        // resizeCanvas();
     }
+}
 
-    // canvas.requestFullscreen();
-
-
+function resizeCanvas() {
+    const canvas = document.getElementById('canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
 function clearAllIntervall() {
