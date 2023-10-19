@@ -153,12 +153,15 @@ class MoveableObject extends DrawableObject {
             obj.jellyfish_gets_hit_sound.play();
         }
         if (obj instanceof Endboss) {
-            if (obj.energy > 0) {
+            if (obj.energy > 0 && !obj.attacking) {
                 if (world.poisenbar.bottles > 0) {
                     obj.energy -= 10;
-                } obj.energy -= 10;
-            } obj.lastHit = new Date().getTime();
-        } this.hideObj();
+                }
+                obj.energy -= 10;
+                obj.lastHit = new Date().getTime();
+            }
+        }
+        this.hideObj();
     }
 
     characterGetsDamage(obj) {

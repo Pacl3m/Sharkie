@@ -12,7 +12,7 @@ body {
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 header {
@@ -30,30 +30,42 @@ h1 {
 h2 {
     font-size: 40px;
 }
+h3 {
+    margin: 0;
+    color: white;
+}
 
 canvas {
     background-color: black;
     border-radius: 24px;
     border: 1px solid white;
     box-shadow: 5px 5px 10px rgb(0 0 0);
+    display: block;
+}
+
+.canvasFullscreen {
+    height: 100vh;
+    width: 100%;
 }
 
 .content {
     background-image: url('img/3. Background/Mesa de trabajo 1.png');
     background-position: center;
     background-size: cover;
-    width: 720px;
-    height: 480px;
+    /* width: 720px;
+    height: 480px; */
     border-radius: 24px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     box-shadow: 5px 5px 10px rgb(0 0 0);
     position: relative;
 }
 
 .menuButton {
+    margin: 200px 92px;
+    padding: 0;
     height: 80px;
     width: 176px;
     border-radius: 24px;
@@ -73,14 +85,29 @@ canvas {
 }
 
 .panelBottom {
+    display: none;
+    justify-content: space-between;
+    align-items: end;
     position: absolute;
     width: 100%;
-    height: 50px;
+    height: 85px;
     /* background-color: white; */
     bottom: 0;
 }
 
+.arrowsBox {
+    margin-left: 4px;
+}
+
+.arrowsTop {
+    display: flex;
+    justify-content: center;
+}
+
 .smallActionButton {
+    font-family: 'LuckiestGuy', sans-serif;
+    padding: 0;
+    padding-block: 0;
     background-position: center;
     background-size: cover;
     height: 40px;
@@ -116,6 +143,37 @@ canvas {
     background-image: url('img/6.Botones/Buttons/full-screen.png');
 }
 
+.buttonUp {
+    background-image: url('img/6.Botones/Buttons/buttonUp.png');
+}
+
+.buttonDown {
+    background-image: url('img/6.Botones/Buttons/buttonDown.png');
+}
+
+.buttonLeft {
+    background-image: url('img/6.Botones/Buttons/buttonLeft.png');
+}
+
+.buttonRight {
+    background-image: url('img/6.Botones/Buttons/buttonRight.png');
+}
+
+.buttonSpace {
+    /* background-image: url('img/6.Botones/Key/Space Bar key.png'); */
+    background-color: rgb(53,145,247);
+    width: 160px;
+    margin-bottom: 2px;
+    margin-right: 80px;
+}
+
+.buttonD {
+    /* background-image: url('img/6.Botones/Key/D key.png'); */
+    background-color: rgb(53,145,247);
+    margin-bottom: 2px;
+    margin-right: 4px;
+}
+
 #gameoverOverlay {
     background-image: url('img/6.Botones/Tittles/Game Over/Recurso 12.png');
     background-position: center;
@@ -132,7 +190,7 @@ canvas {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 484px;
+    height: 100%;
     width: 0%;
     border-radius: 24px;
     position: absolute;
@@ -141,26 +199,26 @@ canvas {
 
 #tryAgain {
     background-image: url('img/6.Botones/Try again/Recurso 15.png');
-    background-size: contain;
-    height: 0;
-    width: 0%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
     transition: 0.5s;
     background-color: transparent;
     border-radius: 24px;
     bottom: 64px;
     z-index: -1;
+    cursor: pointer;
 }
 
 #backToMenu {
-    /* height: 73px; */
-    /* width: 32%; */
+    margin: 0 !important;
     position: absolute;
     transition: 0.5s;
-    /* background-color: transparent; */
     border-radius: 24px;
     bottom: 64px;
     z-index: -1;
+    cursor: pointer;
 }
 
 .zoomEffectGameover {
@@ -175,8 +233,8 @@ canvas {
 
 .instructionContent {
     background-color: rgb(216 112 243 / 40%);
-    width: 100%;
-    height: 100%;
+    width: 720px;
+    height: 480px;
     border-radius: 20px;
     display: grid;
     justify-content: center;
@@ -204,7 +262,43 @@ canvas {
 
 .instructionRow {
     display: flex;
-    /* width: 172%; */
     align-items: center;
     justify-content: space-between;
+}
+
+/* responsive */
+
+@media (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
+
+    .content {
+        height: 100vh;
+    }
+    .panelBottom {
+        display: flex;
+    }
+}
+
+@media (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    .menuButton {
+        margin: 200px 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .menuButton {
+        height: 54px;
+        width: 136px;
+        font-size: 16px;
+    }
 }

@@ -78,41 +78,38 @@ class Endboss extends MoveableObject {
             if (!mute && !isPaused) {
                 if (this.i < 10 && this.hadFirstContact) {
                     this.whale_intro_sound.play();
-                }
-                else if (this.isHurt()) {
+                } else if (this.isHurt()) {
                     this.whale_attack_sound.pause();
                     this.whale_get_hit_sound.play();
-                } else if (this.i > 15 && this.hadFirstContact) {
+                } else if (this.attacking) {
                     this.whale_attack_sound.play();
-                } 
+                }
             }
         }, 200);
     }
 
     animate() {
-        // let i = 0;
         setInterval(() => {
+            this.attacking = false;
             if (!isPaused) {
                 if (this.i < 10 && this.hadFirstContact) {
                     this.playAnimation(this.images_spawning);
                 } else if (this.hadFirstContact) {
                     if (this.isHurt()) {
-                        // this.whale_attack_sound.pause();
-                        // this.whale_get_hit_sound.play();
                         this.playAnimation(this.images_hurt);
                     } else if (this.isDead()) {
                         this.animateWinning();
-                    } else if (this.i > 15) {
-                        // this.whale_attack_sound.play();
+                    } else if (this.i > 25) {
                         this.playAnimation(this.images_attack);
+                        this.attacking = true;
                         this.moveLeft(40);
-                        if (this.i > 20) {
+                        if (this.i > 30) {
                             this.i = 10;
                         }
                     } else {
                         this.playAnimation(this.images_swim);
                         if (this.x < 1960) {
-                            this.moveRight(25);
+                            this.moveRight(10);
                         }
                     }
                 }
