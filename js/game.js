@@ -1,3 +1,15 @@
+/**
+ * Represents the main game.
+ * @typedef {Object} Game
+ * @property {HTMLElement} canvas - The game canvas.
+ * @property {World} world - The game world.
+ * @property {Keyboard} keyboard - The game keyboard.
+ * @property {boolean} dKeyLocked - Indicates if the 'D' key is locked.
+ * @property {boolean} isPaused - Indicates if the game is paused.
+ * @property {boolean} restart - Indicates if the game should restart.
+ * @property {boolean} mute - Indicates if the game audio is muted.
+ * @property {boolean} fullscreenActive - Indicates if fullscreen mode is active.
+ */
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -7,13 +19,27 @@ let restart = false;
 let mute = false;
 let fullscreenActive = false;
 
-// let game_sound = new Audio('audio/shortBackgroundSound.mp3');
 
-
+/**
+ * Initializes the game.
+ * @function
+ * @returns {void}
+ */
 function init() {
-    // playBackgroundSound();
     loadLevel1();
-    document.getElementById('content').innerHTML = /*html*/`
+    document.getElementById('content').innerHTML = returnContentHtml();
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard);
+    setButtons();
+}
+
+/**
+ * Returns the HTML content for the game.
+ * @function
+ * @returns {string} The HTML content.
+ */
+function returnContentHtml() {
+    return /*html*/`
         <div class="panelTop">
                     <button onclick="reloadPage()" id="homeButton" class="smallActionButton homeButton"></button>
                     <button onclick="toggleFullscreen()" id="fullScreenButton" class="smallActionButton fullScreen"></button>
@@ -39,11 +65,13 @@ function init() {
                     <button id="buttonD" class="smallActionButton buttonD"><h3>D</h3></button>
                 </div>
                 <canvas id="canvas" width="720" height="480"></canvas>`
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-    setButtons();
-}
+};
 
+/**
+ * Shows the game instructions.
+ * @function
+ * @returns {void}
+ */
 function showInstruction() {
     document.getElementById('content').innerHTML = /*html*/`
     <div class="panelTop">
@@ -53,10 +81,14 @@ function showInstruction() {
         <div class="instructionRow"><div class="arrowKeyImage keyImage"></div><h2>MOVE SHARKIE</h2></div>
         <div class="instructionRow"><div class="spaceKeyImage keyImage"></div><h2>FIN SLAP</h2></div>
         <div class="instructionRow"><div class="dKeyImage keyImage"></div><h2>BUBBLE ATTACK</h2></div>
-    </div>
-    `
-}
+    </div> `
+};
 
+/**
+ * Toggles fullscreen mode.
+ * @function
+ * @returns {void}
+ */
 function toggleFullscreen() {
     if (document.fullscreenElement || document.webkitFullscreenElement) {
         if (document.exitFullscreen) {
@@ -65,22 +97,23 @@ function toggleFullscreen() {
             document.webkitExitFullscreen();
         }
         fullscreenActive = false;
-        // Nachdem der Vollbildmodus deaktiviert wurde, passe die Größe des Canvas an
-        // resizeCanvas();
     } else {
-        // ...
         if (content.requestFullscreen) {
             content.requestFullscreen();
         } else if (content.webkitRequestFullscreen) {
             content.webkitRequestFullscreen();
         }
         fullscreenActive = true;
-        // Wenn der Vollbildmodus aktiviert wird, passe ebenfalls die Größe des Canvas an
-        // resizeCanvas();
     }
     checkFullscreen();
 }
 
+
+/**
+ * Checks the fullscreen status.
+ * @function
+ * @returns {void}
+ */
 function checkFullscreen() {
     if (fullscreenActive) {
         canvas.classList.add('canvasFullscreen');
@@ -96,6 +129,11 @@ document.addEventListener('fullscreenchange', (event) => {
     }
 });
 
+/**
+ * Clears all intervals and timeouts.
+ * @function
+ * @returns {void}
+ */
 function clearAllIntervall() {
     for (let i = 0; i < 9999; i++) {
         window.clearInterval(i);
@@ -103,6 +141,11 @@ function clearAllIntervall() {
     }
 }
 
+/**
+ * Restarts the game.
+ * @function
+ * @returns {void}
+ */
 function restartGame() {
     isPaused = false;
     world.isPaused = false;
@@ -111,10 +154,20 @@ function restartGame() {
     checkFullscreen();
 }
 
+/**
+ * Reloads the page.
+ * @function
+ * @returns {void}
+ */
 function reloadPage() {
     location.reload();
 }
 
+/**
+ * Plays the background sound.
+ * @function
+ * @returns {void}
+ */
 function playBackgroundSound() {
     setInterval(() => {
         if (!mute) {
@@ -125,35 +178,43 @@ function playBackgroundSound() {
     }, 500);
 }
 
+/**
+ * Mutes the game audio.
+ * @function
+ * @returns {void}
+ */
 function muteGame() {
-    if (!mute) {
-        mute = true;
-    } else {
-        mute = false;
-    }
+    mute = !mute;
     document.getElementById('muteButton').classList.toggle('mute');
 }
 
+/**
+ * Pauses or unpauses the game.
+ * @function
+ * @returns {void}
+ */
 function pauseGame() {
+    world.isPaused = !world.isPaused;
+    isPaused = world.isPaused;
+    pauseButton.classList.toggle('play');
+
     if (world.isPaused) {
-        document.getElementById('pauseButton').classList.toggle('play');
-        world.isPaused = false;
-        isPaused = false;
-        world.draw();
-        world.playBackgroundSound();
-    } else {
-        document.getElementById('pauseButton').classList.toggle('play');
-        world.isPaused = true;
-        isPaused = true;
         clearInterval(world.backgroundInterval);
         world.game_sound.pause();
+    } else {
+        world.draw();
+        world.playBackgroundSound();
     }
 }
 
-
+/**
+ * Handles keydown events.
+ * @function
+ * @param {Event} event - The keydown event.
+ * @returns {void}
+ */
 window.addEventListener('keydown', (event) => {
     if (!isPaused) {
-        // console.log(event.key);
         if (event.key === 'ArrowLeft') {
             keyboard.left = true;
         };
@@ -173,13 +234,16 @@ window.addEventListener('keydown', (event) => {
             handleBubbleAttack();
         };
     }
-
 });
 
-
+/**
+ * Handles keyup events.
+ * @function
+ * @param {Event} event - The keyup event.
+ * @returns {void}
+ */
 window.addEventListener('keyup', (event) => {
     if (!isPaused) {
-        // console.log(event.key);
         if (event.key === 'ArrowLeft') {
             keyboard.left = false;
         };
@@ -198,64 +262,52 @@ window.addEventListener('keyup', (event) => {
     }
 })
 
-
+/**
+ * Sets up touch events for buttons.
+ * @function
+ * @returns {void}
+ */
 function setButtons() {
     buttonUp.addEventListener('touchstart', (event) => {
         keyboard.up = true;
-        event.preventDefault();
     });
     buttonLeft.addEventListener('touchstart', (event) => {
         keyboard.left = true;
-        event.preventDefault();
     });
     buttonDown.addEventListener('touchstart', (event) => {
         keyboard.down = true;
-        event.preventDefault();
     });
     buttonRight.addEventListener('touchstart', (event) => {
         keyboard.right = true;
-        event.preventDefault();
     });
     buttonSpace.addEventListener('touchstart', (event) => {
         handleFinSlap();
-        event.preventDefault();
     });
     buttonD.addEventListener('touchstart', (event) => {
         if (!dKeyLocked) {
             handleBubbleAttack();
         }
-        event.preventDefault();
     });
 
     buttonUp.addEventListener('touchend', (event) => {
         keyboard.up = false;
-        event.preventDefault();
     });
     buttonLeft.addEventListener('touchend', (event) => {
         keyboard.left = false;
-        event.preventDefault();
     });
     buttonDown.addEventListener('touchend', (event) => {
         keyboard.down = false;
-        event.preventDefault();
     });
     buttonRight.addEventListener('touchend', (event) => {
         keyboard.right = false;
-        event.preventDefault();
     });
-    // buttonSpace.addEventListener('touchend', (event) => {
-    //     // Hier kannst du den Code für das "Berühren" des Buttons ausführen
-    //     keyboard.space = false;
-    //     event.preventDefault(); // Verhindert das Scrollen der Seite beim Berühren des Buttons
-    // });
-    // buttonD.addEventListener('touchend', (event) => {
-    //     // Hier kannst du den Code für das "Berühren" des Buttons ausführen
-    //     keyboard.D = false;
-    //     event.preventDefault(); // Verhindert das Scrollen der Seite beim Berühren des Buttons
-    // });
 }
 
-
+/**
+ * Handles the bubble attack action.
+ * @function
+ * @returns {void}
+ */
 function handleBubbleAttack() {
     keyboard.D = true;
     dKeyLocked = true;
@@ -267,10 +319,13 @@ function handleBubbleAttack() {
     }, 3000); // pause between the bubble Attack
 }
 
-
+/**
+ * Handles the fin slap action.
+ * @function
+ * @returns {void}
+ */
 function handleFinSlap() {
     keyboard.space = true;
-    event.preventDefault();
     setTimeout(() => {
         keyboard.space = false;
     }, 300);

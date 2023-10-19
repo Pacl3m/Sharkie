@@ -14,18 +14,34 @@ class CoinsBar extends DrawableObject {
         'img/4. Marcadores/green/Coin/100_ copia 4.png',
     ]
 
+    /**
+    * Constructor for the Coins class. Loads initial images, additional coin images, and sets coin status.
+    * @constructor
+    * @returns {void}
+    */
     constructor() {
         super().loadImage('img/4. Marcadores/green/Coin/100_ copia 4.png');
         this.loadImages(this.images_coins);
         this.setCoinsStatus(this.coins);
     }
 
+    /**
+    * Sets the status of coins based on the provided array.
+    * @function
+    * @param {Array} coins - The array of coin objects.
+    * @returns {void}
+    */
     setCoinsStatus(coins) {
         this.coins = coins;
         let path = this.images_coins[this.calcutateCoins()];
         this.img = this.imageCache[path];
     }
 
+    /**
+    * Calculates the coin index based on the number of coins.
+    * @function
+    * @returns {number} - The index of the coin image.
+    */
     calcutateCoins() {
         if (this.coins === 10) {
             return 5;
@@ -41,6 +57,4 @@ class CoinsBar extends DrawableObject {
             return 0;
         }
     }
-
-
 }

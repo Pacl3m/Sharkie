@@ -11,6 +11,10 @@ class Coins extends MoveableObject {
 
     pick_up_coin_sound = new Audio('audio/pickUpCoin.mp3');
 
+    /**
+    * Creates a coin object at the specified x-coordinate.
+    * @param {number} x - The initial x-coordinate of the coin.
+    */
     constructor(x) {
         super().loadImage('img/4. Marcadores/1. Coins/1.png');
         this.loadImages(this.images_coins);
@@ -20,6 +24,9 @@ class Coins extends MoveableObject {
         this.setCoin()
     }
 
+    /**
+     * Sets the coin animation to play at regular intervals.
+     */
     setCoin() {
         setInterval(() => {
             this.playAnimation(this.images_coins);

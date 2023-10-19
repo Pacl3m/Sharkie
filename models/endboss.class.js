@@ -4,6 +4,9 @@ class Endboss extends MoveableObject {
     y = -40;
     height = 450;
     width = this.height * 0.86;
+    hadFirstContact = false;
+    animateOrder = 0;
+
 
     images_swim = [
         'img/2.Enemy/3 Final Enemy/2.floating/1.png',
@@ -53,30 +56,46 @@ class Endboss extends MoveableObject {
         'img/2.Enemy/3 Final Enemy/1.Introduce/9.png',
         'img/2.Enemy/3 Final Enemy/1.Introduce/10.png',
     ];
-    hadFirstContact = false;
 
     whale_get_hit_sound = new Audio('audio/whaleGetHit.mp3');
     whale_attack_sound = new Audio('audio/whaleAttack.mp3');
     whale_intro_sound = new Audio('audio/whaleIntro.mp3');
 
+    /**
+    * Constructor for the endboss class. Loads initial images, starts animations, applies gravity, and enables sound effects.
+    * @constructor
+    * @returns {void}
+    */
     constructor() {
         super().loadImage('img/2.Enemy/3 Final Enemy/1.Introduce/1.png');
-        this.loadImages(this.images_swim);
-        this.loadImages(this.images_hurt);
-        this.loadImages(this.images_dead);
-        this.loadImages(this.images_attack);
-        this.loadImages(this.images_spawning);
+        this.loadEndbossImages();
 
         this.animate();
         this.enableSoundEndboss();
     }
 
-    i = 0;
+     /**
+    * Loads all images for different animations of the endboss.
+    * @function
+    * @returns {void}
+    */
+    loadEndbossImages() {
+        this.loadImages(this.images_swim);
+        this.loadImages(this.images_hurt);
+        this.loadImages(this.images_dead);
+        this.loadImages(this.images_attack);
+        this.loadImages(this.images_spawning);
+    }
 
+    /**
+    * Enables sound effects and manages their playback.
+    * @function
+    * @returns {void}
+    */
     enableSoundEndboss() {
         setInterval(() => {
             if (!mute && !isPaused) {
-                if (this.i < 10 && this.hadFirstContact) {
+                if (this.animateOrder < 10 && this.hadFirstContact) {
                     this.whale_intro_sound.play();
                 } else if (this.isHurt()) {
                     this.whale_attack_sound.pause();
@@ -88,23 +107,28 @@ class Endboss extends MoveableObject {
         }, 200);
     }
 
+    /**
+    * Animates the behavior of the object based on various conditions.
+    * @function
+    * @returns {void}
+    */
     animate() {
         setInterval(() => {
             this.attacking = false;
             if (!isPaused) {
-                if (this.i < 10 && this.hadFirstContact) {
+                if (this.animateOrder < 10 && this.hadFirstContact) {
                     this.playAnimation(this.images_spawning);
                 } else if (this.hadFirstContact) {
                     if (this.isHurt()) {
                         this.playAnimation(this.images_hurt);
                     } else if (this.isDead()) {
                         this.animateWinning();
-                    } else if (this.i > 25) {
+                    } else if (this.animateOrder > 20) {
                         this.playAnimation(this.images_attack);
                         this.attacking = true;
                         this.moveLeft(40);
-                        if (this.i > 30) {
-                            this.i = 10;
+                        if (this.animateOrder > 25) {
+                            this.animateOrder = 10;
                         }
                     } else {
                         this.playAnimation(this.images_swim);
@@ -113,14 +137,23 @@ class Endboss extends MoveableObject {
                         }
                     }
                 }
-                this.i++;
-                if (world) {
-                    if (world.character.x > 1500 && !this.hadFirstContact) {
-                        this.i = 0;
-                        this.hadFirstContact = true;
-                    }
-                }
+                this.animateOrder++;
+                this.setFirstContact();
             }
         }, 250)
+    }
+
+    /**
+    * Checks if the character has made first contact with the object and updates properties accordingly.
+    * @function
+    * @returns {void}
+    */
+    setFirstContact() {
+        if (world) {
+            if (world.character.x > 1500 && !this.hadFirstContact) {
+                this.animateOrder = 0;
+                this.hadFirstContact = true;
+            }
+        }
     }
 }

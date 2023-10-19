@@ -75,11 +75,6 @@ class MoveableObject extends DrawableObject {
         }, 1000 / 30)
     }
 
-    resetTimeToSleep() {
-        this.lastMove = new Date().getTime();
-        world.character.timeToSleep = 0;
-    }
-
     isColliding(obj) {
         if (this instanceof Character) {
             if (obj instanceof Endboss) {

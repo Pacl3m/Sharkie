@@ -7,10 +7,12 @@ class BubbleObject extends MoveableObject {
     bubble_sound = new Audio('audio/bubble.mp3');
 
     /**
-     * 
-     * @param {integer} x 
-     * @param {integer} y 
-     */
+    * Creates a new Bubble object.
+    * @constructor
+    * @param {number} x - The initial x-coordinate of the object.
+    * @param {number} y - The initial y-coordinate of the object.
+    * @param {string} type - The type of bubble ('poisen' or other).
+    */
     constructor(x, y, type) {
         if (type === 'poisen') {
             super().loadImage(this.poisenBubble);

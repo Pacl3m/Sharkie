@@ -3,6 +3,7 @@ class Fish extends MoveableObject {
     width = this.height / 0.82;
     speed = 0.75 + Math.random() * 0.25;
     counter = 0;
+    intervall1;
 
     images_swim = [
         'img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
@@ -36,19 +37,20 @@ class Fish extends MoveableObject {
 
     constructor(x, y, endX) {
         super().loadImage('img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
+        this.loadFishImages();
+
+        this.x = x;
+        this.y = y;
+        this.animateSwim(endX);
+        this.animateFishAttack();
+    }
+
+    loadFishImages() {
         this.loadImages(this.images_swim);
         this.loadImages(this.images_transition);
         this.loadImages(this.images_attack);
         this.loadImage('img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 1 (can animate by going up).png');
-
-        // this.y = 50 + Math.random() * 300;
-        // this.x = x + Math.random() * 300;
-        this.x = x;
-        this.y = y;
-        this.animateSwim(endX);
     }
-
-    intervall1;
 
     animateSwim(turnX) {
         let turn = 0;
@@ -59,15 +61,16 @@ class Fish extends MoveableObject {
                 } else if (this.energy <= -100) {
                     this.moveDown(5);
                     this.moveLeft(5);
-                }
-                else if (this.energy <= 0) {
+                } else if (this.energy <= 0) {
                     this.moveUp(2);
-                }
-                else {
+                } else {
                     this.moveLeft(3);
                 }
             }
         }, 1000 / 60);
+    };
+
+    animateFishAttack() {
         setInterval(() => {
             if (!isPaused) {
                 if (this.energy <= 0) {
@@ -79,7 +82,7 @@ class Fish extends MoveableObject {
                 }
             }
         }, 150);
-    };
+    }
 
     animateTransition() {
         this.currentImage = 0;
@@ -89,8 +92,7 @@ class Fish extends MoveableObject {
             this.playAnimation(this.images_transition);
             this.counter++;
             if (this.counter > 4) {
-                clearInterval(intervall2); // Das Intervall nach 5 Wiederholungen beenden
-                console.log('5mal');
+                clearInterval(intervall2); // Intervall stopps after 5 times
                 this.energy -= 25;
                 this.animateSwim();
             }

@@ -8,8 +8,6 @@ function loadLevel1() {
              * @param {number} - The initial x-coordinate of the object.
              * @param {number} - turnpoint of the object.
              */
-            // new Fish(350, 80),
-            // new Fish(350, 70),
             new JellyFish(480, 380, 70),
             new JellyFish(480, 280, 70),
             new JellyFish(480, 180, 70),
@@ -20,10 +18,8 @@ function loadLevel1() {
             new JellyFish(960, 80, 90),
             new Fish(400, 230, 70),
             new Fish(700, 100, 100),
-            // new Fish(700, 60),
             new Fish(700, 350, 80),
             new Fish(1000, 320, 100),
-            // new Fish(1000, 80),
             new Fish(1400, 50, 80),
             new Fish(1400, 280, 100),
             new Endboss(),
