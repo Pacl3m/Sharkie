@@ -35,8 +35,8 @@ class MoveableObject extends DrawableObject {
     playAnimation(arr) {
         if (!isPaused) {
             if (arr !== this.currentAnimationArray) {
-                this.currentImage = 0; // Setzt currentImage zurück, wenn das Array wechselt
-                this.currentAnimationArray = arr; // Aktualisiert das aktuelle Array
+                this.currentImage = 0; // Resets currentImage when the array changes
+                this.currentAnimationArray = arr; // Updates the current array
             }
             let i = this.currentImage % arr.length;
             let path = arr[i];
@@ -57,7 +57,6 @@ class MoveableObject extends DrawableObject {
     }
 
     applyGravity() {
-        // this.swimming_sound.pause();
         setInterval(() => {
             if (!isPaused && !this.isDead()) {
                 if (this.y < 220 || this.speedY > 0) {
@@ -67,7 +66,6 @@ class MoveableObject extends DrawableObject {
                     }
                     this.y -= this.speedY;
                     this.resetTimeToSleep();
-                    // this.swimming_sound.play();
                 } else if (!world.character.keyboard.up) {
                     this.speedY = 0;
                 }

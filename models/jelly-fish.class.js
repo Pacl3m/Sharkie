@@ -19,6 +19,13 @@ class JellyFish extends MoveableObject {
 
     jellyfish_gets_hit_sound = new Audio('audio/jeelyfishGetsHit.mp3');
 
+    /**
+    * Creates a new JellyFish enemy with flowing and swimming animations.
+    * @constructor
+    * @param {number} x - The initial x-coordinate of the JellyFish.
+    * @param {number} y - The initial y-coordinate of the JellyFish.
+    * @param {number} endY - The target y-coordinate for the turning behavior.
+    */
     constructor(x, y, endY) {
         super().loadImage('img/2.Enemy/2 Jelly fish/S｣per dangerous/Pink 1.png');
         this.loadImages(this.images_swim);
@@ -26,38 +33,55 @@ class JellyFish extends MoveableObject {
 
         this.x = x;
         this.y = y;
-        this.animateSwim(endY);
+        this.animateFlowing(endY);
+        this.animateSwim();
     }
 
-    animateSwim(turnY) {
+    /**
+    * Animates the flowing behavior of the JellyFish.
+    * @param {number} turnY - The target y-coordinate for the turning behavior.
+    * @function
+    */
+    animateFlowing(turnY) {
         let turn = 0;
         this.intervall1 = setInterval(() => {
             if (!isPaused) {
-                if (this.energy > 50) {
+                if (this.energy > 0) {
                     turn = this.animateTurn(turn, turnY);
-                }
-                else if (this.energy <= 0) {
+                } else {
                     this.moveUp(2);
                 }
-            }            
+            }
         }, 1000 / 60);
+    }
+
+    /**
+    * Animates the swimming behavior of the JellyFish.
+    * @function
+    */
+    animateSwim() {
         setInterval(() => {
-            if (this.energy <= 0) {
-                this.playAnimation(this.images_dead);
-            } else if (this.energy > 0) {
+            if (this.energy > 0) {
                 this.playAnimation(this.images_swim);
+            } else {
+                this.playAnimation(this.images_dead);
             }
         }, 200);
     }
 
+    /**
+    * Animates the turning behavior of the JellyFish.
+    * @param {number} turn - The current turn value.
+    * @param {number} turnX - The target turn value.
+    * @returns {number} The updated turn value.
+    * @function
+    */
     animateTurn(turn, turnX) {
         if (turn < turnX) {
             this.moveUp(this.speed);
             turn += this.speed
-            // this.otherDirection = false;
         } else if (turn < turnX * 2) {
             this.moveDown(this.speed);
-            // this.otherDirection = true;
             turn += this.speed
         } else {
             turn = 0;
