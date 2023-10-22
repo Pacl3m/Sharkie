@@ -81,6 +81,7 @@ function showInstruction() {
         <div class="instructionRow"><div class="arrowKeyImage keyImage"></div><h2>MOVE SHARKIE</h2></div>
         <div class="instructionRow"><div class="spaceKeyImage keyImage"></div><h2>FIN SLAP</h2></div>
         <div class="instructionRow"><div class="dKeyImage keyImage"></div><h2>BUBBLE ATTACK</h2></div>
+        <a href="https://www.flaticon.com/de/kostenlose-icons/home-button" title="home button Icons">Home button Icons erstellt von hqrloveq - Flaticon</a>
     </div> `
 };
 
