@@ -14,19 +14,32 @@ class PoisenBar extends DrawableObject {
         'img/4. Marcadores/green/poisoned bubbles/100_ copia 3.png',
     ];
 
+    /**
+     * Constructor for creating a PoisonBubble object.
+     * @constructor
+     */
     constructor() {
         super().loadImage('img/4. Marcadores/green/poisoned bubbles/0_ copia 2.png');
         this.loadImages(this.images_poisen);
         this.setBottles(this.bottles);
     }
 
+    /**
+     * Sets the number of poison bottles and updates the image of the bubble accordingly.
+     * @param {number} bottles - The number of poison bottles.
+     * @returns {void}
+     */
     setBottles(bottles) {
         this.bottles = bottles;
-        let path = this.images_poisen[this.calcutateBottles()]
+        let path = this.images_poisen[this.calculateBottles()];
         this.img = this.imageCache[path];
     }
 
-    calcutateBottles() {
+    /**
+     * Calculates the index for the image of the bubble based on the number of bottles.
+     * @returns {number} - The index for the image.
+     */
+    calculateBottles() {
         if (this.bottles === 10) {
             return 5;
         } else if (this.bottles > 7) {

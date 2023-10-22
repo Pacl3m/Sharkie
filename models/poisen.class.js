@@ -15,6 +15,11 @@ class Poisens extends MoveableObject {
 
     pick_up_poisen_sound = new Audio('audio/pickUpPoisen.mp3');
 
+    /**
+    * Constructor for creating a Poison object.
+    * @constructor
+    * @param {number} x - The x-coordinate of the Poison object.
+    */
     constructor(x) {
         super().loadImage('img/4. Marcadores/Posiขn/Animada/1.png');
         this.loadImages(this.images_poisens);
@@ -24,6 +29,10 @@ class Poisens extends MoveableObject {
         this.setPoisens();
     }
 
+    /**
+    * Sets up the animation for the Poison object.
+    * @returns {void}
+    */
     setPoisens() {
         setInterval(() => {
             this.playAnimation(this.images_poisens);

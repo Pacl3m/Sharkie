@@ -313,7 +313,7 @@ function handleBubbleAttack() {
     dKeyLocked = true;
     setTimeout(() => {
         keyboard.D = false;
-    }, 500);
+    }, 450);
     setTimeout(() => {
         dKeyLocked = false;
     }, 3000); // pause between the bubble Attack

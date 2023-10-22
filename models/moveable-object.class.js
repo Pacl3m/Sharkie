@@ -16,22 +16,47 @@ class MoveableObject extends DrawableObject {
     whale_died_sound = new Audio('audio/whaleDied.mp3');
 
 
+    /**
+    * Moves the object upwards.
+    * @param {number} speed - The speed at which the object moves.
+    * @returns {void}
+    */
     moveUp(speed) {
         this.y -= speed;
     }
 
+    /**
+    * Moves the object downwards.
+    * @param {number} speed - The speed at which the object moves.
+    * @returns {void}
+    */
     moveDown(speed) {
         this.y += speed;
     }
 
+    /**
+    * Moves the object to the right.
+    * @param {number} speed - The speed at which the object moves.
+    * @returns {void}
+    */
     moveRight(speed) {
         this.x += speed;
     }
 
+    /**
+    * Moves the object to the left.
+    * @param {number} speed - The speed at which the object moves.
+    * @returns {void}
+    */
     moveLeft(speed) {
         this.x -= speed;
     }
 
+    /**
+    * Plays an animation based on the provided array of image paths.
+    * @param {string[]} arr - Array of image paths representing the frames of the animation.
+    * @returns {void}
+    */
     playAnimation(arr) {
         if (!isPaused) {
             if (arr !== this.currentAnimationArray) {
@@ -43,9 +68,14 @@ class MoveableObject extends DrawableObject {
             this.img = this.imageCache[path];
             this.currentImage++;
         }
-
     }
 
+    /**
+    * Plays an attack animation based on the provided array of image paths.
+    * If the animation is complete, it resets to the first frame.
+    * @param {string[]} arr - Array of image paths representing the frames of the attack animation.
+    * @returns {void}
+    */
     playAttack(arr) {
         if (this.currentImage > arr.length) {
             this.currentImage = 0;
@@ -56,6 +86,10 @@ class MoveableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    /**
+    * Applies gravity to the object, causing it to fall or rise.
+    * @returns {void}
+    */
     applyGravity() {
         setInterval(() => {
             if (!isPaused && !this.isDead()) {
@@ -73,6 +107,11 @@ class MoveableObject extends DrawableObject {
         }, 1000 / 30)
     }
 
+    /**
+    * Checks if the object is colliding with another object.
+    * @param {Object} obj - The object to check for collision.
+    * @returns {boolean} - Returns true if a collision is detected, otherwise false.
+    */
     isColliding(obj) {
         if (this instanceof Character) {
             if (obj instanceof Endboss) {
@@ -108,6 +147,11 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+    /**
+    * Handles the collision and interaction with another object.
+    * @param {Object} obj - The object with which collision occurs.
+    * @returns {void}
+    */
     hit(obj) {
         if (!isPaused) {
             if (this instanceof Character && obj instanceof Fish && this.attacking) {
@@ -127,6 +171,11 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+    /**
+    * Handles the action when the character picks up an object.
+    * @param {Object} obj - The object being picked up.
+    * @returns {void}
+    */
     characterPicksUp(obj) {
         if (obj instanceof Coins && !mute) {
             obj.pick_up_coin_sound.play();
@@ -135,6 +184,11 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+    /**
+    * Handles the bubble attack interaction with another object.
+    * @param {Object} obj - The object being attacked.
+    * @returns {void}
+    */
     bubbleAttack(obj) {
         if (obj instanceof Fish) {
             if (obj.energy > 50) {
@@ -157,6 +211,11 @@ class MoveableObject extends DrawableObject {
         this.hideObj();
     }
 
+    /**
+    * Handles the action when the character gets damaged.
+    * @param {Object} obj - The object causing the damage.
+    * @returns {void}
+    */
     characterGetsDamage(obj) {
         this.energy -= 0.6;
         if (this.energy < 0) {
@@ -171,21 +230,37 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+    /**
+    * Hides the object by setting its x position and width to zero.
+    * @returns {void}
+    */
     hideObj() {
         this.x = 0;
         this.width = 0;
     }
 
+    /**
+    * Checks if the character is currently hurt based on the last hit timestamp.
+    * @returns {boolean} - True if hurt, false otherwise.
+    */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 1;
     }
 
+    /**
+    * Checks if the character is dead based on its energy level.
+    * @returns {boolean} - True if dead, false otherwise.
+    */
     isDead() {
         return this.energy === 0;
     }
 
+    /**
+    * Checks if the character is sleeping based on its position and inactivity time.
+    * @returns {boolean} - True if sleeping, false otherwise.
+    */
     isSleeping() {
         if (this.y > 210) {
             let timepassed = new Date().getTime() - this.lastMove;
@@ -194,8 +269,12 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+    
+    /**
+    * Animates the game over sequence.
+    * @returns {void}
+    */
     animateGameOver() {
-        // toggleFullscreen();
         this.gameover_sound.play();
         this.playAnimation(this.images_dead_poisoned);
         pauseButton.disabled = true;
@@ -208,9 +287,11 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+    /**
+    * Animates the winning sequence.
+    * @returns {void}
+    */
     animateWinning() {
-        // this.whale_died_sound.play();
-        // toggleFullscreen();
         this.winning_sound.play();
         this.playAnimation(this.images_dead);
         if (this.currentImage > this.images_dead.length) {

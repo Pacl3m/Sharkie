@@ -14,19 +14,31 @@ class StatusBar extends DrawableObject {
         'img/4. Marcadores/green/Life/100_  copia 2.png',
     ];
 
-
+    /**
+    * Constructor for creating a Life object.
+    * @constructor
+    */
     constructor() {
         super().loadImage('img/4. Marcadores/green/Life/0_  copia 3.png');
         this.loadImages(this.images_life);
         this.setPercentage(this.percentage);
     }
 
+    /**
+    * Sets the percentage for the Life object.
+    * @param {number} percentage - The percentage value for the Life object.
+    * @returns {void}
+    */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.images_life[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+    * Resolves the image index based on the percentage value.
+    * @returns {number} The index corresponding to the percentage range.
+    */
     resolveImageIndex() {
         if (this.percentage === 100) {
             return 5;
@@ -42,10 +54,4 @@ class StatusBar extends DrawableObject {
             return 0;
         }
     }
-
-    // showStatusBar() {
-    //     setInterval(() => {
-    //         this.loadImage()
-    //     }, 200);
-    // }
 }
