@@ -2,7 +2,7 @@ class Poisens extends MoveableObject {
     width = 40;
     height = this.width / 0.73;
 
-    images_poisens = [
+    IMAGES_POISEN = [
         'img/4. Marcadores/Posiขn/Animada/1.png',
         'img/4. Marcadores/Posiขn/Animada/2.png',
         'img/4. Marcadores/Posiขn/Animada/3.png',
@@ -22,20 +22,21 @@ class Poisens extends MoveableObject {
     */
     constructor(x) {
         super().loadImage('img/4. Marcadores/Posiขn/Animada/1.png');
-        this.loadImages(this.images_poisens);
+        this.loadImages(this.IMAGES_POISEN);
         this.x = x;
         this.y = 50 + Math.random() * 300;
 
         this.setPoisens();
     }
 
+    
     /**
     * Sets up the animation for the Poison object.
     * @returns {void}
     */
     setPoisens() {
         setInterval(() => {
-            this.playAnimation(this.images_poisens);
+            this.playAnimation(this.IMAGES_POISEN);
         }, 200);
     }
 }

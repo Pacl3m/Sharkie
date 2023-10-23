@@ -25,6 +25,7 @@ class MoveableObject extends DrawableObject {
         this.y -= speed;
     }
 
+
     /**
     * Moves the object downwards.
     * @param {number} speed - The speed at which the object moves.
@@ -33,6 +34,7 @@ class MoveableObject extends DrawableObject {
     moveDown(speed) {
         this.y += speed;
     }
+
 
     /**
     * Moves the object to the right.
@@ -43,6 +45,7 @@ class MoveableObject extends DrawableObject {
         this.x += speed;
     }
 
+
     /**
     * Moves the object to the left.
     * @param {number} speed - The speed at which the object moves.
@@ -51,6 +54,7 @@ class MoveableObject extends DrawableObject {
     moveLeft(speed) {
         this.x -= speed;
     }
+
 
     /**
     * Plays an animation based on the provided array of image paths.
@@ -70,6 +74,7 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+
     /**
     * Plays an attack animation based on the provided array of image paths.
     * If the animation is complete, it resets to the first frame.
@@ -85,6 +90,7 @@ class MoveableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+
 
     /**
     * Applies gravity to the object, causing it to fall or rise.
@@ -106,6 +112,7 @@ class MoveableObject extends DrawableObject {
             }
         }, 1000 / 30)
     }
+
 
     /**
     * Checks if the object is colliding with another object.
@@ -147,6 +154,7 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+
     /**
     * Handles the collision and interaction with another object.
     * @param {Object} obj - The object with which collision occurs.
@@ -171,6 +179,7 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+
     /**
     * Handles the action when the character picks up an object.
     * @param {Object} obj - The object being picked up.
@@ -183,6 +192,7 @@ class MoveableObject extends DrawableObject {
             obj.pick_up_poisen_sound.play();
         }
     }
+
 
     /**
     * Handles the bubble attack interaction with another object.
@@ -211,6 +221,7 @@ class MoveableObject extends DrawableObject {
         this.hideObj();
     }
 
+
     /**
     * Handles the action when the character gets damaged.
     * @param {Object} obj - The object causing the damage.
@@ -230,6 +241,7 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+
     /**
     * Hides the object by setting its x position and width to zero.
     * @returns {void}
@@ -238,6 +250,7 @@ class MoveableObject extends DrawableObject {
         this.x = 0;
         this.width = 0;
     }
+
 
     /**
     * Checks if the character is currently hurt based on the last hit timestamp.
@@ -249,6 +262,7 @@ class MoveableObject extends DrawableObject {
         return timepassed < 1;
     }
 
+
     /**
     * Checks if the character is dead based on its energy level.
     * @returns {boolean} - True if dead, false otherwise.
@@ -256,6 +270,7 @@ class MoveableObject extends DrawableObject {
     isDead() {
         return this.energy === 0;
     }
+
 
     /**
     * Checks if the character is sleeping based on its position and inactivity time.
@@ -287,6 +302,7 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+    
     /**
     * Animates the winning sequence.
     * @returns {void}

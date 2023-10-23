@@ -5,7 +5,7 @@ class StatusBar extends DrawableObject {
     width = this.height * 3.76;
     percentage = 100;
 
-    images_life = [
+    IMAGES_LIFE = [
         'img/4. Marcadores/green/Life/0_  copia 3.png',
         'img/4. Marcadores/orange/20_ copia 2.png',
         'img/4. Marcadores/green/Life/40_  copia 3.png',
@@ -20,9 +20,10 @@ class StatusBar extends DrawableObject {
     */
     constructor() {
         super().loadImage('img/4. Marcadores/green/Life/0_  copia 3.png');
-        this.loadImages(this.images_life);
+        this.loadImages(this.IMAGES_LIFE);
         this.setPercentage(this.percentage);
     }
+
 
     /**
     * Sets the percentage for the Life object.
@@ -31,10 +32,11 @@ class StatusBar extends DrawableObject {
     */
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.images_life[this.resolveImageIndex()];
+        let path = this.IMAGES_LIFE[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    
     /**
     * Resolves the image index based on the percentage value.
     * @returns {number} The index corresponding to the percentage range.

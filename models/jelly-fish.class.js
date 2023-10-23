@@ -4,13 +4,13 @@ class JellyFish extends MoveableObject {
     speed = 1;
     counter = 0;
 
-    images_swim = [
+    IMAGES_SWIM = [
         'img/2.Enemy/2 Jelly fish/S｣per dangerous/Pink 1.png',
         'img/2.Enemy/2 Jelly fish/S｣per dangerous/Pink 2.png',
         'img/2.Enemy/2 Jelly fish/S｣per dangerous/Pink 3.png',
         'img/2.Enemy/2 Jelly fish/S｣per dangerous/Pink 4.png',
     ];
-    images_dead = [
+    IMAGES_DEAD = [
         'img/2.Enemy/2 Jelly fish/Dead/Pink/P1.png',
         'img/2.Enemy/2 Jelly fish/Dead/Pink/P2.png',
         'img/2.Enemy/2 Jelly fish/Dead/Pink/P3.png',
@@ -28,14 +28,15 @@ class JellyFish extends MoveableObject {
     */
     constructor(x, y, endY) {
         super().loadImage('img/2.Enemy/2 Jelly fish/S｣per dangerous/Pink 1.png');
-        this.loadImages(this.images_swim);
-        this.loadImages(this.images_dead);
+        this.loadImages(this.IMAGES_SWIM);
+        this.loadImages(this.IMAGES_DEAD);
 
         this.x = x;
         this.y = y;
         this.animateFlowing(endY);
         this.animateSwim();
     }
+
 
     /**
     * Animates the flowing behavior of the JellyFish.
@@ -55,6 +56,7 @@ class JellyFish extends MoveableObject {
         }, 1000 / 60);
     }
 
+
     /**
     * Animates the swimming behavior of the JellyFish.
     * @function
@@ -62,13 +64,14 @@ class JellyFish extends MoveableObject {
     animateSwim() {
         setInterval(() => {
             if (this.energy > 0) {
-                this.playAnimation(this.images_swim);
+                this.playAnimation(this.IMAGES_SWIM);
             } else {
-                this.playAnimation(this.images_dead);
+                this.playAnimation(this.IMAGES_DEAD);
             }
         }, 200);
     }
 
+    
     /**
     * Animates the turning behavior of the JellyFish.
     * @param {number} turn - The current turn value.

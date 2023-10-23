@@ -5,7 +5,7 @@ class PoisenBar extends DrawableObject {
     width = this.height * 3.76;
     bottles = 0;
 
-    images_poisen = [
+    IMAGES_POISENBAR = [
         'img/4. Marcadores/green/poisoned bubbles/0_ copia 2.png',
         'img/4. Marcadores/green/poisoned bubbles/20_ copia 3.png',
         'img/4. Marcadores/green/poisoned bubbles/40_ copia 2.png',
@@ -20,9 +20,10 @@ class PoisenBar extends DrawableObject {
      */
     constructor() {
         super().loadImage('img/4. Marcadores/green/poisoned bubbles/0_ copia 2.png');
-        this.loadImages(this.images_poisen);
+        this.loadImages(this.IMAGES_POISENBAR);
         this.setBottles(this.bottles);
     }
+
 
     /**
      * Sets the number of poison bottles and updates the image of the bubble accordingly.
@@ -31,9 +32,10 @@ class PoisenBar extends DrawableObject {
      */
     setBottles(bottles) {
         this.bottles = bottles;
-        let path = this.images_poisen[this.calculateBottles()];
+        let path = this.IMAGES_POISENBAR[this.calculateBottles()];
         this.img = this.imageCache[path];
     }
+    
 
     /**
      * Calculates the index for the image of the bubble based on the number of bottles.

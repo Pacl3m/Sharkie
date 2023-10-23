@@ -5,7 +5,7 @@ class CoinsBar extends DrawableObject {
     width = this.height * 3.76;
     coins = 0;
 
-    images_coins = [
+    IMAGES_COINSBAR = [
         'img/4. Marcadores/green/Coin/0_  copia 4.png',
         'img/4. Marcadores/green/Coin/20_  copia 2.png',
         'img/4. Marcadores/green/Coin/40_  copia 4.png',
@@ -21,9 +21,10 @@ class CoinsBar extends DrawableObject {
     */
     constructor() {
         super().loadImage('img/4. Marcadores/green/Coin/100_ copia 4.png');
-        this.loadImages(this.images_coins);
+        this.loadImages(this.IMAGES_COINSBAR);
         this.setCoinsStatus(this.coins);
     }
+
 
     /**
     * Sets the status of coins based on the provided array.
@@ -33,10 +34,11 @@ class CoinsBar extends DrawableObject {
     */
     setCoinsStatus(coins) {
         this.coins = coins;
-        let path = this.images_coins[this.calcutateCoins()];
+        let path = this.IMAGES_COINSBAR[this.calcutateCoins()];
         this.img = this.imageCache[path];
     }
 
+    
     /**
     * Calculates the coin index based on the number of coins.
     * @function

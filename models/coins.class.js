@@ -2,7 +2,7 @@ class Coins extends MoveableObject {
     width = 40;
     height = this.width;
 
-    images_coins = [
+    IMAGES_COINS = [
         'img/4. Marcadores/1. Coins/1.png',
         'img/4. Marcadores/1. Coins/2.png',
         'img/4. Marcadores/1. Coins/3.png',
@@ -17,19 +17,20 @@ class Coins extends MoveableObject {
     */
     constructor(x) {
         super().loadImage('img/4. Marcadores/1. Coins/1.png');
-        this.loadImages(this.images_coins);
+        this.loadImages(this.IMAGES_COINS);
         this.x = x;
         this.y = 50 + Math.random() * 300;
 
         this.setCoin()
     }
 
+    
     /**
      * Sets the coin animation to play at regular intervals.
      */
     setCoin() {
         setInterval(() => {
-            this.playAnimation(this.images_coins);
+            this.playAnimation(this.IMAGES_COINS);
         }, 200);
     }
 }

@@ -8,7 +8,7 @@ class Endboss extends MoveableObject {
     animateOrder = 0;
 
 
-    images_swim = [
+    IMAGES_SWIM = [
         'img/2.Enemy/3 Final Enemy/2.floating/1.png',
         'img/2.Enemy/3 Final Enemy/2.floating/2.png',
         'img/2.Enemy/3 Final Enemy/2.floating/3.png',
@@ -23,20 +23,20 @@ class Endboss extends MoveableObject {
         'img/2.Enemy/3 Final Enemy/2.floating/12.png',
         'img/2.Enemy/3 Final Enemy/2.floating/13.png',
     ];
-    images_hurt = [
+    IMAGES_HURT = [
         'img/2.Enemy/3 Final Enemy/Hurt/1.png',
         'img/2.Enemy/3 Final Enemy/Hurt/2.png',
         'img/2.Enemy/3 Final Enemy/Hurt/3.png',
         'img/2.Enemy/3 Final Enemy/Hurt/4.png',
     ];
-    images_dead = [
+    IMAGES_DEAD = [
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
     ];
-    images_attack = [
+    IMAGES_ATTACK = [
         'img/2.Enemy/3 Final Enemy/Attack/1.png',
         'img/2.Enemy/3 Final Enemy/Attack/2.png',
         'img/2.Enemy/3 Final Enemy/Attack/3.png',
@@ -44,7 +44,7 @@ class Endboss extends MoveableObject {
         'img/2.Enemy/3 Final Enemy/Attack/5.png',
         'img/2.Enemy/3 Final Enemy/Attack/6.png',
     ];
-    images_spawning = [
+    IMAGES_SPAWNING = [
         'img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         'img/2.Enemy/3 Final Enemy/1.Introduce/2.png',
         'img/2.Enemy/3 Final Enemy/1.Introduce/3.png',
@@ -74,18 +74,20 @@ class Endboss extends MoveableObject {
         this.enableSoundEndboss();
     }
 
+
      /**
     * Loads all images for different animations of the endboss.
     * @function
     * @returns {void}
     */
     loadEndbossImages() {
-        this.loadImages(this.images_swim);
-        this.loadImages(this.images_hurt);
-        this.loadImages(this.images_dead);
-        this.loadImages(this.images_attack);
-        this.loadImages(this.images_spawning);
+        this.loadImages(this.IMAGES_SWIM);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_SPAWNING);
     }
+
 
     /**
     * Enables sound effects and manages their playback.
@@ -107,6 +109,7 @@ class Endboss extends MoveableObject {
         }, 200);
     }
 
+
     /**
     * Animates the behavior of the object based on various conditions.
     * @function
@@ -117,21 +120,21 @@ class Endboss extends MoveableObject {
             this.attacking = false;
             if (!isPaused) {
                 if (this.animateOrder < 10 && this.hadFirstContact) {
-                    this.playAnimation(this.images_spawning);
+                    this.playAnimation(this.IMAGES_SPAWNING);
                 } else if (this.hadFirstContact) {
                     if (this.isHurt()) {
-                        this.playAnimation(this.images_hurt);
+                        this.playAnimation(this.IMAGES_HURT);
                     } else if (this.isDead()) {
                         this.animateWinning();
                     } else if (this.animateOrder > 20) {
-                        this.playAnimation(this.images_attack);
+                        this.playAnimation(this.IMAGES_ATTACK);
                         this.attacking = true;
                         this.moveLeft(40);
                         if (this.animateOrder > 25) {
                             this.animateOrder = 10;
                         }
                     } else {
-                        this.playAnimation(this.images_swim);
+                        this.playAnimation(this.IMAGES_SWIM);
                         if (this.x < 1960) {
                             this.moveRight(10);
                         }
@@ -143,6 +146,7 @@ class Endboss extends MoveableObject {
         }, 250)
     }
 
+    
     /**
     * Checks if the character has made first contact with the object and updates properties accordingly.
     * @function

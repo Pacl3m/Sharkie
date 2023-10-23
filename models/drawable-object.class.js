@@ -14,6 +14,7 @@ class DrawableObject {
         this.img.src = path;
     }
 
+
     /**
     * Loads multiple images from an array of paths and stores them in the image cache.
     *
@@ -28,6 +29,7 @@ class DrawableObject {
         });
     }
 
+
     /**
     * Draws a blue outlined rectangle using the provided 2D context.
     *
@@ -39,6 +41,7 @@ class DrawableObject {
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'blue';
     }
+    
 
     /**
     * Draws a frame around the object using the provided 2D context.

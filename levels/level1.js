@@ -24,6 +24,7 @@ function loadLevel1() {
             new Fish(1400, 280, 100),
             new Endboss(),
         ];
+        
         level1.backgroundObjects = [
             /**
              * Represents a background.
@@ -52,6 +53,7 @@ function loadLevel1() {
             new Background('img/3. Background/Layers/3.Fondo 1/D2.png', 719 * 3),
             new Background('img/3. Background/Layers/2. Floor/D2.png', 719 * 3),
         ];
+
         level1.coins = [
             /**
              * Represents a coin.
@@ -70,6 +72,7 @@ function loadLevel1() {
             new Coins(1700),
             new Coins(1800),
         ];
+
         level1.poisenBottles = [
             /**
             * Represents a poisen bottle.

@@ -33,6 +33,7 @@ function init() {
     setButtons();
 }
 
+
 /**
  * Returns the HTML content for the game.
  * @function
@@ -67,6 +68,7 @@ function returnContentHtml() {
                 <canvas id="canvas" width="720" height="480"></canvas>`
 };
 
+
 /**
  * Shows the game instructions.
  * @function
@@ -84,6 +86,7 @@ function showInstruction() {
         <a href="https://www.flaticon.com/de/kostenlose-icons/home-button" title="home button Icons">Home button Icons erstellt von hqrloveq - Flaticon</a>
     </div> `
 };
+
 
 /**
  * Toggles fullscreen mode.
@@ -123,12 +126,18 @@ function checkFullscreen() {
     }
 }
 
+
+/**
+ * Event listener for fullscreen change event.
+ * @param {Event} event - The fullscreen change event.
+ */
 document.addEventListener('fullscreenchange', (event) => {
     if (!document.fullscreenElement) {
         fullscreenActive = false;
         checkFullscreen();
     }
 });
+
 
 /**
  * Clears all intervals and timeouts.
@@ -141,6 +150,7 @@ function clearAllIntervall() {
         window.clearTimeout(i);
     }
 }
+
 
 /**
  * Restarts the game.
@@ -155,6 +165,7 @@ function restartGame() {
     checkFullscreen();
 }
 
+
 /**
  * Reloads the page.
  * @function
@@ -163,6 +174,7 @@ function restartGame() {
 function reloadPage() {
     location.reload();
 }
+
 
 /**
  * Plays the background sound.
@@ -179,6 +191,7 @@ function playBackgroundSound() {
     }, 500);
 }
 
+
 /**
  * Mutes the game audio.
  * @function
@@ -188,6 +201,7 @@ function muteGame() {
     mute = !mute;
     document.getElementById('muteButton').classList.toggle('mute');
 }
+
 
 /**
  * Pauses or unpauses the game.
@@ -207,6 +221,7 @@ function pauseGame() {
         world.playBackgroundSound();
     }
 }
+
 
 /**
  * Handles keydown events.
@@ -237,6 +252,7 @@ window.addEventListener('keydown', (event) => {
     }
 });
 
+
 /**
  * Handles keyup events.
  * @function
@@ -262,6 +278,7 @@ window.addEventListener('keyup', (event) => {
         };
     }
 })
+
 
 /**
  * Sets up touch events for buttons.
@@ -304,6 +321,7 @@ function setButtons() {
     });
 }
 
+
 /**
  * Handles the bubble attack action.
  * @function
@@ -319,6 +337,7 @@ function handleBubbleAttack() {
         dKeyLocked = false;
     }, 1500); // pause between the bubble Attack
 }
+
 
 /**
  * Handles the fin slap action.

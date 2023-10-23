@@ -9,7 +9,7 @@ class Character extends MoveableObject {
     world;
     timeToSleep = 0;
 
-    images_idle = [
+    IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
         'img/1.Sharkie/1.IDLE/3.png',
@@ -29,7 +29,7 @@ class Character extends MoveableObject {
         'img/1.Sharkie/1.IDLE/17.png',
         'img/1.Sharkie/1.IDLE/18.png',
     ];
-    images_swim = [
+    IMAGES_SWIM = [
         'img/1.Sharkie/3.Swim/1.png',
         'img/1.Sharkie/3.Swim/2.png',
         'img/1.Sharkie/3.Swim/3.png',
@@ -37,7 +37,7 @@ class Character extends MoveableObject {
         'img/1.Sharkie/3.Swim/5.png',
         'img/1.Sharkie/3.Swim/6.png',
     ];
-    images_fin_slap = [
+    IMAGES_FIN_SLAP = [
         'img/1.Sharkie/4.Attack/Fin slap/1.png',
         'img/1.Sharkie/4.Attack/Fin slap/4.png',
         'img/1.Sharkie/4.Attack/Fin slap/5.png',
@@ -45,7 +45,7 @@ class Character extends MoveableObject {
         'img/1.Sharkie/4.Attack/Fin slap/7.png',
         'img/1.Sharkie/4.Attack/Fin slap/8.png',
     ];
-    images_bubble_attack = [
+    IMAGES_BUBBLE_ATTACK = [
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png',
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png',
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png',
@@ -55,7 +55,7 @@ class Character extends MoveableObject {
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png',
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png',
     ];
-    images_poisen_attack = [
+    IMAGES_POISEN_ATTACK = [
         'img/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png',
         'img/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png',
         'img/1.Sharkie/4.Attack/Bubble trap/For Whale/3.png',
@@ -65,18 +65,18 @@ class Character extends MoveableObject {
         'img/1.Sharkie/4.Attack/Bubble trap/For Whale/7.png',
         'img/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png',
     ];
-    images_hurt_poisoned = [
+    IMAGES_HURT_POISONED = [
         'img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
     ];
-    images_hurt_shocked = [
+    IMAGES_HURT_SHOCKED = [
         'img/1.Sharkie/5.Hurt/2.Electric shock/1.png',
         'img/1.Sharkie/5.Hurt/2.Electric shock/2.png',
         'img/1.Sharkie/5.Hurt/2.Electric shock/3.png',
     ];
-    images_dead_poisoned = [
+    IMAGES_DEAD_POISONED = [
         'img/1.Sharkie/6.dead/1.Poisoned/1.png',
         'img/1.Sharkie/6.dead/1.Poisoned/2.png',
         'img/1.Sharkie/6.dead/1.Poisoned/3.png',
@@ -90,7 +90,7 @@ class Character extends MoveableObject {
         'img/1.Sharkie/6.dead/1.Poisoned/11.png',
         'img/1.Sharkie/6.dead/1.Poisoned/12.png',
     ];
-    images_long_idle_start = [
+    IMAGES_LONG_IDLE_START = [
         'img/1.Sharkie/2.Long_IDLE/i1.png',
         'img/1.Sharkie/2.Long_IDLE/I2.png',
         'img/1.Sharkie/2.Long_IDLE/I3.png',
@@ -102,7 +102,7 @@ class Character extends MoveableObject {
         'img/1.Sharkie/2.Long_IDLE/I9.png',
         'img/1.Sharkie/2.Long_IDLE/I10.png',
     ];
-    images_long_idle_end = [
+    IMAGES_LONG_IDLE_END = [
         'img/1.Sharkie/2.Long_IDLE/I11.png',
         'img/1.Sharkie/2.Long_IDLE/I12.png',
         'img/1.Sharkie/2.Long_IDLE/I13.png',
@@ -131,23 +131,25 @@ class Character extends MoveableObject {
         this.enableSound();
     }
 
+
     /**
     * Loads all images for different animations of the character.
     * @function
     * @returns {void}
     */
     loadCharacterImages() {
-        this.loadImages(this.images_idle);
-        this.loadImages(this.images_swim);
-        this.loadImages(this.images_fin_slap);
-        this.loadImages(this.images_hurt_poisoned);
-        this.loadImages(this.images_dead_poisoned);
-        this.loadImages(this.images_bubble_attack);
-        this.loadImages(this.images_poisen_attack);
-        this.loadImages(this.images_hurt_shocked);
-        this.loadImages(this.images_long_idle_start);
-        this.loadImages(this.images_long_idle_end);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_SWIM);
+        this.loadImages(this.IMAGES_FIN_SLAP);
+        this.loadImages(this.IMAGES_HURT_POISONED);
+        this.loadImages(this.IMAGES_DEAD_POISONED);
+        this.loadImages(this.IMAGES_BUBBLE_ATTACK);
+        this.loadImages(this.IMAGES_POISEN_ATTACK);
+        this.loadImages(this.IMAGES_HURT_SHOCKED);
+        this.loadImages(this.IMAGES_LONG_IDLE_START);
+        this.loadImages(this.IMAGES_LONG_IDLE_END);
     }
+
 
     /**
     * Initiates the swimming animation.
@@ -177,6 +179,7 @@ class Character extends MoveableObject {
         }, 1000 / 30);
     }
 
+
     /**
     * Initiates another type of animation.
     * @function
@@ -186,24 +189,25 @@ class Character extends MoveableObject {
         setInterval(() => {
             if (!isPaused) {
                 if (this.isHurt() && this.isShocked) {
-                    this.playAnimation(this.images_hurt_shocked);
+                    this.playAnimation(this.IMAGES_HURT_SHOCKED);
                 } else if (this.isHurt() && !this.isShocked) {
-                    this.playAnimation(this.images_hurt_poisoned);
+                    this.playAnimation(this.IMAGES_HURT_POISONED);
                 } else if (this.isSleeping() && !this.isDead() && this.noKeyisActive()) {
                     this.animateSleep();
                 } else if (this.isDead()) {
                     this.animateGameOver();
                 } else {
                     if (this.noKeyisActive()) {
-                        this.playAnimation(this.images_idle);
+                        this.playAnimation(this.IMAGES_IDLE);
                     } else if (!this.noKeyisActive()) {
-                        this.playAnimation(this.images_swim);
+                        this.playAnimation(this.IMAGES_SWIM);
                     }
                 }
             }
         }, 200);
         this.lastMove = new Date().getTime();
     }
+
 
     /**
     * Enables sound effects and manages their playback.
@@ -228,6 +232,7 @@ class Character extends MoveableObject {
         }, 200);
     }
 
+
     /**
     * Pauses all sound effects.
     * @function
@@ -239,6 +244,7 @@ class Character extends MoveableObject {
         this.gethit_sound.pause();
     }
 
+
     /**
     * Animates the character when sleeping.
     * @function
@@ -246,12 +252,13 @@ class Character extends MoveableObject {
     */
     animateSleep() {
         if (this.timeToSleep < 9) {
-            this.playAnimation(this.images_long_idle_start);
+            this.playAnimation(this.IMAGES_LONG_IDLE_START);
         } else {
-            this.playAnimation(this.images_long_idle_end);
+            this.playAnimation(this.IMAGES_LONG_IDLE_END);
         }
         this.timeToSleep++;
     }
+
 
     /**
     * Animates the character's attacks.
@@ -264,19 +271,19 @@ class Character extends MoveableObject {
             this.attacking = false;
             if (this.world.keyboard.D && !this.otherDirection) {
                 if (world.poisenbar.bottles > 0 && (this.x > 1400 || world.hadFirstAttack)) {
-                    this.playAttack(this.images_poisen_attack);
+                    this.playAttack(this.IMAGES_POISEN_ATTACK);
                 } else {
-                    this.playAttack(this.images_bubble_attack);
+                    this.playAttack(this.IMAGES_BUBBLE_ATTACK);
                 }
             }
             if (this.world.keyboard.space && !this.isHurt()) {
-                this.playAttack(this.images_fin_slap);
+                this.playAttack(this.IMAGES_FIN_SLAP);
                 this.attacking = true;
             }
             this.resetTimeToSleep();
         }, 100);
-
     }
+
 
     /**
     * Checks if no movement keys are active.
@@ -286,6 +293,7 @@ class Character extends MoveableObject {
     noKeyisActive() {
         return !this.world.keyboard.right && !this.world.keyboard.left && !this.world.keyboard.up && !this.world.keyboard.down;
     }
+    
 
     /**
     * Resets the sleep timer when any movement key or attack key is active.

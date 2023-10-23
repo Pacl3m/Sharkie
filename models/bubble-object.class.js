@@ -24,6 +24,7 @@ class BubbleObject extends MoveableObject {
         this.throw();
     }
 
+    
     /**
      * create a bubble and moved it after 120ms 7 pixel up and 1 pixel right 
      */
