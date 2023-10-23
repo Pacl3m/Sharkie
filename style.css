@@ -30,6 +30,7 @@ h1 {
 h2 {
     font-size: 40px;
 }
+
 h3 {
     margin: 0;
     color: white;
@@ -62,12 +63,12 @@ canvas {
 
 .menuButton {
     margin: 200px 92px;
-    padding: 0;
+    padding: 8px 0 0 0;
     height: 80px;
     width: 176px;
     border-radius: 24px;
     background-color: yellow;
-    font-size: 24px;
+    font-size: 20px;
     font-family: 'LuckiestGuy', sans-serif;
     cursor: pointer;
     word-wrap: break-word;
@@ -153,14 +154,14 @@ canvas {
 }
 
 .buttonSpace {
-    background-color: rgb(53,145,247);
+    background-color: rgb(53, 145, 247);
     width: 160px;
     margin-bottom: 2px;
     margin-right: 80px;
 }
 
 .buttonD {
-    background-color: rgb(53,145,247);
+    background-color: rgb(53, 145, 247);
     margin-bottom: 2px;
     margin-right: 4px;
 }
@@ -198,11 +199,14 @@ canvas {
     background-color: transparent;
     border-radius: 24px;
     bottom: 64px;
+    width: 0;
+    height: 0;
     z-index: -1;
     cursor: pointer;
 }
 
 #backToMenu {
+    height: 0;
     margin: 0 !important;
     position: absolute;
     transition: 0.5s;
@@ -223,7 +227,7 @@ canvas {
 }
 
 .instructionContent {
-    background-color: rgb(216 112 243 / 40%);
+    background-color: rgb(216 112 243 / 30%);
     width: 720px;
     height: 480px;
     border-radius: 20px;
@@ -259,6 +263,12 @@ canvas {
 
 .instructionContent a {
     color: black;
+    text-align: center;
+    transition: transform 0.3s
+}
+
+.instructionContent a:hover {
+    transform: scale(1.05);
 }
 
 /* responsive */
@@ -271,6 +281,7 @@ canvas {
     .content {
         height: 100vh;
     }
+
     .panelBottom {
         display: flex;
     }
@@ -295,5 +306,11 @@ canvas {
         height: 54px;
         width: 136px;
         font-size: 16px;
+    }
+}
+
+@media (max-height: 600px) {
+    .panelBottom {
+        display: flex;
     }
 }
