@@ -291,9 +291,9 @@ class MoveableObject extends DrawableObject {
     */
     animateGameOver() {
         this.gameover_sound.play();
-        this.playAnimation(this.images_dead_poisoned);
+        this.playAnimation(this.IMAGES_DEAD_POISONED);
         pauseButton.disabled = true;
-        if (this.currentImage > this.images_dead_poisoned.length) {
+        if (this.currentImage > this.IMAGES_DEAD_POISONED.length) {
             pauseGame();
             document.getElementById('gameoverOverlay').classList.add('zoomEffectGameover');
             setTimeout(() => {
@@ -302,15 +302,15 @@ class MoveableObject extends DrawableObject {
         }
     }
 
-    
+
     /**
     * Animates the winning sequence.
     * @returns {void}
     */
     animateWinning() {
         this.winning_sound.play();
-        this.playAnimation(this.images_dead);
-        if (this.currentImage > this.images_dead.length) {
+        this.playAnimation(this.IMAGES_DEAD);
+        if (this.currentImage > this.IMAGES_DEAD.length) {
             pauseGame();
             document.getElementById('winningOverlay').classList.add('zoomEffectGameover');
             setTimeout(() => {
