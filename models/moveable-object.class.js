@@ -200,7 +200,7 @@ class MoveableObject extends DrawableObject {
             obj.jellyfish_gets_hit_sound.play();
         }
         if (obj instanceof Endboss) {
-            if (obj.energy > 0 && !obj.attacking) {
+            if (obj.energy > 0 && !obj.attacking && obj.hadFirstContact) {
                 if (world.poisenbar.bottles > 0) {
                     obj.energy -= 10;
                 }

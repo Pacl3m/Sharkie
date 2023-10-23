@@ -317,7 +317,7 @@ function handleBubbleAttack() {
     }, 450);
     setTimeout(() => {
         dKeyLocked = false;
-    }, 3000); // pause between the bubble Attack
+    }, 1500); // pause between the bubble Attack
 }
 
 /**
