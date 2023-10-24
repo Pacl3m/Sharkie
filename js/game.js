@@ -19,6 +19,32 @@ let restart = false;
 let mute = true;
 let fullscreenActive = false;
 
+/**
+ * Toggles the overlay based on the window width.
+ * Displays the overlay if the window width is less than 700 pixels,
+ * otherwise hides it.
+ */
+function toggleOverlay() {
+    var overlay = document.getElementById('overlay');
+    if (window.innerWidth < 700) {
+        overlay.style.display = 'flex';
+    } else {
+        overlay.style.display = 'none';
+    }
+}
+
+
+/**
+ * Listen for window resize event to update the overlay visibility
+ */
+window.addEventListener('resize', toggleOverlay);
+
+
+/**
+ * Listen for window load event to initially set the overlay visibility
+ */
+window.addEventListener('load', toggleOverlay);
+
 
 /**
  * Initializes the game.
@@ -33,6 +59,7 @@ function init() {
     setButtons();
     checkIfMute();
 }
+
 
 /**
  * Checks if the game is muted and updates the mute button accordingly.
