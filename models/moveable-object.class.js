@@ -195,7 +195,9 @@ class MoveableObject extends DrawableObject {
         }
         if (obj instanceof JellyFish) {
             obj.energy -= 100;
-            obj.jellyfish_gets_hit_sound.play();
+            if (!mute) {
+                obj.jellyfish_gets_hit_sound.play();
+            }
         }
         if (obj instanceof Endboss) {
             if (obj.energy > 0 && !obj.attacking && obj.hadFirstContact) {
