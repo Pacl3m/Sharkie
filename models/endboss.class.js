@@ -1,11 +1,17 @@
 class Endboss extends MoveableObject {
     x = 1960;
-    // x = 300;
     y = -40;
     height = 450;
     width = this.height * 0.86;
     hadFirstContact = false;
     animateOrder = 0;
+
+    offset = {
+        top: 150,
+        bottom: 80,
+        left: 20,
+        right: 10,
+    };
 
 
     IMAGES_SWIM = [
@@ -75,11 +81,11 @@ class Endboss extends MoveableObject {
     }
 
 
-     /**
-    * Loads all images for different animations of the endboss.
-    * @function
-    * @returns {void}
-    */
+    /**
+   * Loads all images for different animations of the endboss.
+   * @function
+   * @returns {void}
+   */
     loadEndbossImages() {
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_HURT);
@@ -146,7 +152,7 @@ class Endboss extends MoveableObject {
         }, 250)
     }
 
-    
+
     /**
     * Checks if the character has made first contact with the object and updates properties accordingly.
     * @function

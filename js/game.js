@@ -16,7 +16,7 @@ let keyboard = new Keyboard();
 let dKeyLocked = false;
 let isPaused = false;
 let restart = false;
-let mute = false;
+let mute = true;
 let fullscreenActive = false;
 
 
@@ -31,6 +31,18 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     setButtons();
+    checkIfMute();
+}
+
+/**
+ * Checks if the game is muted and updates the mute button accordingly.
+ */
+function checkIfMute() {
+    if (mute) {
+        document.getElementById('muteButton').classList.add('mute');
+    } else {
+        document.getElementById('muteButton').classList.remove('mute');
+    }
 }
 
 

@@ -5,7 +5,6 @@ class DrawableObject {
 
     /**
     * Loads an image from the specified path.
-    *
     * @param {string} path - The path to the image.
     * @returns {void}
     */
@@ -17,7 +16,6 @@ class DrawableObject {
 
     /**
     * Loads multiple images from an array of paths and stores them in the image cache.
-    *
     * @param {string[]} arr - An array of image paths.
     * @returns {void}
     */
@@ -32,7 +30,6 @@ class DrawableObject {
 
     /**
     * Draws a blue outlined rectangle using the provided 2D context.
-    *
     * @param {CanvasRenderingContext2D} ctx - The 2D context of the canvas.
     * @returns {void}
     */
@@ -41,23 +38,22 @@ class DrawableObject {
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'blue';
     }
-    
+
 
     /**
     * Draws a frame around the object using the provided 2D context.
-    *
     * @param {CanvasRenderingContext2D} ctx - The 2D context of the canvas.
     * @returns {void}
     */
     drawFrame(ctx) {
         if (this instanceof Character) {
             this.drawLine(ctx);
-            ctx.rect(this.x + 30, this.y + 110, this.width - 65, this.height - 160);
+            ctx.rect(this.x + 40, this.y + 120, this.width - 75, this.height - 170);
             ctx.stroke();
         }
         if (this instanceof Endboss) {
             this.drawLine(ctx);
-            ctx.rect(this.x + 15, this.y + 120, this.width, this.height - 170);
+            ctx.rect(this.x + 20, this.y + 150, this.width - 30, this.height - 230);
             ctx.stroke();
         }
         if (this instanceof Fish) {

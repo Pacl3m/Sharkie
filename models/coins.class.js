@@ -24,7 +24,7 @@ class Coins extends MoveableObject {
         this.setCoin()
     }
 
-    
+
     /**
      * Sets the coin animation to play at regular intervals.
      */

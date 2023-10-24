@@ -5,6 +5,13 @@ class Fish extends MoveableObject {
     counter = 0;
     intervall1;
 
+    offset = {
+        top: 0,
+        bottom: 15,
+        left: 0,
+        right: 0,
+    };
+
     IMAGES_SWIM = [
         'img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
         'img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png',
@@ -131,7 +138,7 @@ class Fish extends MoveableObject {
             }
         }, 150);
     }
-    
+
 
     /**
     * Animates the transition of the fish's behavior.

@@ -3,7 +3,6 @@ function loadLevel1() {
         level1.enemies = [
             /**
              * Represents a Fish enemy.
-             *
              * @constructor
              * @param {number} - The initial x-coordinate of the object.
              * @param {number} - turnpoint of the object.
@@ -28,7 +27,6 @@ function loadLevel1() {
         level1.backgroundObjects = [
             /**
              * Represents a background.
-             * 
              * @constructor
              * @param {string} - the iamge-path of the object
              * @param {number} - The initial x-coordinate of the object.
@@ -57,7 +55,6 @@ function loadLevel1() {
         level1.coins = [
             /**
              * Represents a coin.
-             * 
              * @constructor
              * @param {number} x - The initial x-coordinate of the object.
              */
@@ -76,7 +73,6 @@ function loadLevel1() {
         level1.poisenBottles = [
             /**
             * Represents a poisen bottle.
-            * 
             * @constructor
             * @param {number} x - The initial x-coordinate of the object.
             */

@@ -3,6 +3,7 @@ class BubbleObject extends MoveableObject {
     height = 30;
     normalBubble = 'img/1.Sharkie/4.Attack/Bubble trap/Bubble.png';
     poisenBubble = 'img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png';
+    throwInterval;
 
     bubble_sound = new Audio('audio/bubble.mp3');
 
@@ -24,7 +25,7 @@ class BubbleObject extends MoveableObject {
         this.throw();
     }
 
-    
+
     /**
      * create a bubble and moved it after 120ms 7 pixel up and 1 pixel right 
      */
@@ -33,7 +34,7 @@ class BubbleObject extends MoveableObject {
             if (!mute && !isPaused) {
                 this.bubble_sound.play();
             }
-            setInterval(() => {
+            this.throwInterval = setInterval(() => {
                 this.x += 7;
                 this.y -= 1;
             }, 25);

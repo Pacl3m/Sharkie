@@ -173,7 +173,6 @@ class World {
 
     /**
     * Adds a list of objects to the map.
-    *
     * @param {Object[]} objects - An array of objects to be added to the map.
     */
     addObjectsToMap(objects) {
@@ -184,7 +183,6 @@ class World {
 
     /**
     * Draws a map object on the canvas.
-    *
     * @param {Object} mo - The map object to be drawn.
     */
     addTopMap(mo) {
@@ -192,7 +190,7 @@ class World {
             this.flipImage(mo)
         }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-        // mo.drawFrame(this.ctx);
+        mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
@@ -200,7 +198,6 @@ class World {
 
     /**
     * Flips the image horizontally for an object.
-    *
     * @param {Object} mo - The map object to flip.
     */
     flipImage(mo) {
@@ -212,7 +209,6 @@ class World {
 
     /**
     * Reverts the flipped image back to its original state.
-    *
     * @param {Object} mo - The map object to revert the flip.
     */
     flipImageBack(mo) {

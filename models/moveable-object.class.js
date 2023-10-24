@@ -11,6 +11,13 @@ class MoveableObject extends DrawableObject {
     timeBreak = false;
     lastMove = 0;
 
+    offset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    };
+
     gameover_sound = new Audio('audio/gameover.mp3');
     winning_sound = new Audio('audio/finishSound.mp3');
     whale_died_sound = new Audio('audio/whaleDied.mp3');
@@ -115,43 +122,24 @@ class MoveableObject extends DrawableObject {
 
 
     /**
-    * Checks if the object is colliding with another object.
+    * Checks if this object is colliding with another object.
     * @param {Object} obj - The object to check for collision.
-    * @returns {boolean} - Returns true if a collision is detected, otherwise false.
+    * @param {number} obj.x - The x-coordinate of the object.
+    * @param {number} obj.y - The y-coordinate of the object.
+    * @param {number} obj.width - The width of the object.
+    * @param {number} obj.height - The height of the object.
+    * @param {Object} obj.offset - The collision offset of the object.
+    * @param {number} obj.offset.top - The top collision offset of the object.
+    * @param {number} obj.offset.bottom - The bottom collision offset of the object.
+    * @param {number} obj.offset.left - The left collision offset of the object.
+    * @param {number} obj.offset.right - The right collision offset of the object.
+    * @returns {boolean} Returns true if a collision is detected, otherwise false.
     */
     isColliding(obj) {
-        if (this instanceof Character) {
-            if (obj instanceof Endboss) {
-                return (this.x + 30 + this.width - 65) > obj.x + 15 &&
-                    (this.y + 110 + this.height - 160) > obj.y + 120 &&
-                    (this.x + 30) < obj.x + 15 + obj.width &&
-                    (this.y + 110) < (obj.y + 120 + obj.height - 170);
-            } if (obj instanceof Fish) {
-                const offset = this.attacking ? 35 : 65;
-                const leftOffset = this.attacking ? 20 : 0;
-                return (this.x + 30 + this.width - offset) > obj.x &&
-                    (this.y + 110 + this.height - 160) > obj.y &&
-                    (this.x + 30 - leftOffset) < obj.x + obj.width &&
-                    (this.y + 110) < (obj.y + obj.height - 15);
-            } else {
-                return (this.x + 30 + this.width - 65) > obj.x &&
-                    (this.y + 110 + this.height - 160) > obj.y &&
-                    (this.x + 30) < obj.x + obj.width &&
-                    (this.y + 110) < (obj.y + obj.height);
-            }
-        } if (this instanceof BubbleObject) {
-            if (obj instanceof Endboss) {
-                return (this.x + this.width) > obj.x + 15 &&
-                    (this.y + this.height - 80) > obj.y + 120 &&
-                    this.x < obj.x + 15 + obj.width &&
-                    this.y < (obj.y + 120 + obj.height - 170);
-            } else {
-                return this.x + this.width > obj.x &&
-                    this.y + this.height > obj.y &&
-                    this.x < obj.x &&
-                    this.y < obj.y + obj.height;
-            }
-        }
+        return (this.x + this.width - this.offset.right) > obj.x + obj.offset.left &&
+            (this.y + this.height - this.offset.bottom) > obj.y + obj.offset.top &&
+            (this.x + this.offset.left) < obj.x + obj.width - obj.offset.right &&
+            (this.y + this.offset.top) < (obj.y + obj.height - obj.offset.bottom);
     }
 
 
@@ -223,6 +211,18 @@ class MoveableObject extends DrawableObject {
 
 
     /**
+    * Hides the object by resetting its position and dimensions.
+    * Also clears any active intervals associated with the object.
+    */
+    hideObj() {
+        this.x = 0;
+        this.y = -200;
+        this.width = 0;
+        clearInterval(this.throwInterval);
+    }
+
+
+    /**
     * Handles the action when the character gets damaged.
     * @param {Object} obj - The object causing the damage.
     * @returns {void}
@@ -239,16 +239,6 @@ class MoveableObject extends DrawableObject {
         } else {
             this.isShocked = false;
         }
-    }
-
-
-    /**
-    * Hides the object by setting its x position and width to zero.
-    * @returns {void}
-    */
-    hideObj() {
-        this.x = 0;
-        this.width = 0;
     }
 
 
@@ -284,13 +274,15 @@ class MoveableObject extends DrawableObject {
         }
     }
 
-    
+
     /**
     * Animates the game over sequence.
     * @returns {void}
     */
     animateGameOver() {
-        this.gameover_sound.play();
+        if (!mute) {
+            this.gameover_sound.play();
+        }
         this.playAnimation(this.IMAGES_DEAD_POISONED);
         pauseButton.disabled = true;
         if (this.currentImage > this.IMAGES_DEAD_POISONED.length) {
@@ -308,7 +300,9 @@ class MoveableObject extends DrawableObject {
     * @returns {void}
     */
     animateWinning() {
-        this.winning_sound.play();
+        if (!mute) {
+            this.winning_sound.play();
+        }
         this.playAnimation(this.IMAGES_DEAD);
         if (this.currentImage > this.IMAGES_DEAD.length) {
             pauseGame();
