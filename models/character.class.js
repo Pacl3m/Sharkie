@@ -222,20 +222,20 @@ class Character extends MoveableObject {
     * @returns {void}
     */
     enableSound() {
-            setInterval(() => {
-                this.pauseSoundEffect();
-                if (!mute && !isPaused) {
-                    if (this.isHurt() && this.isShocked) {
-                        this.blitz_sound.play();
-                    } else if (this.isHurt() && !this.isShocked) {
-                        this.gethit_sound.play();
-                    } else if (!this.noKeyisActive()) {
-                        this.swimming_sound.play();
-                    } else if (this.world.keyboard.space && !this.isHurt()) {
-                        this.finSlap_sound.play();
-                    }
+        setInterval(() => {
+            this.pauseSoundEffect();
+            if (!mute && !isPaused) {
+                if (this.isHurt() && this.isShocked) {
+                    this.blitz_sound.play();
+                } else if (this.isHurt() && !this.isShocked) {
+                    this.gethit_sound.play();
+                } else if (!this.noKeyisActive()) {
+                    this.swimming_sound.play();
+                } else if (this.world.keyboard.space && !this.isHurt()) {
+                    this.finSlap_sound.play();
                 }
-            }, 200);
+            }
+        }, 200);
     }
 
 
@@ -275,22 +275,48 @@ class Character extends MoveableObject {
         setInterval(() => {
             this.resetFinSlap();
             if (this.world.keyboard.D && !this.otherDirection) {
-                if (world.poisenbar.bottles > 0 && (this.x > 1400 || world.hadFirstAttack)) {
-                    this.playAttack(this.IMAGES_POISEN_ATTACK);
-                } else {
-                    this.playAttack(this.IMAGES_BUBBLE_ATTACK);
-                }
+                this.animateBubbleAttack();
             }
             if (this.world.keyboard.space && !this.isHurt()) {
-                this.playAttack(this.IMAGES_FIN_SLAP);
-                this.attacking = true;
-                this.offset.left = 0;
-                this.offset.right = -5;
+                this.animateFinSlap();
             }
             this.resetTimeToSleep();
         }, 100);
     }
 
+
+    /**
+     * Animate bubble attack
+     * @function
+     * @returns {void}
+     */
+    animateBubbleAttack() {
+        if (world.poisenbar.bottles > 0 && (this.x > 1400 || world.hadFirstAttack)) {
+            this.playAttack(this.IMAGES_POISEN_ATTACK);
+        } else {
+            this.playAttack(this.IMAGES_BUBBLE_ATTACK);
+        }
+    }
+
+
+    /**
+     * Animate finslap attack
+     * @function
+     * @returns {void}
+     */
+    animateFinSlap() {
+        this.playAttack(this.IMAGES_FIN_SLAP);
+        this.attacking = true;
+        this.offset.left = 0;
+        this.offset.right = -5;
+    }
+
+
+    /**
+     * reset finslap Attack
+     * @function
+     * @returns {void}
+     */
     resetFinSlap() {
         this.offset.left = 40;
         this.offset.right = 35;

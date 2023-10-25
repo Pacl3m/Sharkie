@@ -278,6 +278,7 @@ canvas {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 24px;
 }
 
 .instructionContent a {
@@ -372,7 +373,7 @@ canvas {
     }
 
     .instructionContent {
-        padding: 50px;
+        padding: 0px 32px;
     }
 
     .instructionContent a {

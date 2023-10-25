@@ -26,7 +26,7 @@ let fullscreenActive = false;
  */
 function toggleOverlay() {
     var overlay = document.getElementById('overlay');
-    if (window.innerWidth < 500) {
+    if (window.innerWidth < 400) {
         overlay.style.display = 'flex';
     } else {
         overlay.style.display = 'none';
