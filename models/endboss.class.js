@@ -117,39 +117,71 @@ class Endboss extends MoveableObject {
 
 
     /**
-    * Animates the behavior of the object based on various conditions.
+    * Handles the animation of the character.
     * @function
     * @returns {void}
     */
     animate() {
         setInterval(() => {
             this.attacking = false;
+
             if (!isPaused) {
-                if (this.animateOrder < 10 && this.hadFirstContact) {
-                    this.playAnimation(this.IMAGES_SPAWNING);
-                } else if (this.hadFirstContact) {
-                    if (this.isHurt()) {
-                        this.playAnimation(this.IMAGES_HURT);
-                    } else if (this.isDead()) {
-                        this.animateWinning();
-                    } else if (this.animateOrder > 20) {
-                        this.playAnimation(this.IMAGES_ATTACK);
-                        this.attacking = true;
-                        this.moveLeft(40);
-                        if (this.animateOrder > 25) {
-                            this.animateOrder = 10;
-                        }
+                if (this.hadFirstContact) {
+                    if (this.animateOrder < 10) {
+                        this.playAnimation(this.IMAGES_SPAWNING);
                     } else {
-                        this.playAnimation(this.IMAGES_SWIM);
-                        if (this.x < 1960) {
-                            this.moveRight(10);
-                        }
+                        this.handleNonSpawningAnimations();
                     }
                 }
                 this.animateOrder++;
                 this.setFirstContact();
             }
-        }, 250)
+        }, 250);
+    }
+
+
+    /**
+    * Handles non-spawning animations based on the character's state.
+    * @function
+    * @returns {void}
+    */
+    handleNonSpawningAnimations() {
+        if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isDead()) {
+            this.animateWinning();
+        } else if (this.animateOrder > 20) {
+            this.handleAttackAnimation();
+        } else {
+            this.handleSwimAnimation();
+        }
+    }
+
+
+    /**
+    * Handles the attack animation of the character.
+    * @function
+    * @returns {void}
+    */
+    handleAttackAnimation() {
+        this.playAnimation(this.IMAGES_ATTACK);
+        this.attacking = true;
+        this.moveLeft(40);
+        if (this.animateOrder > 25) {
+            this.animateOrder = 10;
+        }
+    }
+
+    /**
+    * Handles the swim animation of the character.
+    * @function
+    * @returns {void}
+    */
+    handleSwimAnimation() {
+        this.playAnimation(this.IMAGES_SWIM);
+        if (this.x < 1960) {
+            this.moveRight(10);
+        }
     }
 
 

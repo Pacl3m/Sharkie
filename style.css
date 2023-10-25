@@ -304,6 +304,10 @@ canvas {
     .panelBottom {
         display: flex;
     }
+    
+    .instructionContent {
+        height: 100vh;
+    }
 }
 
 @media (max-width: 720px) {
@@ -318,6 +322,32 @@ canvas {
     .menuButton {
         margin: 200px 10px;
     }
+
+    .instructionContent {
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+
+    .keyImage {
+        height: 40px;
+    }
+
+    .instructionContent {
+        padding: 50px;
+    }
+}
+
+@media (max-width: 600px) {
+    h2 {
+        font-size: 24px;
+    }
+
+    .keyImage {
+        height: 32px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -331,5 +361,21 @@ canvas {
 @media (max-height: 700px) {
     .panelBottom {
         display: flex;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .keyImage {
+        height: 32px;
+    }
+
+    .instructionContent {
+        padding: 50px;
+    }
+
+    .instructionContent a {
+        margin-top: -34px;
     }
 }

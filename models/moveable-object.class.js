@@ -230,7 +230,7 @@ class MoveableObject extends DrawableObject {
     * @returns {void}
     */
     characterGetsDamage(obj) {
-        this.energy -= 0.6;
+        this.energy -= 0.7;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -251,7 +251,7 @@ class MoveableObject extends DrawableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
-        return timepassed < 1;
+        return timepassed < 0.6;
     }
 
 
