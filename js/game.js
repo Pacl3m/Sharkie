@@ -224,8 +224,10 @@ function playBackgroundSound() {
     setInterval(() => {
         if (!mute) {
             world.game_sound.play();
+            world.game_music.play();
         } else {
             world.game_sound.pause();
+            world.game_music.pause();
         }
     }, 500);
 }
@@ -255,6 +257,7 @@ function pauseGame() {
     if (world.isPaused) {
         clearInterval(world.backgroundInterval);
         world.game_sound.pause();
+        world.game_music.pause();
     } else {
         world.draw();
         world.playBackgroundSound();

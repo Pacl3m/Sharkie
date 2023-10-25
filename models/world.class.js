@@ -17,6 +17,7 @@ class World {
     backgroundInterval;
 
     game_sound = new Audio('audio/shortBackgroundSound.mp3');
+    game_music = new Audio('audio/BackgroundMusic.mp3');
 
     /**
     * Constructor for creating a Game object.
@@ -50,6 +51,8 @@ class World {
             }, 50);
         } if (this.isPaused) {
             this.game_sound.pause();
+            debugger
+            this.game_music.pause();
         }
     }
 
@@ -62,8 +65,10 @@ class World {
         this.backgroundInterval = setInterval(() => {
             if (!mute) {
                 this.game_sound.play();
+                this.game_music.play();
             } else {
                 this.game_sound.pause();
+                this.game_music.pause();
             }
         }, 100);
     }
