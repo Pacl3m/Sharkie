@@ -41,7 +41,7 @@ header {
 
 h1 {
     font-size: 64px;
-    background: linear-gradient(0deg, rgba(27, 20, 100, 1) 0%, rgba(6, 110, 233, 1) 100%);
+    background: linear-gradient(0deg, rgb(14, 11, 54) 0%, rgb(87, 155, 237) 100%);
     -webkit-background-clip: text;
     color: transparent;
 }
@@ -91,6 +91,9 @@ canvas {
     font-family: 'LuckiestGuy', sans-serif;
     cursor: pointer;
     word-wrap: break-word;
+    border: none;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+    transition: 0.2s;
 }
 
 .panelTop {
@@ -130,6 +133,16 @@ canvas {
     margin: 0;
     background-color: lightblue;
     cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+button:active {
+    background-color: #1c6da8;
 }
 
 .pause {
@@ -209,26 +222,21 @@ canvas {
 }
 
 #tryAgain {
-    background-image: url('img/6.Botones/Try again/Recurso 15.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
-    transition: 0.5s;
-    background-color: transparent;
     border-radius: 24px;
-    bottom: 64px;
-    width: 0;
     height: 0;
     z-index: -1;
     cursor: pointer;
+    bottom: -144px;
 }
 
 #backToMenu {
     height: 0;
     margin: 0 !important;
     position: absolute;
-    transition: 0.5s;
     border-radius: 24px;
     bottom: 64px;
     z-index: -1;
@@ -359,7 +367,7 @@ canvas {
     }
 }
 
-@media (max-height: 700px) {
+@media (max-height: 550px) {
     .panelBottom {
         display: flex;
     }

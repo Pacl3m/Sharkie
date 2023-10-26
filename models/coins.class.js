@@ -9,6 +9,11 @@ class Coins extends MoveableObject {
         'img/4. Marcadores/1. Coins/4.png',
     ];
 
+
+    /**
+    * Audio object for the coins
+    * @type {HTMLAudioElement}
+    */
     pick_up_coin_sound = new Audio('audio/pickUpCoin.mp3');
 
     /**

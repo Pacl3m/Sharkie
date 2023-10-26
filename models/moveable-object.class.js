@@ -189,26 +189,53 @@ class MoveableObject extends DrawableObject {
     */
     bubbleAttack(obj) {
         if (obj instanceof Fish) {
-            if (obj.energy > 50) {
-                obj.animateTransition();
-            } obj.energy -= 50;
+            this.bubbleHitsFish(obj);
         }
         if (obj instanceof JellyFish) {
-            obj.energy -= 100;
-            if (!mute) {
-                obj.jellyfish_gets_hit_sound.play();
-            }
+            this.bubbleHitsJellyFish(obj);
         }
         if (obj instanceof Endboss) {
-            if (obj.energy > 0 && !obj.attacking && obj.hadFirstContact) {
-                if (world.poisenbar.bottles > 0) {
-                    obj.energy -= 10;
-                }
-                obj.energy -= 10;
-                obj.lastHit = new Date().getTime();
-            }
+            this.bubbleHitsEndboss(obj);
         }
         this.hideObj();
+    }
+
+
+    /**
+    * Handles bubble hitting a fish.
+    * @param {object} obj - The fish object.
+    */
+    bubbleHitsFish(obj) {
+        if (obj.energy > 50) {
+            obj.animateTransition();
+        } obj.energy -= 50;
+    }
+
+
+    /**
+    * Handles bubble hitting a jellyfish.
+    * @param {object} obj - The jellyfish object.
+    */
+    bubbleHitsJellyFish(obj) {
+        obj.energy -= 100;
+        if (!mute) {
+            obj.jellyfish_gets_hit_sound.play();
+        }
+    }
+
+
+    /**
+    * Handles bubble hitting the end boss.
+    * @param {object} obj - The end boss object.
+    */
+    bubbleHitsEndboss(obj) {
+        if (obj.energy > 0 && !obj.attacking && obj.hadFirstContact) {
+            if (world.poisenbar.bottles > 0) {
+                obj.energy -= 10;
+            }
+            obj.energy -= 10;
+            obj.lastHit = new Date().getTime();
+        }
     }
 
 
@@ -269,7 +296,7 @@ class MoveableObject extends DrawableObject {
     * @returns {boolean} - True if sleeping, false otherwise.
     */
     isSleeping() {
-        if (this.y > 210) {
+        if (this.y > 210 && !this.isDead() && this.noKeyisActive()) {
             let timepassed = new Date().getTime() - this.lastMove;
             timepassed = timepassed / 1000;
             return timepassed > 3;

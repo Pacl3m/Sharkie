@@ -5,6 +5,11 @@ class BubbleObject extends MoveableObject {
     poisenBubble = 'img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png';
     throwInterval;
 
+
+    /**
+    * Audio object for the bubbles
+    * @type {HTMLAudioElement}
+    */
     bubble_sound = new Audio('audio/bubble.mp3');
 
     /**

@@ -16,6 +16,10 @@ class World {
     isPaused = false;
     backgroundInterval;
 
+    /**
+    * Audio objects for the gameaudio
+    * @type {HTMLAudioElement}
+    */
     game_sound = new Audio('audio/shortBackgroundSound.mp3');
     game_music = new Audio('audio/BackgroundMusic.mp3');
 
@@ -100,6 +104,16 @@ class World {
     * @returns {void}
     */
     checkCollisions() {
+        this.collisionWithEnemy();
+        this.collisionWithCoin();
+        this.collisionWithPosienBottle();
+    }
+
+
+    /**
+    * Handles collisions with enemies.
+    */
+    collisionWithEnemy() {
         this.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && enemy.energy > 0) {
                 this.character.hit(enemy);
@@ -112,6 +126,13 @@ class World {
                 })
             }
         })
+    }
+
+
+    /**
+    * Handles collisions with coins.
+    */
+    collisionWithCoin() {
         this.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.character.hit(coin);
@@ -119,6 +140,13 @@ class World {
                 this.coinsbar.setCoinsStatus(this.coinsbar.coins);
             }
         })
+    }
+
+
+    /**
+    * Handles collisions with poisenbottle.
+    */
+    collisionWithPosienBottle() {
         this.poisenBottle.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 this.character.hit(bottle);

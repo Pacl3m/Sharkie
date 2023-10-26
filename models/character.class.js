@@ -116,6 +116,11 @@ class Character extends MoveableObject {
         'img/1.Sharkie/2.Long_IDLE/I14.png',
     ];
 
+
+    /**
+    * Audio objects for the character
+    * @type {HTMLAudioElement}
+    */
     swimming_sound = new Audio('audio/swimming.mp3');
     blitz_sound = new Audio('audio/blitz.mp3');
     gethit_sound = new Audio('audio/gethit.mp3');
@@ -166,24 +171,57 @@ class Character extends MoveableObject {
     animateSwim() {
         setInterval(() => {
             if (!this.world.keyboard.space && !this.isDead()) {
-                if (world.character.keyboard.right && this.x < 2110 && !world.character.keyboard.D) {
-                    this.moveRight(this.speed)
-                    this.otherDirection = false;
-                }
-                if (this.world.keyboard.left && this.x > 80) {
-                    this.moveLeft(this.speed);
-                    this.otherDirection = true;
-                }
-                if (this.world.keyboard.up && this.y > -110) {
-                    this.speedY = 6.5;
-                }
-                if (this.world.keyboard.down && this.y < 250) {
-                    this.moveDown(this.speed / 2);
-                }
+                this.swimmingRight();
+                this.swimmingLeft();
+                this.swimmingUp();
+                this.swimmingDown();
                 this.resetTimeToSleep();
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 30);
+        this.lastMove = new Date().getTime();
+    }
+
+
+    /**
+    * Move the character to the right while swimming.
+    */
+    swimmingRight() {
+        if (world.character.keyboard.right && this.x < 2110 && !world.character.keyboard.D) {
+            this.moveRight(this.speed)
+            this.otherDirection = false;
+        }
+    }
+
+
+    /**
+     * Move the character to the left while swimming.
+     */
+    swimmingLeft() {
+        if (this.world.keyboard.left && this.x > 80) {
+            this.moveLeft(this.speed);
+            this.otherDirection = true;
+        }
+    }
+
+
+    /**
+     * Move the character up while swimming.
+     */
+    swimmingUp() {
+        if (this.world.keyboard.up && this.y > -110) {
+            this.speedY = 6.5;
+        }
+    }
+
+
+    /**
+     * Move the character down while swimming.
+     */
+    swimmingDown() {
+        if (this.world.keyboard.down && this.y < 250) {
+            this.moveDown(this.speed / 2);
+        }
     }
 
 
@@ -195,24 +233,45 @@ class Character extends MoveableObject {
     animateOther() {
         setInterval(() => {
             if (!isPaused) {
-                if (this.isHurt() && this.isShocked) {
-                    this.playAnimation(this.IMAGES_HURT_SHOCKED);
-                } else if (this.isHurt() && !this.isShocked) {
-                    this.playAnimation(this.IMAGES_HURT_POISONED);
-                } else if (this.isSleeping() && !this.isDead() && this.noKeyisActive()) {
+                if (this.isHurt()) {
+                    this.gettingDamage();
+                } else if (this.isSleeping()) {
                     this.animateSleep();
                 } else if (this.isDead()) {
                     this.animateGameOver();
                 } else {
-                    if (this.noKeyisActive()) {
-                        this.playAnimation(this.IMAGES_IDLE);
-                    } else if (!this.noKeyisActive()) {
-                        this.playAnimation(this.IMAGES_SWIM);
-                    }
+                    this.handleSwimOrIdle();
                 }
             }
         }, 200);
-        this.lastMove = new Date().getTime();
+    }
+
+
+    /**
+    * Handle the character getting damaged.
+    * @function
+    * @returns {void}
+    */
+    gettingDamage() {
+        if (this.isShocked) {
+            this.playAnimation(this.IMAGES_HURT_SHOCKED);
+        } else if (!this.isShocked) {
+            this.playAnimation(this.IMAGES_HURT_POISONED);
+        }
+    }
+
+
+    /**
+    * Handles animation for swimming or idling based on user input.
+    * @function
+    * @returns {void}
+    */
+    handleSwimOrIdle() {
+        if (this.noKeyisActive()) {
+            this.playAnimation(this.IMAGES_IDLE);
+        } else if (!this.noKeyisActive()) {
+            this.playAnimation(this.IMAGES_SWIM);
+        }
     }
 
 

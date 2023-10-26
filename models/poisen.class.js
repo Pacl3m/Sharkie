@@ -13,6 +13,10 @@ class Poisens extends MoveableObject {
         'img/4. Marcadores/Posiขn/Animada/8.png',
     ];
 
+    /**
+    * Audio object for the poisenbottles
+    * @type {HTMLAudioElement}
+    */
     pick_up_poisen_sound = new Audio('audio/pickUpPoisen.mp3');
 
     /**

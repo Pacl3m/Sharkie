@@ -63,6 +63,11 @@ class Endboss extends MoveableObject {
         'img/2.Enemy/3 Final Enemy/1.Introduce/10.png',
     ];
 
+
+    /**
+    * Audio objects for the endboss
+    * @type {HTMLAudioElement}
+    */
     whale_get_hit_sound = new Audio('audio/whaleGetHit.mp3');
     whale_attack_sound = new Audio('audio/whaleAttack.mp3');
     whale_intro_sound = new Audio('audio/whaleIntro.mp3');

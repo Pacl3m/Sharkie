@@ -25,8 +25,8 @@ let fullscreenActive = false;
  * otherwise hides it.
  */
 function toggleOverlay() {
-    var overlay = document.getElementById('overlay');
-    if (window.innerWidth < 400) {
+    let overlay = document.getElementById('overlay');
+    if (window.innerWidth < 400 || (window.innerWidth < 600 && window.innerHeight > 600)) {
         overlay.style.display = 'flex';
     } else {
         overlay.style.display = 'none';
@@ -58,6 +58,8 @@ function init() {
     world = new World(canvas, keyboard);
     setButtons();
     checkIfMute();
+    isPaused = false;
+    world.isPaused = false;
 }
 
 
@@ -81,15 +83,15 @@ function checkIfMute() {
 function returnContentHtml() {
     return /*html*/`
         <div class="panelTop">
-                    <button onclick="reloadPage()" id="homeButton" class="smallActionButton homeButton"></button>
+                    <button onclick="backToStart()" id="homeButton" class="smallActionButton homeButton"></button>
                     <button onclick="toggleFullscreen()" id="fullScreenButton" class="smallActionButton fullScreen"></button>
                     <button onclick="muteGame()" id="muteButton" class="smallActionButton volume"></button>
                     <button onclick="pauseGame()" id="pauseButton" class="smallActionButton pause"></button>
                 </div>
                 <div id="gameoverOverlay"></div>
                 <div id="winningOverlay"></div>
-                <button id="tryAgain" class="actionButton" onclick="restartGame()"></button>
-                <button id="backToMenu" class="menuButton" onclick="reloadPage()">Back to Menu</button>
+                <button id="tryAgain" class="menuButton" onclick="startGame()">TRY AGAIN</button>
+                <button id="backToMenu" class="menuButton" onclick="backToStart()">Back to Menu</button>
                 <div class="panelBottom ">
                     <div class="arrowsBox">
                         <div class="arrowsTop">
@@ -116,7 +118,7 @@ function returnContentHtml() {
 function showInstruction() {
     document.getElementById('content').innerHTML = /*html*/`
     <div class="panelTop">
-        <button onclick="reloadPage()" id="homeButton" class="smallActionButton homeButton"></button>
+        <button onclick="backToStart()" id="homeButton" class="smallActionButton homeButton"></button>
     </div>
     <div class="instructionContent">
         <div class="instructionRow"><div class="arrowKeyImage keyImage"></div><h2>MOVE SHARKIE</h2></div>
@@ -196,9 +198,9 @@ function clearAllIntervall() {
  * @function
  * @returns {void}
  */
-function restartGame() {
+function startGame() {
     isPaused = false;
-    world.isPaused = false;
+    // world.isPaused = false;
     clearAllIntervall();
     init();
     checkFullscreen();
@@ -210,8 +212,23 @@ function restartGame() {
  * @function
  * @returns {void}
  */
-function reloadPage() {
-    location.reload();
+function backToStart() {
+    mute = true;
+    isPaused = true;
+    content.innerHTML = returnHtmlStartPage();
+}
+
+
+/**
+ * Returns the HTML content for the startpage.
+ * @function
+ * @returns {string} The HTML content.
+ */
+function returnHtmlStartPage() {
+    return /* html */ `
+    <button class="menuButton" onclick="showInstruction()">Instructions/<br>Credits</button>
+    <button class="menuButton" onclick="startGame()">Start Game</button>
+`;
 }
 
 
@@ -330,36 +347,58 @@ window.addEventListener('keyup', (event) => {
 function setButtons() {
     buttonUp.addEventListener('touchstart', (event) => {
         keyboard.up = true;
+        buttonUp.style.backgroundColor = 'black';
+        event.preventDefault();
     });
     buttonLeft.addEventListener('touchstart', (event) => {
         keyboard.left = true;
+        buttonLeft.style.backgroundColor = 'black';
+        event.preventDefault();
     });
     buttonDown.addEventListener('touchstart', (event) => {
         keyboard.down = true;
+        buttonDown.style.backgroundColor = 'black';
+        event.preventDefault();
     });
     buttonRight.addEventListener('touchstart', (event) => {
         keyboard.right = true;
+        buttonRight.style.backgroundColor = 'black';
+        event.preventDefault();
     });
     buttonSpace.addEventListener('touchstart', (event) => {
         handleFinSlap();
+        event.preventDefault();
     });
     buttonD.addEventListener('touchstart', (event) => {
         if (!dKeyLocked) {
             handleBubbleAttack();
+            event.preventDefault();
         }
     });
 
+    canvas.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+    }, { passive: false });
+
     buttonUp.addEventListener('touchend', (event) => {
         keyboard.up = false;
+        buttonUp.style.backgroundColor = 'lightblue';
+        event.preventDefault();
     });
     buttonLeft.addEventListener('touchend', (event) => {
         keyboard.left = false;
+        buttonLeft.style.backgroundColor = 'lightblue';
+        event.preventDefault();
     });
     buttonDown.addEventListener('touchend', (event) => {
         keyboard.down = false;
+        buttonDown.style.backgroundColor = 'lightblue';
+        event.preventDefault();
     });
     buttonRight.addEventListener('touchend', (event) => {
         keyboard.right = false;
+        buttonRight.style.backgroundColor = 'lightblue';
+        event.preventDefault();
     });
 }
 
@@ -370,9 +409,11 @@ function setButtons() {
  * @returns {void}
  */
 function handleBubbleAttack() {
+    buttonD.style.backgroundColor = 'black';
     keyboard.D = true;
     dKeyLocked = true;
     setTimeout(() => {
+        buttonD.style.backgroundColor = 'rgb(53, 145, 247)';
         keyboard.D = false;
     }, 450);
     setTimeout(() => {
@@ -388,7 +429,9 @@ function handleBubbleAttack() {
  */
 function handleFinSlap() {
     keyboard.space = true;
+    buttonSpace.style.backgroundColor = 'black';
     setTimeout(() => {
+        buttonSpace.style.backgroundColor = 'rgb(53, 145, 247)';
         keyboard.space = false;
     }, 300);
 }
